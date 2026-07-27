@@ -2,165 +2,1561 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Prashant Kumar | Computational Chemistry</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Academic website of Dr. Prashant Kumar, computational chemist and Research Associate at University College London working on excited-state chemistry, molecular simulation, machine learning, OLEDs, and electronic-structure theory."
+  >
+
+  <title>Dr. Prashant Kumar | Computational Chemistry</title>
 
   <style>
+
+    /* =========================
+       GENERAL
+       ========================= */
+
     * {
       box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --navy: #0b1f33;
+      --blue: #1769aa;
+      --blue-dark: #0f4f82;
+      --blue-light: #eaf3fb;
+      --text: #1f2937;
+      --muted: #5f6b7a;
+      --background: #f7f9fc;
+      --white: #ffffff;
+      --border: #e4e9f0;
+      --shadow: 0 12px 35px rgba(10, 40, 70, 0.08);
     }
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f7f9fc;
-      color: #1f2937;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      color: var(--text);
+      background: var(--background);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--blue);
     }
 
     .container {
-      max-width: 950px;
+      width: min(1120px, 92%);
       margin: 0 auto;
-      padding: 100px 30px;
     }
 
-    .card {
-      background: white;
-      padding: 60px;
-      border-radius: 16px;
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+
+    /* =========================
+       NAVIGATION
+       ========================= */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-inner {
+      min-height: 72px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .brand {
+      text-decoration: none;
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.2px;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #374151;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue);
+    }
+
+
+    /* =========================
+       HERO
+       ========================= */
+
+    .hero {
+      padding: 100px 0 85px;
+
+      background:
+        radial-gradient(
+          circle at 85% 20%,
+          rgba(23, 105, 170, 0.12),
+          transparent 32%
+        ),
+        linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #f5f9fd 100%
+        );
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 0.65fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
     }
 
     h1 {
-      font-size: 3rem;
-      margin: 0 0 10px;
-      color: #102a43;
+      margin: 0;
+
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      line-height: 1.05;
+      color: var(--navy);
+      letter-spacing: -2px;
+    }
+
+    .hero-title {
+      margin-top: 22px;
+
+      font-size: clamp(1.25rem, 2vw, 1.55rem);
+      color: #40546a;
+      font-weight: 500;
+    }
+
+    .hero-affiliation {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .hero-description {
+      margin-top: 28px;
+      max-width: 760px;
+
+      color: #425466;
+      font-size: 1.08rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-block;
+
+      text-decoration: none;
+      padding: 11px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+
+      transition: transform 0.15s ease,
+                  background 0.15s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      color: white;
+      background: var(--blue);
+    }
+
+    .button-primary:hover {
+      background: var(--blue-dark);
+    }
+
+    .button-secondary {
+      color: var(--navy);
+      background: white;
+      border: 1px solid #cdd6e0;
+    }
+
+    .button-secondary:hover {
+      background: #f3f6f9;
+    }
+
+
+    /* =========================
+       PROFILE MONOGRAM
+       ========================= */
+
+    .profile-placeholder {
+      width: 250px;
+      height: 250px;
+
+      margin: auto;
+
+      border-radius: 50%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background:
+        linear-gradient(
+          145deg,
+          #0f4f82,
+          #2280c2
+        );
+
+      color: white;
+
+      font-size: 4.5rem;
+      font-weight: 700;
+
+      box-shadow:
+        0 18px 45px rgba(18, 75, 120, 0.2);
+
+      border: 8px solid white;
+    }
+
+
+    /* =========================
+       SECTIONS
+       ========================= */
+
+    section {
+      padding: 85px 0;
+    }
+
+    .section-white {
+      background: white;
+    }
+
+    .section-heading {
+      margin-bottom: 38px;
+    }
+
+    .section-label {
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 0.8rem;
+      font-weight: 700;
     }
 
     h2 {
-      font-size: 1.4rem;
-      font-weight: 500;
-      color: #486581;
-      margin-bottom: 30px;
+      margin: 8px 0 10px;
+
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--navy);
+      letter-spacing: -0.7px;
     }
 
-    p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      max-width: 750px;
+    .section-intro {
+      max-width: 760px;
+      margin: 0;
+
+      color: var(--muted);
+      font-size: 1.05rem;
     }
 
-    .links {
-      margin-top: 35px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
+
+    /* =========================
+       RESEARCH CARDS
+       ========================= */
+
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
     }
 
-    .links a {
+    .research-card {
+      background: white;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      padding: 30px;
+
+      box-shadow:
+        0 5px 20px rgba(20, 50, 80, 0.04);
+    }
+
+    .research-number {
+      font-size: 0.85rem;
+      color: var(--blue);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .research-card h3 {
+      margin: 0 0 12px;
+      color: var(--navy);
+      font-size: 1.25rem;
+    }
+
+    .research-card p {
+      margin: 0;
+      color: #566475;
+    }
+
+
+    /* =========================
+       EXPERIENCE
+       ========================= */
+
+    .timeline {
+      position: relative;
+      max-width: 900px;
+    }
+
+    .timeline-item {
+      position: relative;
+
+      padding:
+        0 0 42px 32px;
+
+      border-left:
+        2px solid #dce5ee;
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-item::before {
+      content: "";
+
+      position: absolute;
+      left: -7px;
+      top: 6px;
+
+      width: 12px;
+      height: 12px;
+
+      border-radius: 50%;
+
+      background: var(--blue);
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--blue);
+    }
+
+    .timeline-date {
+      color: var(--blue);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .timeline-title {
+      margin: 5px 0 2px;
+
+      font-size: 1.2rem;
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .timeline-place {
+      color: var(--muted);
+    }
+
+    .timeline-description {
+      margin-top: 10px;
+      color: #4b5968;
+    }
+
+
+    /* =========================
+       PUBLICATIONS
+       ========================= */
+
+    .publication {
+      background: white;
+
+      border: 1px solid var(--border);
+      border-radius: 12px;
+
+      padding: 26px 28px;
+      margin-bottom: 16px;
+
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .publication:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .publication-year {
+      color: var(--blue);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .publication-title {
+      margin-top: 5px;
+
+      color: var(--navy);
+      font-size: 1.08rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .publication-authors {
+      margin-top: 8px;
+      color: #556270;
+      font-size: 0.95rem;
+    }
+
+    .publication-journal {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.93rem;
+      font-style: italic;
+    }
+
+    .publication-link {
+      display: inline-block;
+      margin-top: 10px;
+
+      font-size: 0.9rem;
+      font-weight: 600;
       text-decoration: none;
+    }
+
+
+    /* =========================
+       SKILLS
+       ========================= */
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 22px;
+    }
+
+    .skill-box {
+      background: var(--blue-light);
+      border-radius: 12px;
+      padding: 25px;
+    }
+
+    .skill-box h3 {
+      margin: 0 0 12px;
+
+      color: var(--navy);
+      font-size: 1.08rem;
+    }
+
+    .skill-box p {
+      margin: 0;
+      color: #47576a;
+      font-size: 0.95rem;
+    }
+
+
+    /* =========================
+       AWARDS
+       ========================= */
+
+    .award-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .award {
+      background: white;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      padding: 20px 24px;
+    }
+
+    .award strong {
+      color: var(--navy);
+    }
+
+
+    /* =========================
+       CONTACT
+       ========================= */
+
+    .contact-box {
+      background:
+        linear-gradient(
+          135deg,
+          #0b1f33,
+          #123e62
+        );
+
+      border-radius: 18px;
+      padding: 55px;
+
       color: white;
-      background: #1769aa;
-      padding: 10px 18px;
+    }
+
+    .contact-box h2 {
+      color: white;
+      margin-top: 0;
+    }
+
+    .contact-box p {
+      color: #dce7f1;
+      max-width: 720px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .contact-links a {
+      color: white;
+
+      text-decoration: none;
+
+      border:
+        1px solid rgba(255,255,255,0.35);
+
       border-radius: 7px;
-      font-size: 0.95rem;
-      transition: 0.2s;
+      padding: 10px 16px;
     }
 
-    .links a:hover {
-      background: #0f4c81;
+    .contact-links a:hover {
+      background:
+        rgba(255,255,255,0.1);
     }
 
-    .status {
-      margin-top: 45px;
-      padding-top: 25px;
-      border-top: 1px solid #e5e7eb;
-      color: #64748b;
-      font-size: 0.95rem;
+
+    /* =========================
+       FOOTER
+       ========================= */
+
+    footer {
+      padding: 35px 0 45px;
+
+      text-align: center;
+      color: #6b7280;
+
+      font-size: 0.9rem;
     }
 
-    @media (max-width: 600px) {
-      .container {
-        padding: 40px 20px;
+
+    /* =========================
+       RESPONSIVE
+       ========================= */
+
+    @media (max-width: 850px) {
+
+      .hero-grid {
+        grid-template-columns: 1fr;
       }
 
-      .card {
+      .profile-placeholder {
+        width: 190px;
+        height: 190px;
+
+        font-size: 3.5rem;
+
+        margin:
+          15px 0 0 0;
+      }
+
+      .research-grid,
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+
+        padding:
+          18px 0;
+      }
+
+      .nav-links {
+        gap: 15px;
+      }
+
+    }
+
+
+    @media (max-width: 550px) {
+
+      .hero {
+        padding: 65px 0;
+      }
+
+      section {
+        padding: 65px 0;
+      }
+
+      .contact-box {
         padding: 35px 25px;
       }
 
-      h1 {
-        font-size: 2.3rem;
-      }
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <div class="container">
 
-    <div class="card">
+<!-- =========================
+     NAVIGATION
+     ========================= -->
 
-      <h1>Dr. Prashant Kumar</h1>
+<nav>
+  <div class="container nav-inner">
 
-      <h2>
+    <a
+      href="#home"
+      class="brand"
+    >
+      Prashant Kumar
+    </a>
+
+    <div class="nav-links">
+
+      <a href="#research">
+        Research
+      </a>
+
+      <a href="#experience">
+        Experience
+      </a>
+
+      <a href="#publications">
+        Publications
+      </a>
+
+      <a href="#skills">
+        Skills
+      </a>
+
+      <a href="#contact">
+        Contact
+      </a>
+
+    </div>
+
+  </div>
+</nav>
+
+
+
+<!-- =========================
+     HERO
+     ========================= -->
+
+<header
+  class="hero"
+  id="home"
+>
+
+  <div class="container hero-grid">
+
+    <div>
+
+      <div class="eyebrow">
+        Computational Chemistry
+      </div>
+
+      <h1>
+        Dr. Prashant Kumar
+      </h1>
+
+      <div class="hero-title">
         Research Associate in Computational Chemistry
-        <br>
-        University College London
-      </h2>
+      </div>
 
-      <p>
-        I am a computational chemist working on electronic-structure theory,
-        excited-state chemistry, molecular simulations, machine learning,
-        and computational approaches for understanding and designing
-        molecular materials.
+      <div class="hero-affiliation">
+        University College London · London, United Kingdom
+      </div>
+
+      <p class="hero-description">
+
+        I am a computational chemist working at the interface of
+        electronic-structure theory, excited-state chemistry,
+        molecular simulation, machine learning, and high-performance
+        computing.
+
+        My research focuses on understanding photophysical and
+        photochemical processes in molecular materials, with particular
+        interests in organic light-emitting diodes, molecular excited
+        states, radical emitters, nonadiabatic dynamics, and
+        data-driven molecular discovery.
+
       </p>
 
-      <p>
-        My academic website is currently under development.
-      </p>
-
-      <div class="links">
+      <div class="hero-buttons">
 
         <a
+          class="button button-primary"
+          href="#research"
+        >
+          Explore Research
+        </a>
+
+        <a
+          class="button button-secondary"
+          href="#publications"
+        >
+          Publications
+        </a>
+
+        <a
+          class="button button-secondary"
           href="https://scholar.google.com/citations?user=Jy8LLqsAAAAJ&hl=en"
-          target="_blank">
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Google Scholar
-        </a>
-
-        <a
-          href="https://orcid.org/0000-0002-0432-2790"
-          target="_blank">
-          ORCID
-        </a>
-
-        <a
-          href="https://www.researchgate.net/profile/Prashant-Kumar-16"
-          target="_blank">
-          ResearchGate
-        </a>
-
-        <a
-          href="https://www.linkedin.com/in/prashant-kumar-569274101"
-          target="_blank">
-          LinkedIn
-        </a>
-
-        <a
-          href="https://github.com/MatrixEye"
-          target="_blank">
-          GitHub
         </a>
 
       </div>
 
-      <div class="status">
-        Full research website coming soon.
+    </div>
+
+
+    <!--
+      Later we can replace this PK circle
+      with your professional photograph.
+    -->
+
+    <div
+      class="profile-placeholder"
+      aria-label="Prashant Kumar"
+    >
+      PK
+    </div>
+
+  </div>
+
+</header>
+
+
+
+<!-- =========================
+     RESEARCH
+     ========================= -->
+
+<section id="research">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <div class="section-label">
+        Research
+      </div>
+
+      <h2>
+        Research Interests
+      </h2>
+
+      <p class="section-intro">
+
+        My work combines quantum chemistry, molecular simulation,
+        data-driven modelling, and automated computational workflows
+        to understand excited-state phenomena and molecular materials.
+
+      </p>
+
+    </div>
+
+
+    <div class="research-grid">
+
+
+      <article class="research-card">
+
+        <div class="research-number">
+          01
+        </div>
+
+        <h3>
+          Excited-State Electronic Structure
+        </h3>
+
+        <p>
+
+          Computational modelling of electronically excited states,
+          photochemical pathways, energy transfer, emission processes,
+          and electronic structure using density-functional and
+          wavefunction-based approaches.
+
+        </p>
+
+      </article>
+
+
+      <article class="research-card">
+
+        <div class="research-number">
+          02
+        </div>
+
+        <h3>
+          OLEDs & Molecular Photophysics
+        </h3>
+
+        <p>
+
+          Investigation of molecular emitters, radical-based OLED
+          systems, doublet emission, degradation pathways, and
+          structure-property relationships in photoactive molecular
+          materials.
+
+        </p>
+
+      </article>
+
+
+      <article class="research-card">
+
+        <div class="research-number">
+          03
+        </div>
+
+        <h3>
+          Machine Learning & Molecular Dynamics
+        </h3>
+
+        <p>
+
+          Development of machine-learning-assisted approaches,
+          active-learning strategies, and data-efficient workflows
+          for molecular dynamics and nonadiabatic excited-state
+          simulations.
+
+        </p>
+
+      </article>
+
+
+      <article class="research-card">
+
+        <div class="research-number">
+          04
+        </div>
+
+        <h3>
+          High-Throughput Computational Chemistry
+        </h3>
+
+        <p>
+
+          Automated electronic-structure calculations and scalable
+          computational pipelines for data generation, molecular
+          screening, and high-performance computing environments.
+
+        </p>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================
+     EXPERIENCE
+     ========================= -->
+
+<section
+  id="experience"
+  class="section-white"
+>
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <div class="section-label">
+        Career
+      </div>
+
+      <h2>
+        Research Experience
+      </h2>
+
+    </div>
+
+
+    <div class="timeline">
+
+
+      <div class="timeline-item">
+
+        <div class="timeline-date">
+          2024 – Present
+        </div>
+
+        <div class="timeline-title">
+          Research Associate
+        </div>
+
+        <div class="timeline-place">
+          University College London · London, United Kingdom
+        </div>
+
+        <div class="timeline-description">
+
+          Research on radical-based OLED systems, electronic-structure
+          theory, doublet emission, machine-learning-assisted
+          nonadiabatic dynamics, and automated high-throughput
+          computational workflows.
+
+        </div>
+
+      </div>
+
+
+      <div class="timeline-item">
+
+        <div class="timeline-date">
+          2023 – 2024
+        </div>
+
+        <div class="timeline-title">
+          Postdoctoral Researcher
+        </div>
+
+        <div class="timeline-place">
+          LCPQ-CNRS · Toulouse, France
+        </div>
+
+        <div class="timeline-description">
+
+          Computational investigation of photochemical mechanisms in
+          transition-metal complexes, including Re(I) and Mn(I)
+          systems, using excited-state electronic-structure methods
+          and machine-learning-assisted high-throughput screening.
+
+        </div>
+
+      </div>
+
+
+      <div class="timeline-item">
+
+        <div class="timeline-date">
+          2019 – 2023
+        </div>
+
+        <div class="timeline-title">
+          PhD in Computational Chemistry
+        </div>
+
+        <div class="timeline-place">
+          KU Leuven · Leuven, Belgium
+        </div>
+
+        <div class="timeline-description">
+
+          PhD research on excited-state processes in molecular
+          materials for organic light-emitting diodes.
+
+        </div>
+
+      </div>
+
+
+      <div class="timeline-item">
+
+        <div class="timeline-date">
+          2016 – 2018
+        </div>
+
+        <div class="timeline-title">
+          MSc in Chemistry
+        </div>
+
+        <div class="timeline-place">
+          Indian Institute of Technology Bhubaneswar · India
+        </div>
+
+        <div class="timeline-description">
+
+          Research on nonadiabatic dynamics using semiclassical
+          methods and concepts from dynamical systems and chaos theory.
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================
+     PUBLICATIONS
+     ========================= -->
+
+<section id="publications">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <div class="section-label">
+        Research Output
+      </div>
+
+      <h2>
+        Selected Publications
+      </h2>
+
+      <p class="section-intro">
+
+        Selected work spanning excited-state chemistry,
+        molecular photophysics, organometallic systems,
+        OLED materials, and computational methodology.
+
+      </p>
+
+    </div>
+
+
+    <article class="publication">
+
+      <div class="publication-year">
+        2025
+      </div>
+
+      <div class="publication-title">
+
+        Impact of isomerism on the photoproduction of carbon monoxide
+        and singlet oxygen by visible-light absorbing rhenium(I)
+        photoCORMs
+
+      </div>
+
+      <div class="publication-authors">
+
+        Valentine Guilbaud, <strong>Prashant Kumar</strong>,
+        Martial Boggio-Pasqua, Evelyne Delfourne,
+        Sonia Ladeira, Eric Benoist, Isabelle Dixon,
+        Suzanne Fery-Forgues
+
+      </div>
+
+      <div class="publication-journal">
+
+        Spectrochimica Acta Part A:
+        Molecular and Biomolecular Spectroscopy
+
+      </div>
+
+      <a
+        class="publication-link"
+        href="https://doi.org/10.1016/j.saa.2025.126647"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        DOI →
+      </a>
+
+    </article>
+
+
+
+    <article class="publication">
+
+      <div class="publication-year">
+        2023
+      </div>
+
+      <div class="publication-title">
+
+        Phosphorescent Properties of Heteroleptic Ir(III) Complexes:
+        Uncovering Their Emissive Species
+
+      </div>
+
+      <div class="publication-authors">
+
+        <strong>Prashant Kumar</strong>,
+        Daniel Escudero
+
+      </div>
+
+      <div class="publication-journal">
+
+        The Journal of Physical Chemistry A
+
+      </div>
+
+      <a
+        class="publication-link"
+        href="https://doi.org/10.1021/acs.jpca.3c04205"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        DOI →
+      </a>
+
+    </article>
+
+
+
+    <article class="publication">
+
+      <div class="publication-year">
+        2021
+      </div>
+
+      <div class="publication-title">
+
+        Computational Protocol to Calculate the Phosphorescence
+        Energy of Pt(II) Complexes: Is the Lowest Triplet Excited
+        State Always Involved in Emission? A Comprehensive Benchmark Study
+
+      </div>
+
+      <div class="publication-authors">
+
+        <strong>Prashant Kumar</strong>,
+        Daniel Escudero
+
+      </div>
+
+      <div class="publication-journal">
+
+        Inorganic Chemistry
+
+      </div>
+
+      <a
+        class="publication-link"
+        href="https://doi.org/10.1021/acs.inorgchem.1c02562"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        DOI →
+      </a>
+
+    </article>
+
+
+
+    <article class="publication">
+
+      <div class="publication-year">
+        2021
+      </div>
+
+      <div class="publication-title">
+
+        Twisted BODIPY derivative: intersystem crossing,
+        electron spin polarization and application as a novel
+        photodynamic therapy reagent
+
+      </div>
+
+      <div class="publication-authors">
+
+        Yu Dong, <strong>Prashant Kumar</strong>,
+        Partha Maity, Ivan Kurganskii, Shujing Li,
+        Ayhan Elmali, Jianzhang Zhao, et al.
+
+      </div>
+
+      <div class="publication-journal">
+
+        Physical Chemistry Chemical Physics
+
+      </div>
+
+      <a
+        class="publication-link"
+        href="https://doi.org/10.1039/D1CP00948F"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        DOI →
+      </a>
+
+    </article>
+
+
+    <p style="margin-top: 28px;">
+
+      Complete publication record available on
+
+      <a
+        href="https://scholar.google.com/citations?user=Jy8LLqsAAAAJ&hl=en"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Google Scholar
+      </a>.
+
+    </p>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================
+     SKILLS
+     ========================= -->
+
+<section
+  id="skills"
+  class="section-white"
+>
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <div class="section-label">
+        Computational Toolkit
+      </div>
+
+      <h2>
+        Methods & Technologies
+      </h2>
+
+    </div>
+
+
+    <div class="skills-grid">
+
+
+      <div class="skill-box">
+
+        <h3>
+          Programming
+        </h3>
+
+        <p>
+          Python · Fortran · R · Bash · Linux/Unix
+        </p>
+
+      </div>
+
+
+      <div class="skill-box">
+
+        <h3>
+          Electronic Structure
+        </h3>
+
+        <p>
+          DFT · TDDFT · Coupled Cluster · CASSCF · CASPT2 · NEVPT2
+        </p>
+
+      </div>
+
+
+      <div class="skill-box">
+
+        <h3>
+          Quantum Chemistry Software
+        </h3>
+
+        <p>
+          Gaussian · ORCA · Q-Chem · GAMESS · Dalton · Turbomole
+        </p>
+
+      </div>
+
+
+      <div class="skill-box">
+
+        <h3>
+          Molecular Dynamics
+        </h3>
+
+        <p>
+          SHARC · Newton-X · Quantum ESPRESSO
+        </p>
+
+      </div>
+
+
+      <div class="skill-box">
+
+        <h3>
+          Machine Learning
+        </h3>
+
+        <p>
+          PyTorch · scikit-learn · NumPy · Pandas · MLatom
+        </p>
+
+      </div>
+
+
+      <div class="skill-box">
+
+        <h3>
+          Scientific Computing
+        </h3>
+
+        <p>
+          HPC workflows · automation · high-throughput calculations
+          · scientific data analysis
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================
+     AWARDS
+     ========================= -->
+
+<section>
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <div class="section-label">
+        Recognition
+      </div>
+
+      <h2>
+        Selected Awards & Research Support
+      </h2>
+
+    </div>
+
+
+    <div class="award-list">
+
+
+      <div class="award">
+
+        <strong>
+          UKRI HPC Allocation
+        </strong>
+
+        — Awarded 8,576,000 CPU hours on Cirrus for
+        data-driven modelling of organic radicals.
+
+      </div>
+
+
+      <div class="award">
+
+        <strong>
+          MISTI Global Seed Fund
+        </strong>
+
+        — Research support for the project
+        <em>
+          Designing Stable OLEDs with Machine Learning and Simulations
+        </em>.
+
+      </div>
+
+
+      <div class="award">
+
+        <strong>
+          Royal Society of Chemistry Travel Grant
+        </strong>
+
+        — Award supporting presentation of postdoctoral
+        research on Re(I) complexes.
+
+      </div>
+
+
+      <div class="award">
+
+        <strong>
+          COST Action DAEMON Travel Award
+        </strong>
+
+        — Support for presenting research on OLED degradation.
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================
+     CONTACT
+     ========================= -->
+
+<section
+  id="contact"
+  class="section-white"
+>
+
+  <div class="container">
+
+    <div class="contact-box">
+
+      <div class="section-label" style="color:#8dc9f3;">
+        Connect
+      </div>
+
+      <h2>
+        Academic Profiles
+      </h2>
+
+      <p>
+
+        For publications, research updates, professional information,
+        and computational projects, you can find me through the
+        academic and professional profiles below.
+
+      </p>
+
+
+      <div class="contact-links">
+
+
+        <a
+          href="https://scholar.google.com/citations?user=Jy8LLqsAAAAJ&hl=en"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Google Scholar
+        </a>
+
+
+        <a
+          href="https://orcid.org/0000-0002-0432-2790"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ORCID
+        </a>
+
+
+        <a
+          href="https://www.researchgate.net/profile/Prashant-Kumar-16"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ResearchGate
+        </a>
+
+
+        <a
+          href="https://www.linkedin.com/in/prashant-kumar-569274101"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn
+        </a>
+
+
+        <a
+          href="https://github.com/MatrixEye"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
+
+
       </div>
 
     </div>
 
   </div>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+
+<footer>
+
+  <div class="container">
+
+    © 2026 Prashant Kumar · Computational Chemistry
+
+  </div>
+
+</footer>
+
 
 </body>
 </html>
