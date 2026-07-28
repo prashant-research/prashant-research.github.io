@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Personal Blog of PK</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f9fc;
+      color: #1f2937;
+      line-height: 1.7;
+    }
+
+    nav {
+      background: white;
+      border-bottom: 1px solid #e4e9f0;
+      padding: 20px 5%;
+    }
+
+    nav a {
+      color: #0b1f33;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .container {
+      width: min(900px, 92%);
+      margin: auto;
+      padding: 70px 0;
+    }
+
+    h1 {
+      color: #0b1f33;
+      font-size: 3rem;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      color: #607080;
+      margin-bottom: 45px;
+    }
+
+    .quiz-box {
+      background: white;
+      padding: 35px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+    }
+
+    .question {
+      margin-bottom: 35px;
+    }
+
+    .question h3 {
+      color: #0b1f33;
+      margin-bottom: 12px;
+    }
+
+    .option {
+      display: block;
+      margin: 9px 0;
+      cursor: pointer;
+    }
+
+    .option input {
+      margin-right: 8px;
+    }
+
+    button {
+      border: none;
+      background: #1769aa;
+      color: white;
+
+      padding: 12px 22px;
+
+      border-radius: 8px;
+
+      font-size: 1rem;
+      font-weight: 600;
+
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0f4f82;
+    }
+
+    #quiz-message {
+      margin-top: 20px;
+      font-weight: 600;
+    }
+
+    /* BLOG */
+
+    #blog-content {
+      display: none;
+    }
+
+    .blog-intro {
+      margin-bottom: 45px;
+    }
+
+    .post {
+      background: white;
+
+      margin-bottom: 35px;
+      padding: 35px;
+
+      border-radius: 14px;
+
+      box-shadow:
+        0 8px 25px rgba(0,0,0,0.06);
+    }
+
+    .post-date {
+      color: #1769aa;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .post h2 {
+      color: #0b1f33;
+      margin-top: 8px;
+    }
+
+    .post img {
+      width: 100%;
+      margin-top: 20px;
+
+      border-radius: 10px;
+
+      display: block;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<nav>
+
+  <a href="index.html">
+    ← Dr. Prashant Kumar, PhD, MRSC
+  </a>
+
+</nav>
+
+
+<div class="container">
+
+
+  <!-- =====================
+       QUIZ
+       ===================== -->
+
+  <div id="quiz-section">
+
+    <h1>
+      Personal Blog of PK
+    </h1>
+
+    <p class="subtitle">
+      A space for science, computation, research,
+      ideas, observations, and occasional wandering thoughts.
+    </p>
+
+
+    <div class="quiz-box">
+
+      <h2>
+        Before entering...
+      </h2>
+
+      <p>
+        Answer five small questions — one each from
+        Physics, Chemistry, Biology, Mathematics,
+        and Computer Science.
+      </p>
+
+
+      <form id="science-quiz">
+
+
+        <!-- PHYSICS -->
+
+        <div class="question">
+
+          <h3>
+            1. Physics
+          </h3>
+
+          <p>
+            What is the SI unit of energy?
+          </p>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="physics"
+              value="a"
+            >
+            Watt
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="physics"
+              value="b"
+            >
+            Joule
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="physics"
+              value="c"
+            >
+            Newton
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="physics"
+              value="d"
+            >
+            Pascal
+          </label>
+
+        </div>
+
+
+        <!-- CHEMISTRY -->
+
+        <div class="question">
+
+          <h3>
+            2. Chemistry
+          </h3>
+
+          <p>
+            What is the atomic number of carbon?
+          </p>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="chemistry"
+              value="a"
+            >
+            4
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="chemistry"
+              value="b"
+            >
+            6
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="chemistry"
+              value="c"
+            >
+            8
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="chemistry"
+              value="d"
+            >
+            12
+          </label>
+
+        </div>
+
+
+        <!-- BIOLOGY -->
+
+        <div class="question">
+
+          <h3>
+            3. Biology
+          </h3>
+
+          <p>
+            Which organelle is commonly associated
+            with cellular ATP production?
+          </p>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="biology"
+              value="a"
+            >
+            Nucleus
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="biology"
+              value="b"
+            >
+            Ribosome
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="biology"
+              value="c"
+            >
+            Mitochondrion
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="biology"
+              value="d"
+            >
+            Lysosome
+          </label>
+
+        </div>
+
+
+        <!-- MATHEMATICS -->
+
+        <div class="question">
+
+          <h3>
+            4. Mathematics
+          </h3>
+
+          <p>
+            What is the derivative of x²?
+          </p>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="maths"
+              value="a"
+            >
+            x
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="maths"
+              value="b"
+            >
+            2x
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="maths"
+              value="c"
+            >
+            x²
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="maths"
+              value="d"
+            >
+            2
+          </label>
+
+        </div>
+
+
+        <!-- COMPUTER SCIENCE -->
+
+        <div class="question">
+
+          <h3>
+            5. Computer Science
+          </h3>
+
+          <p>
+            What is decimal 10 written in binary?
+          </p>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="computer"
+              value="a"
+            >
+            1001
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="computer"
+              value="b"
+            >
+            1010
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="computer"
+              value="c"
+            >
+            1100
+          </label>
+
+          <label class="option">
+            <input
+              type="radio"
+              name="computer"
+              value="d"
+            >
+            1110
+          </label>
+
+        </div>
+
+
+        <button type="button" onclick="checkQuiz()">
+          Enter the Blog
+        </button>
+
+
+        <div id="quiz-message"></div>
+
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================
+       BLOG CONTENT
+       ===================== -->
+
+  <div id="blog-content">
+
+
+    <h1>
+      Personal Blog of PK
+    </h1>
+
+    <p class="blog-intro">
+      Thoughts on chemistry, computation, science,
+      research, technology, and whatever else seems
+      interesting enough to write about.
+    </p>
+
+
+
+    <!-- BLOG POST 1 -->
+
+    <article class="post">
+
+      <div class="post-date">
+        July 2026
+      </div>
+
+      <h2>
+        Welcome to my blog
+      </h2>
+
+      <p>
+        This is the beginning of my personal blog.
+        I plan to use this space for thoughts about
+        computational chemistry, scientific research,
+        machine learning, molecular simulation, and
+        occasionally topics far outside chemistry.
+      </p>
+
+      <p>
+        Unlike the research sections of my website,
+        this space will be somewhat informal.
+      </p>
+
+    </article>
+
+
+
+    <!-- BLOG POST WITH IMAGE -->
+
+    <article class="post">
+
+      <div class="post-date">
+        Example Post
+      </div>
+
+      <h2>
+        Science, computation and curiosity
+      </h2>
+
+      <p>
+        This is an example of a blog post containing
+        text and an image.
+      </p>
+
+      <!--
+      Later upload an image to GitHub,
+      for example:
+
+      images/blog/example.jpg
+
+      Then remove the comment marks around
+      the image below.
+      -->
+
+      <!--
+
+      <img
+        src="images/blog/example.jpg"
+        alt="Description of the image"
+      >
+
+      -->
+
+    </article>
+
+
+  </div>
+
+
+</div>
+
+
+
+<script>
+
+function checkQuiz() {
+
+  const answers = {
+    physics: "b",
+    chemistry: "b",
+    biology: "c",
+    maths: "b",
+    computer: "b"
+  };
+
+
+  let score = 0;
+
+
+  for (const subject in answers) {
+
+    const selected =
+      document.querySelector(
+        'input[name="' + subject + '"]:checked'
+      );
+
+
+    if (selected && selected.value === answers[subject]) {
+      score++;
+    }
+
+  }
+
+
+  const message =
+    document.getElementById("quiz-message");
+
+
+  if (score === 5) {
+
+    document.getElementById("quiz-section").style.display = "none";
+
+    document.getElementById("blog-content").style.display = "block";
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+  else {
+
+    message.textContent =
+      "You got " + score +
+      "/5 correct. Try again.";
+
+  }
+
+}
+
+</script>
+
+
+</body>
+
+</html>
