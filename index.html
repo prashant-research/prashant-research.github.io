@@ -112,6 +112,28 @@
       color: var(--blue);
     }
 
+    /* Language dropdown */
+
+    .language-selector select {
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+    
+      color: #374151;
+      background: white;
+    
+      border: 1px solid #d5dde6;
+      border-radius: 7px;
+    
+      padding: 7px 10px;
+    
+      cursor: pointer;
+      outline: none;
+    }
+    
+    .language-selector select:hover {
+      border-color: var(--blue);
+    }
 
     /* =========================
        HERO
@@ -923,6 +945,14 @@
       <a href="blog.html">
          Blog
       </a>
+
+      <div class="language-selector">
+        <select onchange="window.location.href=this.value">
+          <option value="index.html" selected>🌐 English</option>
+          <option value="index-hi.html">हिन्दी</option>
+          <option value="index-fr.html">Français</option>
+        </select>
+      </div>
 
     </div>
 
