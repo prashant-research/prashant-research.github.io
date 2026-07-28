@@ -229,33 +229,28 @@
        ========================= */
 
     .profile-placeholder {
-      width: 250px;
-      height: 250px;
-
+      width: 270px;
+      height: 270px;
+    
       margin: auto;
-
+    
       border-radius: 50%;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      background:
-        linear-gradient(
-          145deg,
-          #0f4f82,
-          #2280c2
-        );
-
-      color: white;
-
-      font-size: 4.5rem;
-      font-weight: 700;
-
-      box-shadow:
-        0 18px 45px rgba(18, 75, 120, 0.2);
-
+      overflow: hidden;
+    
       border: 8px solid white;
+    
+      box-shadow:
+        0 18px 45px rgba(18, 75, 120, 0.20);
+    }
+    
+    .profile-placeholder img {
+      width: 100%;
+      height: 100%;
+    
+      object-fit: cover;
+      object-position: center 20%;
+    
+      display: block;
     }
 
 
@@ -599,13 +594,9 @@
       }
 
       .profile-placeholder {
-        width: 190px;
-        height: 190px;
-
-        font-size: 3.5rem;
-
-        margin:
-          15px 0 0 0;
+        width: 200px;
+        height: 200px;
+        margin: 15px 0 0 0;
       }
 
       .research-grid,
@@ -768,16 +759,11 @@
     </div>
 
 
-    <!--
-      Later we can replace this PK circle
-      with your professional photograph.
-    -->
-
-    <div
-      class="profile-placeholder"
-      aria-label="Prashant Kumar"
+    <div class="profile-placeholder">
+    <img
+    src="profile.png"
+    alt="Dr. Prashant Kumar"
     >
-      PK
     </div>
 
   </div>
