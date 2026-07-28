@@ -10,7 +10,7 @@
 
   <meta
     name="description"
-    content="Personal website of Dr. Prashant Kumar, computational chemist and Research Associate at University College London working on excited-state chemistry, molecular simulation, machine learning, OLEDs, and electronic-structure theory."
+    content="Personal website of Dr. Prashant Kumar, computational chemist and Research Associate at University College London working on excited-state chemistry, molecular dynamics, machine learning, OLEDs, and electronic-structure theory."
   >
 
   <title>Dr. Prashant Kumar | Computational Chemistry</title>
@@ -812,8 +812,25 @@
        RESPONSIVE
        ========================= */
 
+    .mobile-profile-photo {
+        display: none;
+      }
+      
+      .desktop-profile-photo {
+        display: block;
+      }
+    
     @media (max-width: 850px) {
 
+      .mobile-profile-photo {
+        display: block;
+        margin: 25px auto 30px;
+      }
+      
+      .desktop-profile-photo {
+        display: none;
+      }
+      
       .hero-grid {
         grid-template-columns: 1fr;
       }
@@ -935,6 +952,20 @@
          Prashant Kumar
       </h1>
 
+      <div class="profile-placeholder desktop-profile-photo">
+        <img
+          src="profile.png"
+          alt="Dr. Prashant Kumar"
+        >
+      </div>
+
+      <div class="profile-placeholder mobile-profile-photo">
+        <img
+          src="profile.png"
+          alt="Dr. Prashant Kumar"
+        >
+      </div>
+
       <div class="hero-title">
         Research Associate in Computational Chemistry
       </div>
@@ -945,15 +976,16 @@
 
       <p class="hero-description">
 
-        I am a computational chemist working at the interface of
-        electronic-structure theory, excited-state chemistry,
-        molecular dynamics, machine learning, and data-driven molecular 
-        discovery.
+        
+          Computational chemist working at the intersection of
+          electronic-structure theory, excited-state chemistry, molecular dynamics,
+          machine learning, and data-driven molecular discovery, with research
+          directed towards understanding and predicting the photophysical and
+          photochemical processes that govern molecular materials. Particular
+          interests lie in optoelectronics, photoactivatable CO-releasing molecules
+          (PhotoCORMs), photocatalysis, open-shell systems, transition-metal
+          complexes, and carbon capture and storage.
 
-        My research focuses on understanding photophysical and
-        photochemical processes in molecular materials, with particular
-        interests in optoelectronics, PhotoCORMs, Photocatalysis, open-shell systems,
-        transition-metal complexes, and  carbon capture and storage.
 
       </p>
 
