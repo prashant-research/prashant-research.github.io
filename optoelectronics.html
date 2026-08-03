@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Research on molecular materials for next-generation optoelectronics by Dr. Prashant Kumar."
+  >
+
+  <title>
+    Molecular Materials for Next-Generation Optoelectronics | Prashant Kumar
+  </title>
+
+
+  <style>
+
+    /* =========================
+       GENERAL
+       ========================= */
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --navy: #0b1f33;
+      --blue: #1769aa;
+      --blue-dark: #0f4f82;
+      --blue-light: #eaf3fb;
+      --text: #1f2937;
+      --muted: #5f6b7a;
+      --background: #f7f9fc;
+      --white: #ffffff;
+      --border: #e4e9f0;
+      --shadow: 0 12px 35px rgba(10, 40, 70, 0.08);
+    }
+
+    body {
+      margin: 0;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      color: var(--text);
+      background: var(--background);
+      line-height: 1.8;
+    }
+
+    a {
+      color: var(--blue);
+    }
+
+    .container {
+      width: min(950px, 92%);
+      margin: 0 auto;
+    }
+
+
+    /* =========================
+       NAVIGATION
+       ========================= */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-inner {
+      width: min(1120px, 92%);
+      min-height: 72px;
+      margin: 0 auto;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .brand {
+      color: var(--navy);
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .back-link {
+      color: var(--blue);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      color: var(--blue-dark);
+      text-decoration: underline;
+    }
+
+
+    /* =========================
+       HERO
+       ========================= */
+
+    .research-hero {
+      padding: 90px 0 75px;
+
+      background:
+        radial-gradient(
+          circle at 85% 15%,
+          rgba(23, 105, 170, 0.13),
+          transparent 32%
+        ),
+        linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #f3f8fc 100%
+        );
+    }
+
+    .research-label {
+      color: var(--blue);
+
+      font-size: 0.82rem;
+      font-weight: 700;
+
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    h1 {
+      max-width: 900px;
+
+      margin: 14px 0 25px;
+
+      color: var(--navy);
+
+      font-size: clamp(2.5rem, 6vw, 4.6rem);
+      line-height: 1.1;
+      letter-spacing: -1.8px;
+    }
+
+    .hero-intro {
+      max-width: 850px;
+      margin: 0;
+
+      color: #40546a;
+      font-size: 1.2rem;
+      line-height: 1.8;
+    }
+
+
+    /* =========================
+       MAIN CONTENT
+       ========================= */
+
+    main {
+      padding: 75px 0 90px;
+    }
+
+    .research-section {
+      margin-bottom: 58px;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+
+      color: var(--navy);
+      font-size: clamp(1.7rem, 4vw, 2.25rem);
+      line-height: 1.3;
+    }
+
+    h3 {
+      color: var(--navy);
+    }
+
+    p {
+      margin: 0 0 22px;
+
+      color: #46576a;
+      font-size: 1.06rem;
+    }
+
+    strong {
+      color: var(--navy);
+    }
+
+
+    /* =========================
+       HIGHLIGHT BOX
+       ========================= */
+
+    .highlight {
+      margin: 35px 0;
+      padding: 27px 30px;
+
+      background: var(--blue-light);
+
+      border-left: 4px solid var(--blue);
+      border-radius: 10px;
+
+      color: #18364f;
+      font-size: 1.08rem;
+    }
+
+
+    /* =========================
+       PAPER CITATIONS
+       ========================= */
+
+    .paper-citation {
+      display: inline;
+
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .paper-citation:hover {
+      color: var(--blue-dark);
+      text-decoration: underline;
+    }
+
+
+    /* =========================
+       RESEARCH OBJECTIVES
+       ========================= */
+
+    .objectives-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+
+      margin-top: 30px;
+    }
+
+    .objective-card {
+      padding: 25px;
+
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+
+      box-shadow:
+        0 6px 20px rgba(20, 50, 80, 0.04);
+    }
+
+    .objective-number {
+      margin-bottom: 8px;
+
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .objective-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+    }
+
+    .objective-card p {
+      margin: 0;
+      font-size: 0.98rem;
+    }
+
+
+    /* =========================
+       METHODS
+       ========================= */
+
+    .methods-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+
+      padding: 0;
+      margin: 25px 0 0;
+
+      list-style: none;
+    }
+
+    .methods-list li {
+      padding: 16px 18px;
+
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      color: #40546a;
+    }
+
+    .methods-list li::before {
+      content: "→";
+      margin-right: 9px;
+
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+
+    /* =========================
+       BACK BUTTON
+       ========================= */
+
+    .bottom-navigation {
+      margin-top: 60px;
+      padding-top: 35px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .button {
+      display: inline-block;
+
+      padding: 11px 19px;
+
+      color: white;
+      background: var(--blue);
+
+      border-radius: 8px;
+
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .button:hover {
+      background: var(--blue-dark);
+    }
+
+
+    /* =========================
+       FOOTER
+       ========================= */
+
+    footer {
+      padding: 30px 0 45px;
+
+      color: #6b7280;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 750px) {
+
+      .nav-inner {
+        min-height: auto;
+        padding: 18px 0;
+
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 8px;
+      }
+
+      .research-hero {
+        padding: 65px 0 55px;
+      }
+
+      main {
+        padding: 55px 0 70px;
+      }
+
+      .objectives-grid,
+      .methods-list {
+        grid-template-columns: 1fr;
+      }
+
+      .highlight {
+        padding: 22px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVIGATION
+     ========================= -->
+
+<nav>
+
+  <div class="nav-inner">
+
+    <a
+      class="brand"
+      href="index.html"
+    >
+      Dr. Prashant Kumar, PhD, MRSC
+    </a>
+
+    <a
+      class="back-link"
+      href="index.html#research"
+    >
+      ← Back to Research Themes
+    </a>
+
+  </div>
+
+</nav>
+
+
+
+<!-- =========================
+     HERO
+     ========================= -->
+
+<header class="research-hero">
+
+  <div class="container">
+
+    <div class="research-label">
+      Research Theme 01
+    </div>
+
+    <h1>
+      Molecular Materials for Next-Generation Optoelectronics
+    </h1>
+
+    <p class="hero-intro">
+      Developing predictive computational strategies for understanding
+      and designing efficient, stable, and chemically diverse molecular
+      emitters for future optoelectronic technologies.
+    </p>
+
+  </div>
+
+</header>
+
+
+
+<!-- =========================
+     RESEARCH CONTENT
+     ========================= -->
+
+<main>
+
+  <div class="container">
+
+
+    <!-- INTRODUCTION -->
+
+    <section class="research-section">
+
+      <h2>
+        Research Overview
+      </h2>
+
+      <p>
+        Organic light-emitting diodes (OLEDs) provide a unique platform
+        in which fundamental excited-state chemistry directly determines
+        device performance.
+      </p>
+
+      <p>
+        My previous research has focused on understanding the photophysics
+        and stability of molecular materials used in OLEDs, particularly
+        phosphorescent transition-metal complexes and organic host
+        materials.
+      </p>
+
+      <p>
+        Building on this foundation, my future research will progress
+        towards thermally activated delayed fluorescence (TADF) and
+        radical-based OLEDs, with the long-term objective of developing
+        predictive computational strategies for efficient and stable
+        next-generation emitters.
+      </p>
+
+    </section>
+
+
+
+    <!-- PHOSPHORESCENT MATERIALS -->
+
+    <section class="research-section">
+
+      <h2>
+        Phosphorescent OLED Materials
+      </h2>
+
+      <p>
+        My work on phosphorescent OLED materials established computational
+        protocols for understanding emission in Pt(II) and Ir(III)
+        complexes.
+      </p>
+
+      <p>
+        For Pt(II) phosphors, high-level coupled-cluster calculations and
+        density-functional methods were benchmarked to accurately predict
+        phosphorescence energies and identify the excited states involved
+        in emission
+
+        <a
+          class="paper-citation"
+          href="https://doi.org/10.1021/acs.inorgchem.1c02562"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          (Inorg. Chem. 2021, 60, 22, 17230–17240)
+        </a>.
+      </p>
+
+      <p>
+        In heteroleptic Ir(III) complexes, this approach was extended to
+        characterise emissive states, phosphorescence rates, and
+        vibronically resolved spectra
+
+        <a
+          class="paper-citation"
+          href="https://doi.org/10.1021/acs.jpca.3c04205"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          (J. Phys. Chem. A 2023, 127, 34, 7241–7255)
+        </a>.
+      </p>
+
+      <div class="highlight">
+        Together, these studies demonstrated that predictive modelling
+        of OLED materials requires an accurate description of the
+        complete excited-state landscape rather than consideration of
+        only a single optimised excited state.
+      </div>
+
+    </section>
+
+
+
+    <!-- DEGRADATION -->
+
+    <section class="research-section">
+
+      <h2>
+        Excited-State Degradation and Operational Stability
+      </h2>
+
+      <p>
+        A second direction emerging from my previous work concerns
+        <strong>
+          excited-state degradation and operational stability
+        </strong>.
+      </p>
+
+      <p>
+        I have explored static electronic-structure calculations,
+        non-adiabatic dynamics, and active learning to identify
+        degradation pathways in OLED host materials.
+      </p>
+
+      <!--
+        Add a degradation-paper citation here later using:
+
+        <a
+          class="paper-citation"
+          href="YOUR_DOI_LINK"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          (Journal citation)
+        </a>
+      -->
+
+      <p>
+        Building on this experience, my future research will investigate
+        efficiency and stability simultaneously, determining how
+        excited-state populations, molecular structure, and
+        non-radiative dynamics lead to bond activation and irreversible
+        chemical degradation.
+      </p>
+
+    </section>
+
+
+
+    <!-- TADF -->
+
+    <section class="research-section">
+
+      <h2>
+        Thermally Activated Delayed Fluorescence
+      </h2>
+
+      <p>
+        The first extension of this programme will focus on
+        <strong>
+          thermally activated delayed fluorescence (TADF)
+        </strong>.
+      </p>
+
+      <p>
+        TADF performance is controlled by the delicate interplay between
+        singlet and triplet excited states, molecular reorganisation,
+        spin–orbit coupling, intersystem crossing, reverse intersystem
+        crossing, and non-radiative decay.
+      </p>
+
+      <p>
+        I will investigate these processes using electronic-structure
+        calculations and non-adiabatic dynamics, with particular emphasis
+        on understanding how conformational motion modifies excited-state
+        energetics and kinetics.
+      </p>
+
+      <div class="highlight">
+        The objective is to establish molecular design principles that
+        simultaneously optimise emission efficiency, colour, and
+        photochemical stability.
+      </div>
+
+    </section>
+
+
+
+    <!-- RADICAL OLEDs -->
+
+    <section class="research-section">
+
+      <h2>
+        Radical-Based OLEDs
+      </h2>
+
+      <p>
+        A complementary direction will target
+        <strong>radical-based OLEDs</strong>, in which open-shell
+        molecules provide access to emissive doublet states and
+        fundamentally different photophysics from conventional
+        fluorescent, phosphorescent, and TADF emitters.
+      </p>
+
+      <p>
+        Their theoretical description remains challenging because
+        commonly used open-shell approaches can suffer from spin
+        contamination and an inadequate treatment of excited-state
+        configurations.
+      </p>
+
+      <p>
+        A major methodological objective will therefore be the development
+        of computationally efficient and
+        <strong>
+          spin-pure approaches for open-shell excited states
+        </strong>.
+      </p>
+
+    </section>
+
+
+
+    <!-- SPIN-PURE METHODS -->
+
+    <section class="research-section">
+
+      <h2>
+        Spin-Pure Electronic-Structure Methods
+      </h2>
+
+      <p>
+        This direction will build on methodological developments in my
+        current postdoctoral group, including the Extended Restricted
+        Open-Shell Pariser–Parr–Pople (ExROPPP) approach for rapidly
+        calculating spin-pure excited states of organic radicals.
+      </p>
+
+      <!--
+        Add the ExROPPP paper citation here later using:
+
+        <a
+          class="paper-citation"
+          href="YOUR_DOI_LINK"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          (Journal citation)
+        </a>
+      -->
+
+      <p>
+        I aim to extend the underlying principles of spin adaptation
+        towards chemically more diverse radical emitters, including
+        substituted, heteroatom-containing, and larger conjugated
+        systems relevant to OLED applications.
+      </p>
+
+      <p>
+        These methods will be benchmarked against coupled-cluster and
+        multireference calculations, with the aim of bridging the gap
+        between high-level electronic-structure theory and
+        computationally inexpensive models suitable for screening large
+        molecular libraries.
+      </p>
+
+    </section>
+
+
+
+    <!-- MACHINE LEARNING -->
+
+    <section class="research-section">
+
+      <h2>
+        Machine-Learning Potentials for Excited-State Dynamics
+      </h2>
+
+      <p>
+        Automated high-throughput workflows will generate accurate
+        excited-state energies, gradients, electronic couplings, and
+        molecular configurations to train
+        <strong>
+          machine-learning potentials for excited-state dynamics
+        </strong>.
+      </p>
+
+      <p>
+        Active learning and uncertainty-aware sampling will reduce the
+        amount of expensive quantum-chemical data required, while
+        machine-learning potentials will enable non-adiabatic
+        simulations over larger configurational and temporal scales.
+      </p>
+
+      <p>
+        This framework will be applied across phosphorescent, TADF, and
+        radical emitters to understand relaxation, state crossing,
+        emission, and degradation within a common theoretical framework.
+      </p>
+
+    </section>
+
+
+
+    <!-- METHODS -->
+
+    <section class="research-section">
+
+      <h2>
+        Computational Framework
+      </h2>
+
+      <ul class="methods-list">
+
+        <li>
+          Density-functional and time-dependent density-functional theory
+        </li>
+
+        <li>
+          Coupled-cluster excited-state methods
+        </li>
+
+        <li>
+          Multireference electronic-structure calculations
+        </li>
+
+        <li>
+          Spin-pure open-shell excited-state methods
+        </li>
+
+        <li>
+          Non-adiabatic molecular dynamics
+        </li>
+
+        <li>
+          Active learning and uncertainty-aware sampling
+        </li>
+
+        <li>
+          Machine-learning potentials
+        </li>
+
+        <li>
+          Automated high-throughput computational workflows
+        </li>
+
+      </ul>
+
+    </section>
+
+
+
+    <!-- OBJECTIVES -->
+
+    <section class="research-section">
+
+      <h2>
+        Principal Research Objectives
+      </h2>
+
+      <div class="objectives-grid">
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 01
+          </div>
+
+          <h3>
+            Predictive Emission Modelling
+          </h3>
+
+          <p>
+            Predict emission energies, radiative properties, and
+            excited-state character across chemically diverse OLED
+            emitters.
+          </p>
+
+        </article>
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 02
+          </div>
+
+          <h3>
+            Stability and Degradation
+          </h3>
+
+          <p>
+            Identify the electronic and structural origins of
+            non-radiative decay, bond activation, and irreversible
+            molecular degradation.
+          </p>
+
+        </article>
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 03
+          </div>
+
+          <h3>
+            Spin-Pure Radical Methods
+          </h3>
+
+          <p>
+            Develop computationally efficient approaches for describing
+            open-shell excited states without severe spin contamination.
+          </p>
+
+        </article>
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 04
+          </div>
+
+          <h3>
+            Data-Driven Molecular Discovery
+          </h3>
+
+          <p>
+            Combine quantum chemistry, molecular dynamics, automation,
+            and machine learning to screen and design next-generation
+            molecular emitters.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- LONG-TERM VISION -->
+
+    <section class="research-section">
+
+      <h2>
+        Long-Term Research Vision
+      </h2>
+
+      <p>
+        Ultimately, quantum chemistry, spin-pure excited-state
+        methodology, non-adiabatic dynamics, and machine learning will
+        be integrated into a data-driven molecular-discovery platform.
+      </p>
+
+      <div class="highlight">
+        The long-term goal is to progress from explaining the behaviour
+        of existing OLED materials to predicting and designing emitters
+        that simultaneously achieve favourable emission energies, high
+        radiative efficiency, controlled excited-state dynamics, and
+        enhanced operational stability.
+      </div>
+
+    </section>
+
+
+
+    <!-- BACK -->
+
+    <div class="bottom-navigation">
+
+      <a
+        class="button"
+        href="index.html#research"
+      >
+        ← Return to Research Themes
+      </a>
+
+    </div>
+
+
+  </div>
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+
+<footer>
+
+  <div class="container">
+    © 2026 Prashant Kumar · Computational Chemistry
+  </div>
+
+</footer>
+
+
+</body>
+
+</html>
