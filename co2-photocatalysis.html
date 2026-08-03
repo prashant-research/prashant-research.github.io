@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Research on data-driven molecular photocatalysts for carbon-dioxide conversion by Dr. Prashant Kumar."
+  >
+
+  <title>
+    Data-Driven Design of Photocatalysts for CO2 Conversion | Prashant Kumar
+  </title>
+
+
+  <style>
+
+    /* =========================
+       GENERAL
+       ========================= */
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --navy: #0b1f33;
+      --blue: #1769aa;
+      --blue-dark: #0f4f82;
+      --blue-light: #eaf3fb;
+      --text: #1f2937;
+      --muted: #5f6b7a;
+      --background: #f7f9fc;
+      --white: #ffffff;
+      --border: #e4e9f0;
+      --shadow: 0 12px 35px rgba(10, 40, 70, 0.08);
+    }
+
+    body {
+      margin: 0;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      color: var(--text);
+      background: var(--background);
+      line-height: 1.8;
+    }
+
+    a {
+      color: var(--blue);
+    }
+
+    .container {
+      width: min(950px, 92%);
+      margin: 0 auto;
+    }
+
+
+    /* =========================
+       NAVIGATION
+       ========================= */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-inner {
+      width: min(1120px, 92%);
+      min-height: 72px;
+      margin: 0 auto;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .brand {
+      color: var(--navy);
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .back-link {
+      color: var(--blue);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      color: var(--blue-dark);
+      text-decoration: underline;
+    }
+
+
+    /* =========================
+       HERO
+       ========================= */
+
+    .research-hero {
+      padding: 90px 0 75px;
+
+      background:
+        radial-gradient(
+          circle at 85% 15%,
+          rgba(23, 105, 170, 0.13),
+          transparent 32%
+        ),
+        linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #f3f8fc 100%
+        );
+    }
+
+    .research-label {
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    h1 {
+      max-width: 930px;
+
+      margin: 14px 0 25px;
+
+      color: var(--navy);
+
+      font-size: clamp(2.5rem, 6vw, 4.6rem);
+      line-height: 1.1;
+      letter-spacing: -1.8px;
+    }
+
+    .hero-intro {
+      max-width: 850px;
+      margin: 0;
+
+      color: #40546a;
+      font-size: 1.2rem;
+      line-height: 1.8;
+    }
+
+
+    /* =========================
+       MAIN CONTENT
+       ========================= */
+
+    main {
+      padding: 75px 0 90px;
+    }
+
+    .research-section {
+      margin-bottom: 58px;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+
+      color: var(--navy);
+      font-size: clamp(1.7rem, 4vw, 2.25rem);
+      line-height: 1.3;
+    }
+
+    h3 {
+      color: var(--navy);
+    }
+
+    p {
+      margin: 0 0 22px;
+
+      color: #46576a;
+      font-size: 1.06rem;
+    }
+
+    strong {
+      color: var(--navy);
+    }
+
+
+    /* =========================
+       HIGHLIGHT BOX
+       ========================= */
+
+    .highlight {
+      margin: 35px 0;
+      padding: 27px 30px;
+
+      background: var(--blue-light);
+
+      border-left: 4px solid var(--blue);
+      border-radius: 10px;
+
+      color: #18364f;
+      font-size: 1.08rem;
+    }
+
+
+    /* =========================
+       METHODS
+       ========================= */
+
+    .methods-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+
+      padding: 0;
+      margin: 25px 0 0;
+
+      list-style: none;
+    }
+
+    .methods-list li {
+      padding: 16px 18px;
+
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      color: #40546a;
+    }
+
+    .methods-list li::before {
+      content: "→";
+      margin-right: 9px;
+
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+
+    /* =========================
+       OBJECTIVES
+       ========================= */
+
+    .objectives-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+
+      margin-top: 30px;
+    }
+
+    .objective-card {
+      padding: 25px;
+
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+
+      box-shadow:
+        0 6px 20px rgba(20, 50, 80, 0.04);
+    }
+
+    .objective-number {
+      margin-bottom: 8px;
+
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .objective-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+    }
+
+    .objective-card p {
+      margin: 0;
+      font-size: 0.98rem;
+    }
+
+
+    /* =========================
+       TARGET METRICS
+       ========================= */
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+
+      margin-top: 30px;
+    }
+
+    .metric-card {
+      padding: 25px;
+
+      background: var(--navy);
+      border-radius: 12px;
+
+      color: white;
+    }
+
+    .metric-value {
+      margin-bottom: 8px;
+
+      color: #8dc9f3;
+      font-size: 1.7rem;
+      font-weight: 800;
+    }
+
+    .metric-card p {
+      margin: 0;
+      color: #dce7f1;
+      font-size: 0.95rem;
+    }
+
+
+    /* =========================
+       WORKFLOW
+       ========================= */
+
+    .workflow {
+      display: grid;
+      gap: 14px;
+
+      margin-top: 28px;
+    }
+
+    .workflow-step {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 18px;
+
+      padding: 20px 22px;
+
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .workflow-number {
+      color: var(--blue);
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .workflow-step h3 {
+      margin: 0 0 5px;
+      font-size: 1.05rem;
+    }
+
+    .workflow-step p {
+      margin: 0;
+      font-size: 0.97rem;
+    }
+
+
+    /* =========================
+       BACK BUTTON
+       ========================= */
+
+    .bottom-navigation {
+      margin-top: 60px;
+      padding-top: 35px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .button {
+      display: inline-block;
+
+      padding: 11px 19px;
+
+      color: white;
+      background: var(--blue);
+
+      border-radius: 8px;
+
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .button:hover {
+      background: var(--blue-dark);
+    }
+
+
+    /* =========================
+       FOOTER
+       ========================= */
+
+    footer {
+      padding: 30px 0 45px;
+
+      color: #6b7280;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 750px) {
+
+      .nav-inner {
+        min-height: auto;
+        padding: 18px 0;
+
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 8px;
+      }
+
+      .research-hero {
+        padding: 65px 0 55px;
+      }
+
+      main {
+        padding: 55px 0 70px;
+      }
+
+      .objectives-grid,
+      .methods-list,
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .workflow-step {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+
+      .highlight {
+        padding: 22px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVIGATION
+     ========================= -->
+
+<nav>
+
+  <div class="nav-inner">
+
+    <a
+      class="brand"
+      href="index.html"
+    >
+      Dr. Prashant Kumar, PhD, MRSC
+    </a>
+
+    <a
+      class="back-link"
+      href="index.html#research"
+    >
+      ← Back to Research Themes
+    </a>
+
+  </div>
+
+</nav>
+
+
+
+<!-- =========================
+     HERO
+     ========================= -->
+
+<header class="research-hero">
+
+  <div class="container">
+
+    <div class="research-label">
+      Research Theme 03
+    </div>
+
+    <h1>
+      Data-Driven Design of Photocatalysts for CO<sub>2</sub> Conversion
+    </h1>
+
+    <p class="hero-intro">
+      Combining quantum chemistry, excited-state dynamics,
+      machine-learning potentials, and inverse molecular design to
+      accelerate the discovery of efficient and sustainable molecular
+      photocatalysts.
+    </p>
+
+  </div>
+
+</header>
+
+
+
+<!-- =========================
+     RESEARCH CONTENT
+     ========================= -->
+
+<main>
+
+  <div class="container">
+
+
+    <!-- RESEARCH OVERVIEW -->
+
+    <section class="research-section">
+
+      <h2>
+        Research Overview
+      </h2>
+
+      <p>
+        The increasing concentration of atmospheric CO<sub>2</sub>
+        creates an urgent need for technologies that can not only
+        mitigate emissions but also convert captured carbon into useful
+        fuels and chemical feedstocks.
+      </p>
+
+      <p>
+        Among the available approaches, photocatalytic
+        CO<sub>2</sub> reduction is particularly attractive because it
+        offers a route to drive chemical conversion using light.
+      </p>
+
+      <p>
+        Transition-metal complexes are promising molecular
+        photocatalysts because their electronic structure, redox
+        properties, excited-state lifetimes, and ligand environments
+        can be systematically tuned.
+      </p>
+
+      <p>
+        Their rational design nevertheless remains challenging because
+        catalytic performance is governed by a complex interplay
+        between photoexcitation, electron transfer, intermediate
+        stability, reaction barriers, and excited-state dynamics.
+      </p>
+
+      <div class="highlight">
+        This research programme will connect the complete photocatalytic
+        process—from photon absorption and excited-state relaxation to
+        CO<sub>2</sub> binding, chemical transformation, and catalyst
+        regeneration—within a unified computational framework.
+      </div>
+
+    </section>
+
+
+
+    <!-- RE AND MN -->
+
+    <section class="research-section">
+
+      <h2>
+        From Re(I) to Earth-Abundant Mn(I) Photocatalysts
+      </h2>
+
+      <p>
+        My research will focus on the computational design of
+        <strong>
+          earth-abundant molecular photocatalysts for CO<sub>2</sub>
+          reduction
+        </strong>,
+        using Re(I) and Mn(I) tricarbonyl complexes as a model platform.
+      </p>
+
+      <p>
+        Re(I) complexes are particularly attractive because they can
+        function simultaneously as photosensitisers and catalysts.
+        However, the scarcity and cost of rhenium limit their
+        large-scale application.
+      </p>
+
+      <p>
+        Structurally analogous Mn(I) complexes offer a more sustainable
+        alternative, but their photochemistry and catalytic behaviour
+        remain considerably less well understood.
+      </p>
+
+      <p>
+        A central objective will therefore be to determine how the
+        electronic structure, reaction energetics, and excited-state
+        dynamics of Re(I) photocatalysts can be systematically related
+        to those of their Mn(I) analogues.
+      </p>
+
+    </section>
+
+
+
+    <!-- STATIC MECHANISM -->
+
+    <section class="research-section">
+
+      <h2>
+        Static Description of the Catalytic Mechanism
+      </h2>
+
+      <p>
+        The first stage will establish a comprehensive
+        <strong>
+          static description of the catalytic mechanism
+        </strong>.
+      </p>
+
+      <p>
+        Ground- and excited-state electronic-structure calculations
+        will determine the energetics of CO<sub>2</sub> binding,
+        reduction, intermediate formation, bond cleavage, product
+        formation, and catalyst regeneration.
+      </p>
+
+      <p>
+        Reaction-pathway calculations will provide complete energy
+        profiles for representative Re(I) and Mn(I) complexes,
+        allowing the effects of bidentate and ancillary ligands on
+        individual catalytic steps to be quantified.
+      </p>
+
+      <p>
+        Direct comparison of corresponding Re and Mn systems will then
+        establish quantitative relationships between their electronic
+        structures, redox behaviour, activation barriers, and
+        catalytic intermediates.
+      </p>
+
+      <div class="highlight">
+        These relationships could provide a rational route for
+        translating established molecular-design principles from
+        Re-based photocatalysts to more abundant Mn-based systems.
+      </div>
+
+    </section>
+
+
+
+    <!-- EXCITED-STATE DYNAMICS -->
+
+    <section class="research-section">
+
+      <h2>
+        Excited-State Dynamics of Photocatalytic Activation
+      </h2>
+
+      <p>
+        A purely static description cannot fully capture the role of
+        photoexcitation in initiating catalysis.
+      </p>
+
+      <p>
+        Surface-hopping and related non-adiabatic dynamics approaches
+        will therefore be used to investigate the evolution of
+        initially photoexcited states, metal-to-ligand charge-transfer
+        character, relaxation pathways, electron-transfer processes,
+        and the formation of catalytically active species.
+      </p>
+
+      <p>
+        These simulations will examine competition between productive
+        relaxation into long-lived charge-transfer states and access
+        to deactivating or dissociative metal-centred states.
+      </p>
+
+      <p>
+        Connecting these ultrafast dynamical processes with the
+        subsequent ground-state catalytic cycle will provide a unified
+        description of the mechanism from photon absorption to
+        CO<sub>2</sub> conversion.
+      </p>
+
+    </section>
+
+
+
+    <!-- ML POTENTIALS -->
+
+    <section class="research-section">
+
+      <h2>
+        Excited-State Machine-Learning Potentials
+      </h2>
+
+      <p>
+        Direct quantum-chemical non-adiabatic dynamics remains one of
+        the principal computational bottlenecks in transition-metal
+        photochemistry.
+      </p>
+
+      <p>
+        These systems involve internal conversion, intersystem
+        crossing, charge-transfer relaxation, and access to
+        dissociative metal-centred states across dense manifolds
+        strongly influenced by spin–orbit coupling.
+      </p>
+
+      <p>
+        To overcome this limitation, the project will establish a
+        transferable framework for
+        <strong>
+          multistate machine-learning potentials for excited-state
+          dynamics
+        </strong>.
+      </p>
+
+      <p>
+        The initial benchmark will use
+        <strong>
+          fac-[Re(bpy)(CO)<sub>3</sub>Cl]
+        </strong>
+        and related Re(I) CO<sub>2</sub>-reduction complexes.
+      </p>
+
+      <p>
+        The models will describe the competition between relaxation
+        into long-lived metal-to-ligand charge-transfer states that may
+        support productive electron-transfer chemistry and access to
+        ligand-field or metal-centred states associated with
+        deactivation and CO dissociation.
+      </p>
+
+      <div class="highlight">
+        The aim is to reproduce excited-state energies, forces, and
+        interstate couplings with near-ab-initio accuracy while
+        accelerating non-adiabatic simulations by several orders of
+        magnitude.
+      </div>
+
+    </section>
+
+
+
+    <!-- ML WORKFLOW -->
+
+    <section class="research-section">
+
+      <h2>
+        Development Workflow
+      </h2>
+
+      <div class="workflow">
+
+
+        <article class="workflow-step">
+
+          <div class="workflow-number">
+            STEP 01
+          </div>
+
+          <div>
+
+            <h3>
+              Electronic-Structure Mapping
+            </h3>
+
+            <p>
+              Characterise charge-transfer, ligand-centred, and
+              metal-centred excited states across representative
+              molecular configurations.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="workflow-step">
+
+          <div class="workflow-number">
+            STEP 02
+          </div>
+
+          <div>
+
+            <h3>
+              Reference-Data Generation
+            </h3>
+
+            <p>
+              Generate high-quality excited-state energies, gradients,
+              spin–orbit couplings, non-adiabatic couplings, and
+              molecular geometries.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="workflow-step">
+
+          <div class="workflow-number">
+            STEP 03
+          </div>
+
+          <div>
+
+            <h3>
+              Uncertainty-Aware Active Learning
+            </h3>
+
+            <p>
+              Identify poorly represented regions of configuration
+              space and selectively perform additional
+              quantum-chemical calculations.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="workflow-step">
+
+          <div class="workflow-number">
+            STEP 04
+          </div>
+
+          <div>
+
+            <h3>
+              Multistate Potential Training
+            </h3>
+
+            <p>
+              Train models capable of describing several coupled
+              electronic states and the transitions between them.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="workflow-step">
+
+          <div class="workflow-number">
+            STEP 05
+          </div>
+
+          <div>
+
+            <h3>
+              Accelerated Non-Adiabatic Dynamics
+            </h3>
+
+            <p>
+              Use the trained potentials to calculate state
+              populations, relaxation timescales, product formation,
+              and excited-state branching ratios.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="workflow-step">
+
+          <div class="workflow-number">
+            STEP 06
+          </div>
+
+          <div>
+
+            <h3>
+              Transferability Assessment
+            </h3>
+
+            <p>
+              Test whether models trained on benchmark Re(I) systems
+              can be extended across ligand modifications and,
+              ultimately, towards related Mn(I) photocatalysts.
+            </p>
+
+          </div>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- TARGETS -->
+
+    <section class="research-section">
+
+      <h2>
+        Methodological Targets
+      </h2>
+
+      <div class="metrics-grid">
+
+
+        <article class="metric-card">
+
+          <div class="metric-value">
+            0.05–0.10 eV
+          </div>
+
+          <p>
+            Target accuracy for predicted excited-state energies over
+            dynamically relevant molecular configurations.
+          </p>
+
+        </article>
+
+
+        <article class="metric-card">
+
+          <div class="metric-value">
+            100–1000×
+          </div>
+
+          <p>
+            Target acceleration relative to direct
+            quantum-chemical excited-state dynamics.
+          </p>
+
+        </article>
+
+
+        <article class="metric-card">
+
+          <div class="metric-value">
+            Multistate
+          </div>
+
+          <p>
+            Simultaneous treatment of coupled charge-transfer,
+            ligand-centred, and metal-centred electronic states.
+          </p>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ML DISCOVERY -->
+
+    <section class="research-section">
+
+      <h2>
+        Machine-Learning-Assisted Catalyst Discovery
+      </h2>
+
+      <p>
+        The computational cost of performing static and dynamical
+        calculations across large families of transition-metal
+        complexes presents an important challenge.
+      </p>
+
+      <p>
+        Initial machine-learning models will therefore be trained on
+        high-quality quantum-chemical data to predict properties
+        relevant to photocatalysis, including:
+      </p>
+
+      <ul class="methods-list">
+
+        <li>
+          Excited-state energies and characters
+        </li>
+
+        <li>
+          Ground- and excited-state redox potentials
+        </li>
+
+        <li>
+          CO<sub>2</sub>-binding energetics
+        </li>
+
+        <li>
+          Catalytic-intermediate stability
+        </li>
+
+        <li>
+          Reaction and activation barriers
+        </li>
+
+        <li>
+          Ligand-dependent catalytic trends
+        </li>
+
+        <li>
+          Excited-state relaxation pathways
+        </li>
+
+        <li>
+          Photochemical branching ratios
+        </li>
+
+      </ul>
+
+      <p style="margin-top:30px;">
+        Active-learning strategies will identify regions of molecular
+        and configurational space where additional electronic-structure
+        calculations provide the greatest improvement to the models.
+      </p>
+
+    </section>
+
+
+
+    <!-- DYNAMIC DATA -->
+
+    <section class="research-section">
+
+      <h2>
+        Integrating Static and Dynamic Molecular Information
+      </h2>
+
+      <p>
+        Dynamic information obtained from non-adiabatic simulations
+        will subsequently be incorporated into the discovery datasets.
+      </p>
+
+      <p>
+        This will allow the models to account not only for static
+        reaction energetics but also for the excited-state processes
+        that determine whether a photoexcited complex successfully
+        enters the catalytic cycle.
+      </p>
+
+      <p>
+        Molecular candidates will therefore be evaluated according to
+        both conventional catalytic descriptors and dynamical
+        properties such as:
+      </p>
+
+      <ul class="methods-list">
+
+        <li>
+          Excited-state lifetimes
+        </li>
+
+        <li>
+          Charge-transfer relaxation rates
+        </li>
+
+        <li>
+          Intersystem-crossing probabilities
+        </li>
+
+        <li>
+          Population of productive photoreactive states
+        </li>
+
+        <li>
+          Access to deactivating metal-centred states
+        </li>
+
+        <li>
+          Competing ligand-dissociation pathways
+        </li>
+
+      </ul>
+
+    </section>
+
+
+
+    <!-- INVERSE DESIGN -->
+
+    <section class="research-section">
+
+      <h2>
+        Chemical-Space Exploration and Inverse Design
+      </h2>
+
+      <p>
+        The resulting models will be combined with chemical-space
+        exploration and inverse-design approaches to identify ligand
+        environments and molecular architectures that optimise
+        multiple properties simultaneously.
+      </p>
+
+      <p>
+        Candidate photocatalysts will not be selected on the basis of
+        a single favourable quantity. Instead, design objectives will
+        include light absorption, excited-state lifetime, electron
+        transfer, CO<sub>2</sub> activation, catalytic barriers,
+        molecular stability, and elemental abundance.
+      </p>
+
+      <div class="highlight">
+        Multi-objective optimisation will enable the discovery of
+        catalysts that balance photophysical performance,
+        ground-state reactivity, chemical stability, and sustainable
+        molecular composition.
+      </div>
+
+    </section>
+
+
+
+    <!-- OBJECTIVES -->
+
+    <section class="research-section">
+
+      <h2>
+        Principal Research Objectives
+      </h2>
+
+      <div class="objectives-grid">
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 01
+          </div>
+
+          <h3>
+            Connect Re(I) and Mn(I) Catalysis
+          </h3>
+
+          <p>
+            Establish quantitative relationships that allow
+            mechanistic knowledge from Re(I) systems to guide the
+            design of sustainable Mn(I) photocatalysts.
+          </p>
+
+        </article>
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 02
+          </div>
+
+          <h3>
+            Map Complete Photocatalytic Mechanisms
+          </h3>
+
+          <p>
+            Connect photon absorption, excited-state relaxation,
+            electron transfer, CO<sub>2</sub> activation, product
+            formation, and catalyst regeneration.
+          </p>
+
+        </article>
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 03
+          </div>
+
+          <h3>
+            Accelerate Excited-State Dynamics
+          </h3>
+
+          <p>
+            Develop multistate machine-learning potentials capable of
+            extending non-adiabatic simulations to larger systems and
+            longer timescales.
+          </p>
+
+        </article>
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 04
+          </div>
+
+          <h3>
+            Enable Inverse Molecular Design
+          </h3>
+
+          <p>
+            Use machine learning and uncertainty-aware exploration to
+            identify molecular structures with balanced
+            photophysical and catalytic properties.
+          </p>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- METHODS -->
+
+    <section class="research-section">
+
+      <h2>
+        Computational Framework
+      </h2>
+
+      <ul class="methods-list">
+
+        <li>
+          Ground- and excited-state density-functional theory
+        </li>
+
+        <li>
+          Multireference electronic-structure methods
+        </li>
+
+        <li>
+          Reaction-pathway and transition-state calculations
+        </li>
+
+        <li>
+          Spin–orbit and non-adiabatic coupling calculations
+        </li>
+
+        <li>
+          Surface-hopping molecular dynamics
+        </li>
+
+        <li>
+          Multistate machine-learning potentials
+        </li>
+
+        <li>
+          Uncertainty-aware active learning
+        </li>
+
+        <li>
+          Automated high-throughput workflows
+        </li>
+
+        <li>
+          Chemical-space exploration
+        </li>
+
+        <li>
+          Multi-objective optimisation and inverse design
+        </li>
+
+      </ul>
+
+    </section>
+
+
+
+    <!-- LONG-TERM VISION -->
+
+    <section class="research-section">
+
+      <h2>
+        Long-Term Research Vision
+      </h2>
+
+      <p>
+        The long-term aim is to establish an iterative discovery cycle
+        in which
+        <strong>
+          quantum chemistry, excited-state dynamics, machine learning,
+          and inverse molecular design
+        </strong>
+        work together to accelerate the transition from scarce
+        Re-based photocatalysts towards efficient and sustainable
+        Mn-based alternatives.
+      </p>
+
+      <div class="highlight">
+        Beyond CO<sub>2</sub> reduction, the resulting methodology
+        will provide a general framework for discovering molecular
+        photocatalysts whose performance depends jointly on
+        ground-state reactivity and excited-state dynamics.
+      </div>
+
+    </section>
+
+
+
+    <!-- BACK -->
+
+    <div class="bottom-navigation">
+
+      <a
+        class="button"
+        href="index.html#research"
+      >
+        ← Return to Research Themes
+      </a>
+
+    </div>
+
+
+  </div>
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+
+<footer>
+
+  <div class="container">
+    © 2026 Prashant Kumar · Computational Chemistry
+  </div>
+
+</footer>
+
+
+</body>
+
+</html>
