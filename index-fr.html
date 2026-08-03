@@ -920,23 +920,25 @@
      ========================= -->
 
 <nav>
-  <div class="container nav-inner">
 
-    <a
-      href="#home"
-      class="brand"
-    >
-      Dr. Prashant Kumar, PhD, MRSC
+  <div class="nav-inner">
+
+    <a class="brand" href="index-fr.html">
+      Dr Prashant Kumar, PhD, MRSC
     </a>
 
     <div class="nav-links">
 
+      <a href="#home">
+        Accueil
+      </a>
+
       <a href="#research">
-        Research
+        Recherche
       </a>
 
       <a href="#experience">
-        Experience
+        Expérience
       </a>
 
       <a href="#publications">
@@ -944,28 +946,48 @@
       </a>
 
       <a href="#skills">
-        Skills
+        Compétences
+      </a>
+
+      <a href="#awards">
+        Distinctions
+      </a>
+
+      <a href="blog.html">
+        Blog
       </a>
 
       <a href="#contact">
         Contact
       </a>
 
-      <a href="blog.html">
-         Blog
-      </a>
-
       <div class="language-selector">
-        <select onchange="window.location.href=this.value">
-          <option value="index.html">🌐 English</option>
-          <option value="index-hi.html">हिन्दी</option>
-          <option value="index-fr.html" selected>Français</option>
+
+        <select
+          aria-label="Choisir la langue"
+          onchange="window.location.href=this.value"
+        >
+
+          <option value="index.html">
+            English
+          </option>
+
+          <option value="index-hi.html">
+            हिन्दी
+          </option>
+
+          <option value="index-fr.html" selected>
+            Français
+          </option>
+
         </select>
+
       </div>
 
     </div>
 
   </div>
+
 </nav>
 
 <div class="development-notice" lang="fr">
@@ -1070,31 +1092,31 @@
 </header>
 
 
-
 <!-- =========================
-     RESEARCH
+     RECHERCHE
      ========================= -->
 
-<section id="research">
+<section id="research" lang="fr">
 
   <div class="container">
 
     <div class="section-heading">
 
       <div class="section-label">
-        Research
+        Recherche
       </div>
 
       <h2>
-        Research Interests
+        Axes de recherche
       </h2>
 
       <p class="section-intro">
-
-        My work combines quantum chemistry, molecular dynamics,
-        data-driven modelling, and automated computational workflows
-        to understand excited-state phenomena in molecular materials.
-
+        Mes recherches combinent la chimie quantique, la dynamique des
+        états excités, l’apprentissage automatique et des chaînes de calcul
+        automatisées afin de comprendre et de concevoir des matériaux
+        moléculaires photoactifs destinés à l’optoélectronique, à la santé,
+        à la catalyse, à la détection moléculaire et aux technologies
+        énergétiques durables.
       </p>
 
     </div>
@@ -1102,6 +1124,7 @@
 
     <div class="research-grid">
 
+      <!-- THÈME 01 -->
 
       <article class="research-card">
 
@@ -1110,20 +1133,24 @@
         </div>
 
         <h3>
-          Excited-State Electronic Structure
+          Matériaux moléculaires pour l’optoélectronique de nouvelle génération
         </h3>
 
         <p>
-
-          Computational modelling of electronically excited states,
-          photochemical pathways, energy transfer, emission processes,
-          and electronic structure using density-functional and
-          wavefunction-based approaches.
-
+          Étude computationnelle et conception d’émetteurs moléculaires
+          phosphorescents, TADF et radicalaires, avec un intérêt particulier
+          pour l’émission lumineuse, la dynamique des états excités,
+          la dégradation moléculaire et la stabilité opérationnelle.
         </p>
+
+        <a class="see-more" href="optoelectronics.html">
+          En savoir plus →
+        </a>
 
       </article>
 
+
+      <!-- THÈME 02 -->
 
       <article class="research-card">
 
@@ -1132,20 +1159,24 @@
         </div>
 
         <h3>
-          OLEDs & Molecular Photophysics
+          Systèmes moléculaires photoactifs et résistance aux antimicrobiens
         </h3>
 
         <p>
-
-          Investigation of molecular emitters, radical-based OLED
-          systems, doublet emission, degradation pathways, and
-          structure-property relationships in photoactive molecular
-          materials.
-
+          Étude de molécules photoactives capables de libérer des espèces
+          thérapeutiques ou de produire des espèces réactives de l’oxygène,
+          avec des applications potentielles en thérapie photodynamique et
+          dans la lutte contre la résistance aux antimicrobiens.
         </p>
+
+        <a class="see-more" href="photoactive-amr.html">
+          En savoir plus →
+        </a>
 
       </article>
 
+
+      <!-- THÈME 03 -->
 
       <article class="research-card">
 
@@ -1154,20 +1185,25 @@
         </div>
 
         <h3>
-          Machine Learning & Molecular Dynamics
+          Conception guidée par les données de photocatalyseurs pour la
+          conversion du CO<sub>2</sub>
         </h3>
 
         <p>
-
-          Development of machine-learning-assisted approaches,
-          active-learning strategies, and data-efficient workflows
-          for molecular dynamics and nonadiabatic excited-state
-          simulations.
-
+          Combinaison de la théorie de la structure électronique,
+          de l’apprentissage automatique et du criblage à haut débit
+          afin de découvrir des photocatalyseurs moléculaires destinés
+          à l’activation et à la conversion du dioxyde de carbone.
         </p>
+
+        <a class="see-more" href="co2-photocatalysis.html">
+          En savoir plus →
+        </a>
 
       </article>
 
+
+      <!-- THÈME 04 -->
 
       <article class="research-card">
 
@@ -1176,19 +1212,21 @@
         </div>
 
         <h3>
-          High-Throughput Computational Chemistry
+          Capteurs moléculaires à l’état excité : ESIPT et aromaticité
         </h3>
 
         <p>
-
-          Automated electronic-structure calculations and scalable
-          computational pipelines for data generation, molecular
-          screening, and high-performance computing environments.
-
+          Étude de la manière dont le transfert de proton à l’état excité,
+          l’aromaticité, la redistribution électronique et l’environnement
+          moléculaire contrôlent la fluorescence et les propriétés de
+          détection moléculaire.
         </p>
 
-      </article>
+        <a class="see-more" href="excited-state-sensors.html">
+          En savoir plus →
+        </a>
 
+      </article>
 
     </div>
 
