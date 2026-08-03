@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Research on excited-state molecular sensors, ESIPT, aromaticity, and anti-Kasha emission by Dr. Prashant Kumar."
+  >
+
+  <title>
+    Excited-State Molecular Sensors: ESIPT and Aromaticity | Prashant Kumar
+  </title>
+
+
+  <style>
+
+    /* =========================
+       GENERAL
+       ========================= */
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --navy: #0b1f33;
+      --blue: #1769aa;
+      --blue-dark: #0f4f82;
+      --blue-light: #eaf3fb;
+      --text: #1f2937;
+      --muted: #5f6b7a;
+      --background: #f7f9fc;
+      --white: #ffffff;
+      --border: #e4e9f0;
+      --shadow: 0 12px 35px rgba(10, 40, 70, 0.08);
+    }
+
+    body {
+      margin: 0;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      color: var(--text);
+      background: var(--background);
+      line-height: 1.8;
+    }
+
+    a {
+      color: var(--blue);
+    }
+
+    .container {
+      width: min(950px, 92%);
+      margin: 0 auto;
+    }
+
+
+    /* =========================
+       NAVIGATION
+       ========================= */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-inner {
+      width: min(1120px, 92%);
+      min-height: 72px;
+      margin: 0 auto;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .brand {
+      color: var(--navy);
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .back-link {
+      color: var(--blue);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      color: var(--blue-dark);
+      text-decoration: underline;
+    }
+
+
+    /* =========================
+       HERO
+       ========================= */
+
+    .research-hero {
+      padding: 90px 0 75px;
+
+      background:
+        radial-gradient(
+          circle at 85% 15%,
+          rgba(23, 105, 170, 0.13),
+          transparent 32%
+        ),
+        linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #f3f8fc 100%
+        );
+    }
+
+    .research-label {
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    h1 {
+      max-width: 930px;
+
+      margin: 14px 0 25px;
+
+      color: var(--navy);
+
+      font-size: clamp(2.5rem, 6vw, 4.6rem);
+      line-height: 1.1;
+      letter-spacing: -1.8px;
+    }
+
+    .hero-intro {
+      max-width: 850px;
+      margin: 0;
+
+      color: #40546a;
+      font-size: 1.2rem;
+      line-height: 1.8;
+    }
+
+
+    /* =========================
+       MAIN CONTENT
+       ========================= */
+
+    main {
+      padding: 75px 0 90px;
+    }
+
+    .research-section {
+      margin-bottom: 58px;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+
+      color: var(--navy);
+      font-size: clamp(1.7rem, 4vw, 2.25rem);
+      line-height: 1.3;
+    }
+
+    h3 {
+      color: var(--navy);
+    }
+
+    p {
+      margin: 0 0 22px;
+
+      color: #46576a;
+      font-size: 1.06rem;
+    }
+
+    strong {
+      color: var(--navy);
+    }
+
+
+    /* =========================
+       HIGHLIGHT BOX
+       ========================= */
+
+    .highlight {
+      margin: 35px 0;
+      padding: 27px 30px;
+
+      background: var(--blue-light);
+
+      border-left: 4px solid var(--blue);
+      border-radius: 10px;
+
+      color: #18364f;
+      font-size: 1.08rem;
+    }
+
+
+    /* =========================
+       PAPER CITATIONS
+       ========================= */
+
+    .paper-citation {
+      display: inline;
+
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .paper-citation:hover {
+      color: var(--blue-dark);
+      text-decoration: underline;
+    }
+
+
+    /* =========================
+       PUBLICATION BOXES
+       ========================= */
+
+    .publication-box {
+      margin-top: 25px;
+      padding: 24px 27px;
+
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+
+      box-shadow:
+        0 6px 20px rgba(20, 50, 80, 0.04);
+    }
+
+    .publication-box h3 {
+      margin: 0 0 9px;
+      font-size: 1.03rem;
+    }
+
+    .publication-box p {
+      margin: 0 0 8px;
+      font-size: 0.97rem;
+    }
+
+    .publication-box a {
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .publication-box a:hover {
+      text-decoration: underline;
+    }
+
+
+    /* =========================
+       PROCESS PATHWAY
+       ========================= */
+
+    .pathway {
+      margin: 35px 0;
+      padding: 26px;
+
+      background: var(--navy);
+      border-radius: 12px;
+
+      color: white;
+      text-align: center;
+
+      font-size: 1.12rem;
+      font-weight: 700;
+      line-height: 2;
+    }
+
+    .pathway span {
+      color: #8dc9f3;
+    }
+
+
+    /* =========================
+       METHODS
+       ========================= */
+
+    .methods-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+
+      padding: 0;
+      margin: 25px 0 0;
+
+      list-style: none;
+    }
+
+    .methods-list li {
+      padding: 16px 18px;
+
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      color: #40546a;
+    }
+
+    .methods-list li::before {
+      content: "→";
+      margin-right: 9px;
+
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+
+    /* =========================
+       OBJECTIVES
+       ========================= */
+
+    .objectives-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+
+      margin-top: 30px;
+    }
+
+    .objective-card {
+      padding: 25px;
+
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+
+      box-shadow:
+        0 6px 20px rgba(20, 50, 80, 0.04);
+    }
+
+    .objective-number {
+      margin-bottom: 8px;
+
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .objective-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+    }
+
+    .objective-card p {
+      margin: 0;
+      font-size: 0.98rem;
+    }
+
+
+    /* =========================
+       BACK BUTTON
+       ========================= */
+
+    .bottom-navigation {
+      margin-top: 60px;
+      padding-top: 35px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .button {
+      display: inline-block;
+
+      padding: 11px 19px;
+
+      color: white;
+      background: var(--blue);
+
+      border-radius: 8px;
+
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .button:hover {
+      background: var(--blue-dark);
+    }
+
+
+    /* =========================
+       FOOTER
+       ========================= */
+
+    footer {
+      padding: 30px 0 45px;
+
+      color: #6b7280;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 750px) {
+
+      .nav-inner {
+        min-height: auto;
+        padding: 18px 0;
+
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 8px;
+      }
+
+      .research-hero {
+        padding: 65px 0 55px;
+      }
+
+      main {
+        padding: 55px 0 70px;
+      }
+
+      .objectives-grid,
+      .methods-list {
+        grid-template-columns: 1fr;
+      }
+
+      .highlight {
+        padding: 22px;
+      }
+
+      .pathway {
+        text-align: left;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVIGATION
+     ========================= -->
+
+<nav>
+
+  <div class="nav-inner">
+
+    <a
+      class="brand"
+      href="index.html"
+    >
+      Dr. Prashant Kumar, PhD, MRSC
+    </a>
+
+    <a
+      class="back-link"
+      href="index.html#research"
+    >
+      ← Back to Research Themes
+    </a>
+
+  </div>
+
+</nav>
+
+
+
+<!-- =========================
+     HERO
+     ========================= -->
+
+<header class="research-hero">
+
+  <div class="container">
+
+    <div class="research-label">
+      Research Theme 04
+    </div>
+
+    <h1>
+      Excited-State Molecular Sensors: ESIPT and Aromaticity
+    </h1>
+
+    <p class="hero-intro">
+      Using proton transfer, excited-state aromaticity, non-canonical
+      emission pathways, and molecular-environment sensitivity to
+      design responsive fluorophores with programmable optical
+      properties.
+    </p>
+
+  </div>
+
+</header>
+
+
+
+<!-- =========================
+     RESEARCH CONTENT
+     ========================= -->
+
+<main>
+
+  <div class="container">
+
+
+    <!-- RESEARCH OVERVIEW -->
+
+    <section class="research-section">
+
+      <h2>
+        Research Overview
+      </h2>
+
+      <p>
+        Excited-state aromaticity provides a powerful framework for
+        understanding and controlling photophysical and photochemical
+        processes.
+      </p>
+
+      <p>
+        Its practical exploitation is often complicated by the
+        relationship between favourable aromaticity in an excited state
+        and destabilising antiaromaticity in the electronic ground
+        state.
+      </p>
+
+      <p>
+        A particularly promising strategy is to generate aromatic
+        stabilisation only after photoexcitation through
+        <strong>
+          excited-state intramolecular proton transfer (ESIPT)
+        </strong>.
+      </p>
+
+      <p>
+        Recent computational work has demonstrated that
+        proton-transfer-induced excited-state aromaticity can produce
+        pronounced structural and electronic relaxation, including
+        calculated Stokes shifts exceeding 2 eV
+
+        <a
+          class="paper-citation"
+          href="https://doi.org/10.1039/D4SC04692G"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          (Chem. Sci. 2024, 15, 17918–17926)
+        </a>.
+      </p>
+
+      <div class="highlight">
+        The central idea is to use proton transfer not merely as an
+        excited-state relaxation pathway, but as a molecular-design
+        tool for switching aromaticity, redistributing electron
+        density, and programming fluorescence.
+      </div>
+
+    </section>
+
+
+
+    <!-- COUPLING PROTON TRANSFER AND AROMATICITY -->
+
+    <section class="research-section">
+
+      <h2>
+        Coupling Proton Transfer and Excited-State Aromaticity
+      </h2>
+
+      <p>
+        My research will investigate how proton transfer, electronic
+        excitation, structural relaxation, and changes in aromaticity
+        can be coupled and controlled through molecular design.
+      </p>
+
+      <p>
+        The objective will be to establish quantitative relationships
+        between molecular structure, proton-transfer energetics,
+        excited-state aromaticity, and experimentally observable
+        photophysical properties.
+      </p>
+
+      <p>
+        Particular emphasis will be placed on understanding how
+        chemical substitution, heteroatom incorporation, conjugation,
+        molecular rigidity, and intramolecular hydrogen-bonding motifs
+        tune the balance between the normal and proton-transferred
+        excited states.
+      </p>
+
+      <div class="pathway">
+        Photon absorption
+        <span>→</span>
+        electronic redistribution
+        <span>→</span>
+        proton transfer
+        <span>→</span>
+        aromaticity gain
+        <span>→</span>
+        relaxed fluorescence
+      </div>
+
+    </section>
+
+
+
+    <!-- POTENTIAL ENERGY SURFACES -->
+
+    <section class="research-section">
+
+      <h2>
+        Potential-Energy Surfaces and Competing Pathways
+      </h2>
+
+      <p>
+        Ground- and excited-state potential-energy surfaces will be
+        characterised using density-functional, correlated
+        wavefunction, and multireference methods where required.
+      </p>
+
+      <p>
+        These calculations will determine the relative energies of
+        normal and proton-transferred structures, proton-transfer
+        barriers, state crossings, conical intersections, and
+        competing non-radiative pathways.
+      </p>
+
+      <p>
+        Electronic-structure analysis and excited-state aromaticity
+        descriptors will be combined with non-adiabatic molecular
+        dynamics to examine competition between:
+      </p>
+
+      <ul class="methods-list">
+
+        <li>
+          Excited-state proton transfer
+        </li>
+
+        <li>
+          Fluorescence from normal and tautomeric structures
+        </li>
+
+        <li>
+          Internal conversion
+        </li>
+
+        <li>
+          Intersystem crossing
+        </li>
+
+        <li>
+          Conical-intersection-mediated relaxation
+        </li>
+
+        <li>
+          Environment-induced trapping or deactivation
+        </li>
+
+      </ul>
+
+      <p style="margin-top:30px;">
+        This dynamical treatment will move beyond static assignments
+        of aromaticity and determine how aromatic character evolves in
+        real time following photoexcitation.
+      </p>
+
+    </section>
+
+
+
+    <!-- STOKES SHIFTS -->
+
+    <section class="research-section">
+
+      <h2>
+        Chromophores with Large and Tunable Stokes Shifts
+      </h2>
+
+      <p>
+        A major direction will be the computational discovery of new
+        chromophores in which proton-transfer-induced aromatic
+        stabilisation produces large and controllable Stokes shifts.
+      </p>
+
+      <p>
+        Large separation between absorption and emission can reduce
+        spectral overlap, self-absorption, and background interference,
+        making such molecules attractive for fluorescence sensing,
+        imaging, and optical materials.
+      </p>
+
+      <p>
+        High-throughput calculations will be used to explore families
+        of ESIPT-active molecules and identify the structural features
+        controlling:
+      </p>
+
+      <ul class="methods-list">
+
+        <li>
+          Absorption and emission wavelengths
+        </li>
+
+        <li>
+          Proton-transfer barriers
+        </li>
+
+        <li>
+          Excited-state aromaticity gain
+        </li>
+
+        <li>
+          Normal-to-tautomer emission ratios
+        </li>
+
+        <li>
+          Radiative and non-radiative rates
+        </li>
+
+        <li>
+          Photochemical and thermal stability
+        </li>
+
+      </ul>
+
+    </section>
+
+
+
+    <!-- ANTI-KASHA -->
+
+    <section class="research-section">
+
+      <h2>
+        Anti-Kasha Emission and Higher Excited States
+      </h2>
+
+      <p>
+        Most molecular fluorescence follows Kasha’s rule, according to
+        which emission occurs from the lowest excited state of a given
+        multiplicity after rapid relaxation from higher states.
+      </p>
+
+      <p>
+        Some chromophores instead display
+        <strong>anti-Kasha emission</strong>, in which fluorescence
+        originates partly or predominantly from a higher-lying excited
+        state.
+      </p>
+
+      <p>
+        Work from Daniel Escudero and co-workers has demonstrated that
+        predicting such behaviour requires a state-resolved kinetic
+        model containing the relevant radiative and non-radiative
+        processes rather than relying only on excited-state energy
+        gaps
+
+        <a
+          class="paper-citation"
+          href="https://doi.org/10.1021/acs.jpca.0c05205"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          (J. Phys. Chem. A 2020, 124, 7228–7237)
+        </a>.
+      </p>
+
+      <p>
+        Their broader analysis emphasised the central role of
+        electron–vibrational coupling in determining whether
+        higher-state fluorescence can compete successfully with
+        internal conversion
+
+        <a
+          class="paper-citation"
+          href="https://doi.org/10.1021/acs.accounts.2c00453"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          (Acc. Chem. Res. 2022, 55, 2698–2707)
+        </a>.
+      </p>
+
+      <div class="highlight">
+        I will investigate whether proton-transfer-induced aromaticity
+        can stabilise selected higher excited states, suppress rapid
+        internal conversion, or create excitation-dependent and
+        dual-emission responses suitable for molecular sensing.
+      </div>
+
+
+      <div class="publication-box">
+
+        <h3>
+          Relevant methodological precedent
+        </h3>
+
+        <p>
+          <strong>
+            Computational Protocol to Predict Anti-Kasha Emissions:
+            The Case of Azulene Derivatives
+          </strong>
+        </p>
+
+        <p>
+          Koen Veys and Daniel Escudero
+        </p>
+
+        <a
+          href="https://doi.org/10.1021/acs.jpca.0c05205"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Read the paper →
+        </a>
+
+      </div>
+
+
+      <div class="publication-box">
+
+        <h3>
+          Perspective on anomalous fluorescence
+        </h3>
+
+        <p>
+          <strong>
+            Anti-Kasha Fluorescence in Molecular Entities:
+            Central Role of Electron–Vibrational Coupling
+          </strong>
+        </p>
+
+        <p>
+          Koen Veys and Daniel Escudero
+        </p>
+
+        <a
+          href="https://doi.org/10.1021/acs.accounts.2c00453"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Read the paper →
+        </a>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- EL-SAYED -->
+
+    <section class="research-section">
+
+      <h2>
+        Non-Canonical Spin Dynamics and El-Sayed-Type Behaviour
+      </h2>
+
+      <p>
+        Anti-Kasha emission and El-Sayed’s rule describe different
+        aspects of molecular photophysics.
+      </p>
+
+      <p>
+        Kasha’s rule concerns the electronic state from which emission
+        occurs, whereas El-Sayed’s rule provides a qualitative
+        expectation for when intersystem crossing between singlet and
+        triplet states may be enhanced by a change in orbital
+        character.
+      </p>
+
+      <p>
+        Neither should be treated as an absolute law when several
+        closely spaced states, strong vibronic coupling, proton
+        transfer, conformational motion, or state mixing are present.
+      </p>
+
+      <p>
+        I will therefore investigate systems in which conventional
+        Kasha and El-Sayed expectations become insufficient. Rather
+        than assigning a pathway solely from state labels, the research
+        will calculate and compare:
+      </p>
+
+      <ul class="methods-list">
+
+        <li>
+          State-specific radiative emission rates
+        </li>
+
+        <li>
+          Internal-conversion rates
+        </li>
+
+        <li>
+          Spin–orbit couplings
+        </li>
+
+        <li>
+          Intersystem-crossing rates
+        </li>
+
+        <li>
+          Electron–vibrational coupling
+        </li>
+
+        <li>
+          Proton-transfer and structural-relaxation timescales
+        </li>
+
+      </ul>
+
+      <p style="margin-top:30px;">
+        This will allow higher-state emission, dual fluorescence,
+        delayed pathways, and non-canonical intersystem crossing to be
+        distinguished on a quantitative kinetic basis.
+      </p>
+
+      <p>
+        An important caution will be to distinguish genuine
+        higher-state emission from alternative explanations such as
+        different protonation states, tautomers, conformers, or
+        molecular aggregates. This issue has been highlighted in work
+        from the Escudero group examining whether apparent
+        excitation-dependent fluorescence is truly anti-Kasha
+
+        <a
+          class="paper-citation"
+          href="https://doi.org/10.1002/cptc.202200262"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          (ChemPhotoChem 2023, DOI: 10.1002/cptc.202200262)
+        </a>.
+      </p>
+
+    </section>
+
+
+
+    <!-- AROMATICITY AND ANTI-KASHA -->
+
+    <section class="research-section">
+
+      <h2>
+        Connecting Aromaticity with Anti-Kasha Behaviour
+      </h2>
+
+      <p>
+        Excited-state aromaticity may provide a molecular-level
+        mechanism for engineering the relative lifetimes of different
+        electronic states.
+      </p>
+
+      <p>
+        A higher excited state stabilised by aromaticity may retain its
+        energy and remain emissive, while a lower antiaromatic state
+        may undergo strong geometric distortion and rapid
+        non-radiative relaxation.
+      </p>
+
+      <p>
+        This connection has been demonstrated for azulene, where
+        contrasting aromatic and antiaromatic character in the
+        S<sub>2</sub> and S<sub>1</sub> states helps explain its
+        characteristic anti-Kasha fluorescence
+
+        <a
+          class="paper-citation"
+          href="https://doi.org/10.1021/jacs.3c07625"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          (J. Am. Chem. Soc. 2023, 145, 21569–21575)
+        </a>.
+      </p>
+
+      <p>
+        My research will test whether proton transfer can be used to
+        create similar state-selective aromatic stabilisation in new
+        chromophores, thereby tuning both the emitting state and the
+        competition between radiative and non-radiative pathways.
+      </p>
+
+    </section>
+
+
+
+    <!-- SENSORS -->
+
+    <section class="research-section">
+
+      <h2>
+        Environment-Responsive Fluorophores and Molecular Sensors
+      </h2>
+
+      <p>
+        In the longer term, these design principles will be translated
+        towards
+        <strong>
+          environment-responsive fluorophores and molecular sensing
+        </strong>.
+      </p>
+
+      <p>
+        ESIPT is strongly influenced by hydrogen bonding, protonation,
+        polarity, viscosity, conformational restriction, and local
+        molecular environment.
+      </p>
+
+      <p>
+        Perturbing the proton-transfer pathway can therefore provide a
+        sensitive optical readout.
+      </p>
+
+      <p>
+        I will investigate molecular systems in which analyte binding
+        or environmental change modifies:
+      </p>
+
+      <ul class="methods-list">
+
+        <li>
+          Proton-transfer probability
+        </li>
+
+        <li>
+          Excited-state aromaticity
+        </li>
+
+        <li>
+          Emission wavelength
+        </li>
+
+        <li>
+          Fluorescence intensity
+        </li>
+
+        <li>
+          Normal-to-tautomer emission ratio
+        </li>
+
+        <li>
+          Higher-state versus lowest-state emission
+        </li>
+
+      </ul>
+
+      <div class="highlight">
+        The long-term sensing objective is to convert a microscopic
+        change in hydrogen bonding, protonation, polarity, or molecular
+        recognition into a large and readily measurable optical
+        response.
+      </div>
+
+    </section>
+
+
+
+    <!-- DATA-DRIVEN DISCOVERY -->
+
+    <section class="research-section">
+
+      <h2>
+        Data-Driven Chromophore Discovery
+      </h2>
+
+      <p>
+        High-throughput quantum-chemical calculations and
+        machine-learning models will be used to explore extended
+        families of ESIPT-active and aromaticity-switching
+        chromophores.
+      </p>
+
+      <p>
+        Initial datasets will contain molecular structures and
+        properties such as:
+      </p>
+
+      <ul class="methods-list">
+
+        <li>
+          Vertical absorption energies
+        </li>
+
+        <li>
+          Relaxed emission energies
+        </li>
+
+        <li>
+          Proton-transfer energetics and barriers
+        </li>
+
+        <li>
+          Aromaticity descriptors
+        </li>
+
+        <li>
+          Oscillator strengths and radiative rates
+        </li>
+
+        <li>
+          Internal-conversion and intersystem-crossing descriptors
+        </li>
+
+        <li>
+          Hydrogen-bonding and environmental sensitivity
+        </li>
+
+        <li>
+          Photochemical stability indicators
+        </li>
+
+      </ul>
+
+      <p style="margin-top:30px;">
+        Active learning will identify regions of chemical space where
+        additional high-level calculations provide the greatest
+        improvement to predictive models.
+      </p>
+
+      <p>
+        Multi-objective optimisation will then search for chromophores
+        combining large Stokes shifts, strong emission, environmental
+        sensitivity, low non-radiative loss, and molecular stability.
+      </p>
+
+    </section>
+
+
+
+    <!-- METHODS -->
+
+    <section class="research-section">
+
+      <h2>
+        Computational Framework
+      </h2>
+
+      <ul class="methods-list">
+
+        <li>
+          Ground- and excited-state density-functional theory
+        </li>
+
+        <li>
+          Correlated wavefunction methods
+        </li>
+
+        <li>
+          Multireference electronic-structure calculations
+        </li>
+
+        <li>
+          Excited-state aromaticity descriptors
+        </li>
+
+        <li>
+          Proton-transfer reaction-pathway calculations
+        </li>
+
+        <li>
+          Conical-intersection optimisation
+        </li>
+
+        <li>
+          Non-adiabatic molecular dynamics
+        </li>
+
+        <li>
+          Radiative and non-radiative rate calculations
+        </li>
+
+        <li>
+          Spin–orbit and vibronic-coupling analysis
+        </li>
+
+        <li>
+          High-throughput and machine-learning workflows
+        </li>
+
+      </ul>
+
+    </section>
+
+
+
+    <!-- OBJECTIVES -->
+
+    <section class="research-section">
+
+      <h2>
+        Principal Research Objectives
+      </h2>
+
+      <div class="objectives-grid">
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 01
+          </div>
+
+          <h3>
+            Control Excited-State Aromaticity
+          </h3>
+
+          <p>
+            Establish how proton transfer and molecular substitution
+            can generate and tune aromatic stabilisation after
+            photoexcitation.
+          </p>
+
+        </article>
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 02
+          </div>
+
+          <h3>
+            Engineer Large Stokes Shifts
+          </h3>
+
+          <p>
+            Discover chromophores whose excited-state structural and
+            electronic relaxation creates large, tunable separation
+            between absorption and emission.
+          </p>
+
+        </article>
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 03
+          </div>
+
+          <h3>
+            Reveal Non-Canonical Emission
+          </h3>
+
+          <p>
+            Determine when higher excited states, proton-transferred
+            structures, or unusual spin pathways generate anti-Kasha,
+            dual, or excitation-dependent fluorescence.
+          </p>
+
+        </article>
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 04
+          </div>
+
+          <h3>
+            Design Responsive Molecular Sensors
+          </h3>
+
+          <p>
+            Translate environment-dependent proton transfer and
+            aromaticity changes into selective and measurable optical
+            signals.
+          </p>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- LONG-TERM VISION -->
+
+    <section class="research-section">
+
+      <h2>
+        Long-Term Research Vision
+      </h2>
+
+      <p>
+        This programme will connect fundamental questions in
+        excited-state aromaticity, proton-transfer dynamics,
+        electron–vibrational coupling, and non-canonical emission with
+        predictive chromophore and sensor design.
+      </p>
+
+      <div class="highlight">
+        The long-term goal is to establish proton transfer and
+        aromaticity switching as practical tools for engineering
+        excited-state electronic structure, controlling which state
+        emits, and creating molecular sensors with programmable
+        fluorescence responses.
+      </div>
+
+    </section>
+
+
+
+    <!-- BACK -->
+
+    <div class="bottom-navigation">
+
+      <a
+        class="button"
+        href="index.html#research"
+      >
+        ← Return to Research Themes
+      </a>
+
+    </div>
+
+
+  </div>
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+
+<footer>
+
+  <div class="container">
+    © 2026 Prashant Kumar · Computational Chemistry
+  </div>
+
+</footer>
+
+
+</body>
+
+</html>
