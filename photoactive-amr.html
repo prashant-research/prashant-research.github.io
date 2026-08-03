@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Research on photoactive molecular systems and antimicrobial resistance by Dr. Prashant Kumar."
+  >
+
+  <title>
+    Photoactive Molecular Systems and Antimicrobial Resistance | Prashant Kumar
+  </title>
+
+
+  <style>
+
+    /* =========================
+       GENERAL
+       ========================= */
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --navy: #0b1f33;
+      --blue: #1769aa;
+      --blue-dark: #0f4f82;
+      --blue-light: #eaf3fb;
+      --text: #1f2937;
+      --muted: #5f6b7a;
+      --background: #f7f9fc;
+      --white: #ffffff;
+      --border: #e4e9f0;
+      --shadow: 0 12px 35px rgba(10, 40, 70, 0.08);
+    }
+
+    body {
+      margin: 0;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      color: var(--text);
+      background: var(--background);
+      line-height: 1.8;
+    }
+
+    a {
+      color: var(--blue);
+    }
+
+    .container {
+      width: min(950px, 92%);
+      margin: 0 auto;
+    }
+
+
+    /* =========================
+       NAVIGATION
+       ========================= */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-inner {
+      width: min(1120px, 92%);
+      min-height: 72px;
+      margin: 0 auto;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .brand {
+      color: var(--navy);
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .back-link {
+      color: var(--blue);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      color: var(--blue-dark);
+      text-decoration: underline;
+    }
+
+
+    /* =========================
+       HERO
+       ========================= */
+
+    .research-hero {
+      padding: 90px 0 75px;
+
+      background:
+        radial-gradient(
+          circle at 85% 15%,
+          rgba(23, 105, 170, 0.13),
+          transparent 32%
+        ),
+        linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #f3f8fc 100%
+        );
+    }
+
+    .research-label {
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    h1 {
+      max-width: 920px;
+
+      margin: 14px 0 25px;
+
+      color: var(--navy);
+
+      font-size: clamp(2.5rem, 6vw, 4.6rem);
+      line-height: 1.1;
+      letter-spacing: -1.8px;
+    }
+
+    .hero-intro {
+      max-width: 850px;
+      margin: 0;
+
+      color: #40546a;
+      font-size: 1.2rem;
+      line-height: 1.8;
+    }
+
+
+    /* =========================
+       MAIN CONTENT
+       ========================= */
+
+    main {
+      padding: 75px 0 90px;
+    }
+
+    .research-section {
+      margin-bottom: 58px;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+
+      color: var(--navy);
+      font-size: clamp(1.7rem, 4vw, 2.25rem);
+      line-height: 1.3;
+    }
+
+    h3 {
+      color: var(--navy);
+    }
+
+    p {
+      margin: 0 0 22px;
+
+      color: #46576a;
+      font-size: 1.06rem;
+    }
+
+    strong {
+      color: var(--navy);
+    }
+
+
+    /* =========================
+       HIGHLIGHT BOX
+       ========================= */
+
+    .highlight {
+      margin: 35px 0;
+      padding: 27px 30px;
+
+      background: var(--blue-light);
+
+      border-left: 4px solid var(--blue);
+      border-radius: 10px;
+
+      color: #18364f;
+      font-size: 1.08rem;
+    }
+
+
+    /* =========================
+       PAPER CITATIONS
+       ========================= */
+
+    .paper-citation {
+      display: inline;
+
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .paper-citation:hover {
+      color: var(--blue-dark);
+      text-decoration: underline;
+    }
+
+
+    /* =========================
+       METHODS
+       ========================= */
+
+    .methods-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+
+      padding: 0;
+      margin: 25px 0 0;
+
+      list-style: none;
+    }
+
+    .methods-list li {
+      padding: 16px 18px;
+
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      color: #40546a;
+    }
+
+    .methods-list li::before {
+      content: "→";
+      margin-right: 9px;
+
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+
+    /* =========================
+       OBJECTIVES
+       ========================= */
+
+    .objectives-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+
+      margin-top: 30px;
+    }
+
+    .objective-card {
+      padding: 25px;
+
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+
+      box-shadow:
+        0 6px 20px rgba(20, 50, 80, 0.04);
+    }
+
+    .objective-number {
+      margin-bottom: 8px;
+
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .objective-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+    }
+
+    .objective-card p {
+      margin: 0;
+      font-size: 0.98rem;
+    }
+
+
+    /* =========================
+       PUBLICATION BOXES
+       ========================= */
+
+    .publication-box {
+      margin-top: 25px;
+      padding: 24px 27px;
+
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+
+      box-shadow:
+        0 6px 20px rgba(20, 50, 80, 0.04);
+    }
+
+    .publication-box h3 {
+      margin: 0 0 9px;
+      font-size: 1.03rem;
+    }
+
+    .publication-box p {
+      margin: 0 0 8px;
+      font-size: 0.97rem;
+    }
+
+    .publication-box a {
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .publication-box a:hover {
+      text-decoration: underline;
+    }
+
+
+    /* =========================
+       BACK BUTTON
+       ========================= */
+
+    .bottom-navigation {
+      margin-top: 60px;
+      padding-top: 35px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .button {
+      display: inline-block;
+
+      padding: 11px 19px;
+
+      color: white;
+      background: var(--blue);
+
+      border-radius: 8px;
+
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .button:hover {
+      background: var(--blue-dark);
+    }
+
+
+    /* =========================
+       FOOTER
+       ========================= */
+
+    footer {
+      padding: 30px 0 45px;
+
+      color: #6b7280;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 750px) {
+
+      .nav-inner {
+        min-height: auto;
+        padding: 18px 0;
+
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 8px;
+      }
+
+      .research-hero {
+        padding: 65px 0 55px;
+      }
+
+      main {
+        padding: 55px 0 70px;
+      }
+
+      .objectives-grid,
+      .methods-list {
+        grid-template-columns: 1fr;
+      }
+
+      .highlight {
+        padding: 22px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVIGATION
+     ========================= -->
+
+<nav>
+
+  <div class="nav-inner">
+
+    <a
+      class="brand"
+      href="index.html"
+    >
+      Dr. Prashant Kumar, PhD, MRSC
+    </a>
+
+    <a
+      class="back-link"
+      href="index.html#research"
+    >
+      ← Back to Research Themes
+    </a>
+
+  </div>
+
+</nav>
+
+
+
+<!-- =========================
+     HERO
+     ========================= -->
+
+<header class="research-hero">
+
+  <div class="container">
+
+    <div class="research-label">
+      Research Theme 02
+    </div>
+
+    <h1>
+      Photoactive Molecular Systems and Antimicrobial Resistance
+    </h1>
+
+    <p class="hero-intro">
+      Using excited-state chemistry, molecular dynamics, and
+      data-driven discovery to design light-activated molecules with
+      controllable and complementary therapeutic mechanisms.
+    </p>
+
+  </div>
+
+</header>
+
+
+
+<!-- =========================
+     RESEARCH CONTENT
+     ========================= -->
+
+<main>
+
+  <div class="container">
+
+
+    <!-- RESEARCH OVERVIEW -->
+
+    <section class="research-section">
+
+      <h2>
+        Research Overview
+      </h2>
+
+      <p>
+        The growing challenge of antimicrobial resistance (AMR)
+        motivates the development of therapeutic strategies that
+        operate through mechanisms distinct from conventional
+        antibiotics.
+      </p>
+
+      <p>
+        Photoactive molecular systems are particularly attractive in
+        this context because light provides spatial and temporal control
+        over molecular activation and can trigger multiple cytotoxic
+        pathways through the generation of reactive excited states,
+        reactive oxygen species, or therapeutic small molecules.
+      </p>
+
+      <p>
+        My previous research on Re(I)-based photochemically
+        CO-releasing molecules (PhotoCORMs) provides the foundation for
+        developing this direction towards computationally designed,
+        multimodal photoactive molecular therapeutics.
+      </p>
+
+      <div class="highlight">
+        The central objective is to understand how molecular structure
+        controls the competition between light absorption, excited-state
+        relaxation, CO release, reactive oxygen-species generation, and
+        photochemical stability.
+      </div>
+
+    </section>
+
+
+
+    <!-- CO-RELEASE MECHANISM -->
+
+    <section class="research-section">
+
+      <h2>
+        Mechanism of Light-Induced CO Release
+      </h2>
+
+      <p>
+        My work on Re(I) tricarbonyl PhotoCORMs has focused first on
+        understanding the
+        <strong>
+          fundamental mechanism of light-induced CO release
+        </strong>.
+      </p>
+
+      <p>
+        Using electronic-structure calculations and reaction-pathway
+        analysis, I investigated the evolution of the photoexcited
+        complex from metal-to-ligand charge-transfer states towards
+        metal-centred states responsible for ligand dissociation.
+      </p>
+
+      <p>
+        These studies showed that CO photorelease cannot be described
+        by a simple transition from an emissive state to a single
+        dissociative state. Instead, the reaction proceeds across a
+        complex excited-state potential-energy landscape involving
+        multiple metal-centred states and selective dissociation of the
+        axial CO ligand
+
+        <a
+          class="paper-citation"
+          href="https://chemrxiv.org/doi/full/10.26434/chemrxiv-2024-p132r"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          (ChemRxiv 2024, DOI: 10.26434/chemrxiv-2024-p132r)
+        </a>.
+      </p>
+
+      <p>
+        This mechanistic picture provides a basis for understanding how
+        molecular structure controls photochemical reactivity and why
+        not every metal-centred excited state is necessarily
+        dissociative.
+      </p>
+
+
+      <div class="publication-box">
+
+        <h3>
+          Related publication
+        </h3>
+
+        <p>
+          <strong>
+            Unravelling the Photodissociative Mechanism of CO-Release
+            in Re(I) Tricarbonyl Complex Using Density Functional Theory
+          </strong>
+        </p>
+
+        <p>
+          Prashant Kumar, Martial Boggio-Pasqua and Isabelle Dixon
+        </p>
+
+        <a
+          href="https://chemrxiv.org/doi/full/10.26434/chemrxiv-2024-p132r"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Read the ChemRxiv preprint →
+        </a>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ISOMERISM -->
+
+    <section class="research-section">
+
+      <h2>
+        Molecular Structure and Competing Phototherapeutic Pathways
+      </h2>
+
+      <p>
+        I subsequently extended this work to connect
+        <strong>
+          molecular structure with competing phototherapeutic pathways
+        </strong>.
+      </p>
+
+      <p>
+        In visible-light-absorbing Re(I) PhotoCORMs, we investigated
+        how ligand isomerism changes absorption, emission, CO
+        photorelease, and singlet-oxygen generation.
+      </p>
+
+      <p>
+        The results demonstrated that relatively subtle structural
+        modifications can strongly alter both spectroscopy and
+        photochemistry
+
+        <a
+          class="paper-citation"
+          href="https://doi.org/10.1016/j.saa.2025.126647"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          (Spectrochim. Acta A 2026, 344, 126647)
+        </a>.
+      </p>
+
+      <p>
+        Importantly, molecular features favouring efficient CO release
+        do not necessarily maximise singlet-oxygen production. This
+        reveals a multi-objective design problem in which absorption
+        wavelength, excited-state lifetime, photoproduct formation, and
+        reactive oxygen-species generation must be optimised together.
+      </p>
+
+
+      <div class="publication-box">
+
+        <h3>
+          Related publication
+        </h3>
+
+        <p>
+          <strong>
+            Impact of Isomerism on the Photoproduction of Carbon
+            Monoxide and Singlet Oxygen by Visible-Light-Absorbing
+            Rhenium(I) PhotoCORMs
+          </strong>
+        </p>
+
+        <p>
+          Valentine Guilbaud, Prashant Kumar, Alexis Grosjean,
+          Evelyne Delfourne, Martial Boggio-Pasqua, et al.
+        </p>
+
+        <a
+          href="https://www.sciencedirect.com/science/article/pii/S1386142525009540"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Read the published paper →
+        </a>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- MULTIMODAL MOLECULES -->
+
+    <section class="research-section">
+
+      <h2>
+        Multimodal Photoactive Molecules
+      </h2>
+
+      <p>
+        Building on these results, my future research will investigate
+        <strong>
+          multimodal photoactive molecules for antimicrobial
+          applications
+        </strong>.
+      </p>
+
+      <p>
+        A central objective will be to understand and control the
+        competition between CO release, singlet-oxygen generation,
+        electron transfer, and non-radiative relaxation following
+        photoexcitation.
+      </p>
+
+      <p>
+        Rather than considering these processes independently, I will
+        map the complete excited-state landscape connecting photon
+        absorption to the formation of chemically active species.
+      </p>
+
+      <p>
+        Particular emphasis will be placed on shifting activation
+        towards the visible and longer-wavelength regions while
+        maintaining favourable photochemical efficiency and molecular
+        stability.
+      </p>
+
+      <div class="highlight">
+        The objective is not simply to maximise one photochemical
+        pathway, but to design molecules in which several complementary
+        modes of action can be controlled through molecular structure
+        and excitation conditions.
+      </div>
+
+    </section>
+
+
+
+    <!-- DYNAMICS -->
+
+    <section class="research-section">
+
+      <h2>
+        Non-Adiabatic Excited-State Dynamics
+      </h2>
+
+      <p>
+        Static electronic-structure calculations will be complemented
+        by
+        <strong>
+          non-adiabatic excited-state dynamics
+        </strong>
+        to determine how population moves between charge-transfer,
+        metal-centred, and ligand-centred states.
+      </p>
+
+      <p>
+        These simulations will investigate how excited-state dynamics
+        determine the branching between fluorescence, intersystem
+        crossing, CO dissociation, electron transfer, and reactive
+        oxygen-species formation.
+      </p>
+
+      <p>
+        This dynamical perspective is important because experimentally
+        observed photochemical outcomes are controlled not only by the
+        energies of individual excited states but also by how rapidly
+        molecular population moves between them.
+      </p>
+
+    </section>
+
+
+
+    <!-- ENVIRONMENT -->
+
+    <section class="research-section">
+
+      <h2>
+        Molecular Environment and Biological Conditions
+      </h2>
+
+      <p>
+        Environmental effects—including solvent, hydrogen bonding,
+        electrostatic interactions, and interactions with model
+        biological environments—will be incorporated to understand how
+        photochemical behaviour changes under conditions relevant to
+        application.
+      </p>
+
+      <p>
+        These effects may modify absorption energies, excited-state
+        ordering, charge-transfer character, reaction barriers, and the
+        relative probabilities of CO release and reactive
+        oxygen-species generation.
+      </p>
+
+      <p>
+        Connecting molecular-level calculations with realistic
+        environments will therefore be essential for translating
+        fundamental photochemistry into useful molecular design
+        principles.
+      </p>
+
+    </section>
+
+
+
+    <!-- DATA-DRIVEN DISCOVERY -->
+
+    <section class="research-section">
+
+      <h2>
+        Data-Driven Discovery of Photoactive Therapeutic Molecules
+      </h2>
+
+      <p>
+        A further objective will be to move from understanding
+        individual complexes to the
+        <strong>
+          data-driven discovery of photoactive therapeutic molecules
+        </strong>.
+      </p>
+
+      <p>
+        Automated high-throughput quantum-chemical calculations will
+        generate datasets containing absorption energies, excited-state
+        characters, redox properties, CO-release energetics, and
+        descriptors related to singlet-oxygen formation.
+      </p>
+
+      <p>
+        Machine-learning and active-learning approaches will then be
+        used to identify structural modifications controlling these
+        competing properties and to explore larger chemical spaces more
+        efficiently.
+      </p>
+
+      <p>
+        Multi-objective optimisation will be particularly important for
+        identifying molecules that combine long-wavelength activation,
+        efficient formation of therapeutic species, selectivity, and
+        photochemical stability.
+      </p>
+
+    </section>
+
+
+
+    <!-- METHODS -->
+
+    <section class="research-section">
+
+      <h2>
+        Computational Framework
+      </h2>
+
+      <ul class="methods-list">
+
+        <li>
+          Ground- and excited-state density-functional theory
+        </li>
+
+        <li>
+          Multireference electronic-structure calculations
+        </li>
+
+        <li>
+          Excited-state potential-energy surfaces
+        </li>
+
+        <li>
+          Reaction-pathway and transition-state analysis
+        </li>
+
+        <li>
+          Spin–orbit coupling and intersystem crossing
+        </li>
+
+        <li>
+          Non-adiabatic molecular dynamics
+        </li>
+
+        <li>
+          Solvent and environmental modelling
+        </li>
+
+        <li>
+          Automated high-throughput calculations
+        </li>
+
+        <li>
+          Active learning and machine learning
+        </li>
+
+        <li>
+          Multi-objective molecular optimisation
+        </li>
+
+      </ul>
+
+    </section>
+
+
+
+    <!-- OBJECTIVES -->
+
+    <section class="research-section">
+
+      <h2>
+        Principal Research Objectives
+      </h2>
+
+      <div class="objectives-grid">
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 01
+          </div>
+
+          <h3>
+            Map Photochemical Mechanisms
+          </h3>
+
+          <p>
+            Determine how excited-state population evolves from photon
+            absorption to CO release, reactive oxygen-species
+            generation, electron transfer, or non-radiative decay.
+          </p>
+
+        </article>
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 02
+          </div>
+
+          <h3>
+            Control Competing Pathways
+          </h3>
+
+          <p>
+            Identify molecular features that regulate the balance
+            between complementary photochemical and phototherapeutic
+            processes.
+          </p>
+
+        </article>
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 03
+          </div>
+
+          <h3>
+            Extend Visible-Light Activation
+          </h3>
+
+          <p>
+            Design systems activated at longer wavelengths while
+            preserving efficient formation of chemically active
+            species and molecular stability.
+          </p>
+
+        </article>
+
+
+        <article class="objective-card">
+
+          <div class="objective-number">
+            OBJECTIVE 04
+          </div>
+
+          <h3>
+            Develop Data-Driven Design Rules
+          </h3>
+
+          <p>
+            Combine high-throughput quantum chemistry and machine
+            learning to discover molecules with balanced,
+            application-relevant photochemical properties.
+          </p>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- COLLABORATION -->
+
+    <section class="research-section">
+
+      <h2>
+        Experimental Collaboration
+      </h2>
+
+      <p>
+        In the longer term, computationally identified candidates will
+        be investigated in collaboration with synthetic,
+        spectroscopic, and biological research groups.
+      </p>
+
+      <p>
+        This collaborative framework will connect molecular-level
+        predictions with experimentally measured absorption,
+        photoreactivity, reactive-species generation, molecular
+        stability, and antimicrobial activity.
+      </p>
+
+      <p>
+        Iterative comparison between computation and experiment will
+        also improve the accuracy of predictive models and identify
+        limitations in the underlying theoretical descriptions.
+      </p>
+
+    </section>
+
+
+
+    <!-- VISION -->
+
+    <section class="research-section">
+
+      <h2>
+        Long-Term Research Vision
+      </h2>
+
+      <p>
+        The long-term goal is to establish a predictive framework in
+        which
+        <strong>
+          excited-state chemistry, molecular dynamics, and machine
+          learning
+        </strong>
+        enable the rational design of light-activated molecules with
+        controllable and potentially complementary modes of action.
+      </p>
+
+      <div class="highlight">
+        This programme aims to progress from explaining the
+        photochemistry of existing PhotoCORMs to designing molecular
+        systems in which activation wavelength, therapeutic-species
+        formation, selectivity, and photochemical stability can be
+        predicted and optimised together.
+      </div>
+
+    </section>
+
+
+
+    <!-- BACK -->
+
+    <div class="bottom-navigation">
+
+      <a
+        class="button"
+        href="index.html#research"
+      >
+        ← Return to Research Themes
+      </a>
+
+    </div>
+
+
+  </div>
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+
+<footer>
+
+  <div class="container">
+    © 2026 Prashant Kumar · Computational Chemistry
+  </div>
+
+</footer>
+
+
+</body>
+
+</html>
