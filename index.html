@@ -908,6 +908,37 @@
 
     }
 
+    /* =========================
+   VISITOR MAP
+   ========================= */
+
+      .visitor-map-section {
+        padding: 70px 0;
+        background: #f7f9fc;
+        border-top: 1px solid var(--border);
+      }
+      
+      .visitor-map-widget {
+        max-width: 780px;
+        margin: 30px auto 0;
+        padding: 22px;
+      
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+      
+        box-shadow: 0 8px 25px rgba(10, 40, 70, 0.06);
+        text-align: center;
+        overflow: hidden;
+      }
+      
+      .visitor-map-widget iframe,
+      .visitor-map-widget img {
+        display: block;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
   </style>
 </head>
 
@@ -1948,7 +1979,40 @@
 
 </section>
 
+<!-- =========================
+     VISITOR MAP
+     ========================= -->
 
+<section class="visitor-map-section">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <div class="section-label">
+        Website Visitors
+      </div>
+
+      <h2>
+        Global Visitors
+      </h2>
+
+      <p class="section-intro">
+        An approximate geographical overview of visitors to this website.
+      </p>
+
+    </div>
+
+    <div class="visitor-map-widget">
+
+      <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=yCj_xBos2bfQlyC2i7ySrowuBDzG53DBwh-CAKr3j5E&cl=ffffff&w=a"></script>
+
+
+    </div>
+
+  </div>
+
+</section>
 
 <!-- =========================
      FOOTER
