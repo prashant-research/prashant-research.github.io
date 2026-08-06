@@ -1,0 +1,2381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Classical Marcus and Marcus–Levich–Jortner electron-transfer rate calculator by Dr. Prashant Kumar."
+  >
+
+  <title>
+    Marcus and MLJ Rate Calculator | Prashant Kumar
+  </title>
+
+
+  <style>
+
+    /* =========================
+       GENERAL
+       ========================= */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy: #0b1f33;
+      --blue: #1769aa;
+      --blue-dark: #0f4f82;
+      --blue-light: #eaf3fb;
+      --text: #1f2937;
+      --muted: #5f6b7a;
+      --background: #f7f9fc;
+      --white: #ffffff;
+      --border: #e4e9f0;
+      --success: #166534;
+      --success-bg: #ecfdf3;
+      --warning: #7a4d00;
+      --warning-bg: #fff7df;
+      --error: #991b1b;
+      --error-bg: #fff1f1;
+    }
+
+    body {
+      margin: 0;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      color: var(--text);
+      background: var(--background);
+      line-height: 1.65;
+    }
+
+    .container {
+      width: min(1050px, 92%);
+      margin: 0 auto;
+    }
+
+
+    /* =========================
+       NAVIGATION
+       ========================= */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      background: rgba(255, 255, 255, 0.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-inner {
+      width: min(1120px, 92%);
+      min-height: 72px;
+      margin: 0 auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .brand {
+      color: var(--navy);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .back-link {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 650;
+    }
+
+    .back-link:hover {
+      color: var(--blue-dark);
+      text-decoration: underline;
+    }
+
+
+    /* =========================
+       HERO
+       ========================= */
+
+    .utility-hero {
+      padding: 75px 0 65px;
+
+      background:
+        radial-gradient(
+          circle at 85% 15%,
+          rgba(23, 105, 170, 0.14),
+          transparent 34%
+        ),
+        linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #f1f7fc 100%
+        );
+    }
+
+    .utility-label {
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 13px 0 20px;
+
+      color: var(--navy);
+      font-size: clamp(2.4rem, 6vw, 4.3rem);
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+    }
+
+    .hero-intro {
+      max-width: 850px;
+      margin: 0;
+
+      color: #40546a;
+      font-size: 1.14rem;
+    }
+
+
+    /* =========================
+       MAIN
+       ========================= */
+
+    main {
+      padding: 65px 0 90px;
+    }
+
+    .calculator-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 30px;
+    }
+
+    .calculator-card {
+      padding: 32px;
+
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+
+      box-shadow: 0 12px 35px rgba(10, 40, 70, 0.07);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+
+      color: var(--navy);
+      font-size: 1.7rem;
+    }
+
+    h3 {
+      margin: 0;
+      color: var(--navy);
+    }
+
+    .section-description {
+      margin: 0 0 28px;
+      color: var(--muted);
+    }
+
+
+    /* =========================
+       INPUTS
+       ========================= */
+
+    .input-section {
+      margin-bottom: 35px;
+    }
+
+    .input-section-header {
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .input-section-header p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .input-group {
+      min-width: 0;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 7px;
+
+      color: var(--navy);
+      font-size: 0.93rem;
+      font-weight: 700;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      min-height: 48px;
+      padding: 11px 67px 11px 13px;
+
+      color: var(--text);
+      background: white;
+
+      border: 1px solid #cfd8e3;
+      border-radius: 8px;
+
+      font: inherit;
+      font-size: 1rem;
+    }
+
+    .input-wrapper input:focus {
+      outline: 3px solid rgba(23, 105, 170, 0.15);
+      border-color: var(--blue);
+    }
+
+    .input-unit {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+
+      transform: translateY(-50%);
+
+      color: var(--muted);
+      font-size: 0.88rem;
+      pointer-events: none;
+    }
+
+    .input-note {
+      margin-top: 6px;
+
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .optional-badge {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 2px 7px;
+
+      color: var(--blue-dark);
+      background: var(--blue-light);
+
+      border-radius: 20px;
+
+      font-size: 0.72rem;
+      font-weight: 700;
+      vertical-align: middle;
+    }
+
+
+    /* =========================
+       BUTTONS
+       ========================= */
+
+    .example-buttons,
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .example-buttons {
+      margin-bottom: 28px;
+    }
+
+    button {
+      min-height: 44px;
+      padding: 10px 17px;
+
+      border: none;
+      border-radius: 8px;
+
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary-button {
+      color: white;
+      background: var(--blue);
+    }
+
+    .primary-button:hover {
+      background: var(--blue-dark);
+    }
+
+    .secondary-button {
+      color: var(--blue-dark);
+      background: var(--blue-light);
+      border: 1px solid #c9deef;
+    }
+
+    .secondary-button:hover {
+      background: #dcecf8;
+    }
+
+    .clear-button {
+      color: #4b5563;
+      background: #f1f3f6;
+      border: 1px solid var(--border);
+    }
+
+
+    /* =========================
+       MESSAGES
+       ========================= */
+
+    .message {
+      display: none;
+
+      margin: 25px 0 0;
+      padding: 16px 18px;
+
+      border-radius: 9px;
+      font-size: 0.95rem;
+    }
+
+    .message.error {
+      display: block;
+      color: var(--error);
+      background: var(--error-bg);
+      border-left: 4px solid var(--error);
+    }
+
+    .message.warning {
+      display: block;
+      color: var(--warning);
+      background: var(--warning-bg);
+      border-left: 4px solid #d59618;
+    }
+
+    .message.success {
+      display: block;
+      color: var(--success);
+      background: var(--success-bg);
+      border-left: 4px solid var(--success);
+    }
+
+
+    /* =========================
+       RESULTS
+       ========================= */
+
+    .results-section {
+      display: none;
+    }
+
+    .results-section.visible {
+      display: block;
+    }
+
+    .results-heading {
+      margin-bottom: 22px;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .result-card {
+      min-width: 0;
+      padding: 25px;
+
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .result-card.primary-result {
+      background:
+        linear-gradient(
+          145deg,
+          #0b1f33,
+          #123b5d
+        );
+
+      border: none;
+    }
+
+    .result-card.primary-result h3,
+    .result-card.primary-result p,
+    .result-card.primary-result .result-label {
+      color: white;
+    }
+
+    .result-label {
+      margin-bottom: 8px;
+
+      color: var(--blue);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .result-value {
+      margin: 0;
+
+      color: var(--navy);
+      font-size: clamp(1.35rem, 4vw, 2rem);
+      font-weight: 800;
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+    }
+
+    .result-detail {
+      margin: 9px 0 0;
+
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .consistency-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+
+      margin-top: 22px;
+    }
+
+    .consistency-item {
+      padding: 16px;
+
+      background: var(--blue-light);
+      border-radius: 9px;
+    }
+
+    .consistency-item span {
+      display: block;
+
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .consistency-item strong {
+      display: block;
+      margin-top: 4px;
+
+      color: var(--navy);
+      overflow-wrap: anywhere;
+    }
+
+
+    /* =========================
+       TABLE
+       ========================= */
+
+    .table-container {
+      margin-top: 28px;
+      overflow-x: auto;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 650px;
+
+      border-collapse: collapse;
+      background: white;
+    }
+
+    th,
+    td {
+      padding: 13px 15px;
+
+      border-bottom: 1px solid var(--border);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    th:first-child,
+    td:first-child {
+      text-align: center;
+    }
+
+    th {
+      color: var(--navy);
+      background: #f3f7fb;
+
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    td {
+      color: #40546a;
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+      font-size: 0.88rem;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+
+    /* =========================
+       EQUATIONS
+       ========================= */
+
+    details {
+      margin-top: 30px;
+
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+    }
+
+    summary {
+      padding: 17px 20px;
+
+      color: var(--navy);
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .equations-content {
+      padding: 0 20px 22px;
+    }
+
+    .equation {
+      margin: 13px 0;
+      padding: 17px;
+
+      background: #f5f7fa;
+      border-radius: 8px;
+
+      color: #203b52;
+      font-family:
+        "Times New Roman",
+        serif;
+
+      font-size: 1.03rem;
+      overflow-x: auto;
+    }
+
+
+    /* =========================
+       DISCLAIMER
+       ========================= */
+
+    .disclaimer {
+      margin-top: 30px;
+      padding: 17px 20px;
+
+      color: #5b6572;
+      background: #f1f3f6;
+
+      border-radius: 9px;
+      font-size: 0.88rem;
+    }
+
+
+    /* =========================
+       FOOTER
+       ========================= */
+
+    footer {
+      padding: 30px 0 45px;
+
+      color: #6b7280;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 750px) {
+
+      .nav-inner {
+        min-height: auto;
+        padding: 17px 0;
+
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 8px;
+      }
+
+      .utility-hero {
+        padding: 55px 0 48px;
+      }
+
+      main {
+        padding: 45px 0 65px;
+      }
+
+      .calculator-card {
+        padding: 23px 18px;
+      }
+
+      .input-grid,
+      .results-grid,
+      .consistency-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .action-buttons button,
+      .example-buttons button {
+        width: 100%;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVIGATION
+     ========================= -->
+
+<nav>
+
+  <div class="nav-inner">
+
+    <a class="brand" href="index.html">
+      Dr. Prashant Kumar, PhD, MRSC
+    </a>
+
+    <a class="back-link" href="index.html">
+      ← Return to main website
+    </a>
+
+  </div>
+
+</nav>
+
+
+
+<!-- =========================
+     HERO
+     ========================= -->
+
+<header class="utility-hero">
+
+  <div class="container">
+
+    <div class="utility-label">
+      Computational Chemistry Utility
+    </div>
+
+    <h1>
+      Marcus and MLJ Rate Calculator
+    </h1>
+
+    <p class="hero-intro">
+      Calculate classical Marcus electron-transfer rates and
+      one-effective-mode Marcus–Levich–Jortner rates using energies in
+      electronvolts, vibrational frequencies in cm<sup>−1</sup>, and
+      temperature in kelvin.
+    </p>
+
+  </div>
+
+</header>
+
+
+
+<!-- =========================
+     CALCULATOR
+     ========================= -->
+
+<main>
+
+  <div class="container">
+
+    <div class="calculator-layout">
+
+
+      <!-- INPUT CARD -->
+
+      <section class="calculator-card">
+
+        <h2>
+          Calculation Inputs
+        </h2>
+
+        <p class="section-description">
+          The common inputs are sufficient for the classical Marcus rate.
+          Add the effective vibrational-mode parameters to calculate the
+          MLJ rate using the same electronic and thermodynamic inputs.
+        </p>
+
+
+        <!-- EXAMPLE BUTTONS -->
+
+        <div class="example-buttons">
+
+          <button
+            type="button"
+            class="secondary-button"
+            id="loadMarcusExample"
+          >
+            Load Marcus example
+          </button>
+
+          <button
+            type="button"
+            class="secondary-button"
+            id="loadMLJExample"
+          >
+            Load Marcus + MLJ example
+          </button>
+
+        </div>
+
+
+        <form id="rateForm" novalidate>
+
+
+          <!-- COMMON INPUTS -->
+
+          <div class="input-section">
+
+            <div class="input-section-header">
+
+              <h3>
+                Common inputs
+              </h3>
+
+              <p>
+                Required for both classical Marcus and MLJ calculations.
+              </p>
+
+            </div>
+
+
+            <div class="input-grid">
+
+
+              <div class="input-group">
+
+                <label for="deltaG">
+                  Reaction free energy, ΔG
+                </label>
+
+                <div class="input-wrapper">
+
+                  <input
+                    id="deltaG"
+                    name="deltaG"
+                    type="number"
+                    step="any"
+                    placeholder="-4.67"
+                    inputmode="decimal"
+                  >
+
+                  <span class="input-unit">
+                    eV
+                  </span>
+
+                </div>
+
+                <div class="input-note">
+                  May be positive or negative.
+                </div>
+
+              </div>
+
+
+              <div class="input-group">
+
+                <label for="lambdaTotal">
+                  Total reorganisation energy, λ<sub>total</sub>
+                </label>
+
+                <div class="input-wrapper">
+
+                  <input
+                    id="lambdaTotal"
+                    name="lambdaTotal"
+                    type="number"
+                    step="any"
+                    min="0"
+                    placeholder="0.64"
+                    inputmode="decimal"
+                  >
+
+                  <span class="input-unit">
+                    eV
+                  </span>
+
+                </div>
+
+                <div class="input-note">
+                  Must be greater than zero.
+                </div>
+
+              </div>
+
+
+              <div class="input-group">
+
+                <label for="coupling">
+                  Electronic coupling, H<sub>ab</sub>
+                </label>
+
+                <div class="input-wrapper">
+
+                  <input
+                    id="coupling"
+                    name="coupling"
+                    type="number"
+                    step="any"
+                    min="0"
+                    placeholder="0.10202"
+                    inputmode="decimal"
+                  >
+
+                  <span class="input-unit">
+                    eV
+                  </span>
+
+                </div>
+
+                <div class="input-note">
+                  Enter the coupling magnitude in eV.
+                </div>
+
+              </div>
+
+
+              <div class="input-group">
+
+                <label for="temperature">
+                  Temperature, T
+                </label>
+
+                <div class="input-wrapper">
+
+                  <input
+                    id="temperature"
+                    name="temperature"
+                    type="number"
+                    step="any"
+                    min="0"
+                    placeholder="298"
+                    inputmode="decimal"
+                  >
+
+                  <span class="input-unit">
+                    K
+                  </span>
+
+                </div>
+
+                <div class="input-note">
+                  Must be greater than zero.
+                </div>
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+
+
+          <!-- MLJ INPUTS -->
+
+          <div class="input-section">
+
+            <div class="input-section-header">
+
+              <h3>
+                One-effective-mode MLJ inputs
+                <span class="optional-badge">
+                  Optional
+                </span>
+              </h3>
+
+              <p>
+                Supply these parameters to calculate the MLJ rate and
+                vibrational-channel contributions.
+              </p>
+
+            </div>
+
+
+            <div class="input-grid">
+
+
+              <div class="input-group">
+
+                <label for="sEff">
+                  Effective Huang–Rhys factor, S<sub>eff</sub>
+                </label>
+
+                <div class="input-wrapper">
+
+                  <input
+                    id="sEff"
+                    name="sEff"
+                    type="number"
+                    step="any"
+                    min="0"
+                    placeholder="1.55"
+                    inputmode="decimal"
+                  >
+
+                  <span class="input-unit">
+                    —
+                  </span>
+
+                </div>
+
+                <div class="input-note">
+                  Dimensionless and greater than or equal to zero.
+                </div>
+
+              </div>
+
+
+              <div class="input-group">
+
+                <label for="omegaEff">
+                  Effective vibrational frequency, ω<sub>eff</sub>
+                </label>
+
+                <div class="input-wrapper">
+
+                  <input
+                    id="omegaEff"
+                    name="omegaEff"
+                    type="number"
+                    step="any"
+                    min="0"
+                    placeholder="513.73"
+                    inputmode="decimal"
+                  >
+
+                  <span class="input-unit">
+                    cm⁻¹
+                  </span>
+
+                </div>
+
+                <div class="input-note">
+                  Used to calculate ℏω and λ<sub>in</sub>.
+                </div>
+
+              </div>
+
+
+              <div class="input-group">
+
+                <label for="vMax">
+                  Vibrational summation cutoff, v<sub>max</sub>
+                </label>
+
+                <div class="input-wrapper">
+
+                  <input
+                    id="vMax"
+                    name="vMax"
+                    type="number"
+                    step="1"
+                    min="0"
+                    max="500"
+                    value="100"
+                    inputmode="numeric"
+                  >
+
+                  <span class="input-unit">
+                    states
+                  </span>
+
+                </div>
+
+                <div class="input-note">
+                  An integer between 0 and 500.
+                </div>
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+
+
+          <!-- ACTIONS -->
+
+          <div class="action-buttons">
+
+            <button
+              type="submit"
+              class="primary-button"
+            >
+              Calculate rates
+            </button>
+
+            <button
+              type="button"
+              class="clear-button"
+              id="clearForm"
+            >
+              Clear inputs
+            </button>
+
+          </div>
+
+
+          <div
+            id="formMessage"
+            class="message"
+            role="alert"
+            aria-live="polite"
+          ></div>
+
+
+        </form>
+
+      </section>
+
+
+
+      <!-- RESULTS -->
+
+      <section
+        class="calculator-card results-section"
+        id="resultsSection"
+        aria-live="polite"
+      >
+
+        <div class="results-heading">
+
+          <h2>
+            Calculation Results
+          </h2>
+
+          <p class="section-description">
+            Rates are reported in s<sup>−1</sup>. Logarithmic values are
+            also shown because electron-transfer rates may be extremely small.
+          </p>
+
+        </div>
+
+
+        <div class="results-grid">
+
+
+          <!-- MARCUS RESULT -->
+
+          <article class="result-card primary-result">
+
+            <div class="result-label">
+              Classical Marcus rate
+            </div>
+
+            <p
+              class="result-value"
+              id="marcusRate"
+            >
+              —
+            </p>
+
+            <p
+              class="result-detail"
+              id="marcusLog"
+            >
+              —
+            </p>
+
+          </article>
+
+
+          <!-- MLJ RESULT -->
+
+          <article class="result-card">
+
+            <div class="result-label">
+              One-effective-mode MLJ rate
+            </div>
+
+            <p
+              class="result-value"
+              id="mljRate"
+            >
+              Not calculated
+            </p>
+
+            <p
+              class="result-detail"
+              id="mljLog"
+            >
+              Supply the optional MLJ inputs.
+            </p>
+
+          </article>
+
+
+          <!-- RELATIVE RATE -->
+
+          <article class="result-card">
+
+            <div class="result-label">
+              MLJ relative to Marcus
+            </div>
+
+            <p
+              class="result-value"
+              id="relativeRate"
+            >
+              —
+            </p>
+
+            <p
+              class="result-detail"
+              id="interpretation"
+            >
+              MLJ inputs have not yet been supplied.
+            </p>
+
+          </article>
+
+
+          <!-- ACTIVATION EXPONENT -->
+
+          <article class="result-card">
+
+            <div class="result-label">
+              Marcus exponential term
+            </div>
+
+            <p
+              class="result-value"
+              id="marcusExponent"
+            >
+              —
+            </p>
+
+            <p class="result-detail">
+              Value of −(ΔG + λ)<sup>2</sup> /
+              (4λk<sub>B</sub>T).
+            </p>
+
+          </article>
+
+
+        </div>
+
+
+        <!-- MLJ CONSISTENCY -->
+
+        <div
+          id="mljConsistency"
+          style="display: none;"
+        >
+
+          <div class="consistency-grid">
+
+            <div class="consistency-item">
+
+              <span>
+                ℏω<sub>eff</sub>
+              </span>
+
+              <strong id="hbarOmegaResult">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="consistency-item">
+
+              <span>
+                λ<sub>in</sub> = S<sub>eff</sub>ℏω
+              </span>
+
+              <strong id="lambdaInResult">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="consistency-item">
+
+              <span>
+                λ<sub>s</sub> = λ<sub>total</sub> − λ<sub>in</sub>
+              </span>
+
+              <strong id="lambdaSResult">
+                —
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- TOP CHANNELS -->
+
+        <div
+          id="channelsSection"
+          style="display: none;"
+        >
+
+          <h2 style="margin-top: 38px;">
+            Top 10 MLJ Vibrational Channels
+          </h2>
+
+          <p class="section-description">
+            Channels are ranked by their contribution to the MLJ
+            vibrational summation.
+          </p>
+
+          <div class="table-container">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>v</th>
+                  <th>Franck–Condon weight</th>
+                  <th>Gaussian factor</th>
+                  <th>Contribution</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="channelsTableBody"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+
+        <!-- EQUATIONS -->
+
+        <details>
+
+          <summary>
+            Equations and constants used
+          </summary>
+
+          <div class="equations-content">
+
+            <h3>
+              Classical Marcus rate
+            </h3>
+
+            <div class="equation">
+              k = (2π/ℏ)|H<sub>ab</sub>|²
+              [1/√(4πλk<sub>B</sub>T)]
+              exp[−(ΔG + λ)²/(4λk<sub>B</sub>T)]
+            </div>
+
+
+            <h3>
+              One-effective-mode Marcus–Levich–Jortner rate
+            </h3>
+
+            <div class="equation">
+              k = (2π/ℏ)|H<sub>ab</sub>|²
+              [1/√(4πλ<sub>s</sub>k<sub>B</sub>T)]
+              Σ<sub>v</sub>
+              [e<sup>−S</sup>S<sup>v</sup>/v!]
+              exp[−(ΔG + λ<sub>s</sub> + vℏω)² /
+              (4λ<sub>s</sub>k<sub>B</sub>T)]
+            </div>
+
+
+            <div class="equation">
+              λ<sub>in</sub> = S<sub>eff</sub>ℏω<sub>eff</sub>
+              &nbsp;&nbsp;&nbsp;
+              λ<sub>s</sub> =
+              λ<sub>total</sub> − λ<sub>in</sub>
+            </div>
+
+
+            <p>
+              k<sub>B</sub> = 8.617333262145 × 10<sup>−5</sup> eV K<sup>−1</sup>
+            </p>
+
+            <p>
+              ℏ = 6.582119569 × 10<sup>−16</sup> eV s
+            </p>
+
+            <p>
+              1 cm<sup>−1</sup> = 1/8065.54429 eV
+            </p>
+
+          </div>
+
+        </details>
+
+
+        <div class="disclaimer">
+          This calculator implements the classical nonadiabatic Marcus
+          expression and a one-effective-mode MLJ expression. Results depend
+          on the validity of the model, the definitions of the input
+          parameters, and consistent use of the stated units.
+        </div>
+
+      </section>
+
+
+    </div>
+
+  </div>
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+
+<footer>
+
+  <div class="container">
+    © 2026 Prashant Kumar · Computational Chemistry Utilities
+  </div>
+
+</footer>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+     ========================= -->
+
+<script>
+
+  "use strict";
+
+
+  /* =========================
+     CONSTANTS
+     ========================= */
+
+  const K_B = 8.617333262145e-5;
+  const HBAR_EVS = 6.582119569e-16;
+  const CM_TO_EV = 1.0 / 8065.54429;
+  const LN_10 = Math.log(10);
+
+
+  /* =========================
+     ELEMENTS
+     ========================= */
+
+  const rateForm = document.getElementById("rateForm");
+
+  const deltaGInput =
+    document.getElementById("deltaG");
+
+  const lambdaTotalInput =
+    document.getElementById("lambdaTotal");
+
+  const couplingInput =
+    document.getElementById("coupling");
+
+  const temperatureInput =
+    document.getElementById("temperature");
+
+  const sEffInput =
+    document.getElementById("sEff");
+
+  const omegaEffInput =
+    document.getElementById("omegaEff");
+
+  const vMaxInput =
+    document.getElementById("vMax");
+
+  const formMessage =
+    document.getElementById("formMessage");
+
+  const resultsSection =
+    document.getElementById("resultsSection");
+
+  const marcusRateElement =
+    document.getElementById("marcusRate");
+
+  const marcusLogElement =
+    document.getElementById("marcusLog");
+
+  const marcusExponentElement =
+    document.getElementById("marcusExponent");
+
+  const mljRateElement =
+    document.getElementById("mljRate");
+
+  const mljLogElement =
+    document.getElementById("mljLog");
+
+  const relativeRateElement =
+    document.getElementById("relativeRate");
+
+  const interpretationElement =
+    document.getElementById("interpretation");
+
+  const mljConsistency =
+    document.getElementById("mljConsistency");
+
+  const hbarOmegaResult =
+    document.getElementById("hbarOmegaResult");
+
+  const lambdaInResult =
+    document.getElementById("lambdaInResult");
+
+  const lambdaSResult =
+    document.getElementById("lambdaSResult");
+
+  const channelsSection =
+    document.getElementById("channelsSection");
+
+  const channelsTableBody =
+    document.getElementById("channelsTableBody");
+
+
+  /* =========================
+     HELPERS
+     ========================= */
+
+  function isBlank(inputElement) {
+    return inputElement.value.trim() === "";
+  }
+
+
+  function parseInput(inputElement) {
+    return Number(inputElement.value);
+  }
+
+
+  function showMessage(type, text) {
+    formMessage.className = "message " + type;
+    formMessage.textContent = text;
+  }
+
+
+  function hideMessage() {
+    formMessage.className = "message";
+    formMessage.textContent = "";
+  }
+
+
+  function formatNumber(value, digits = 6) {
+
+    if (!Number.isFinite(value)) {
+      return "Not available";
+    }
+
+    return value.toFixed(digits);
+  }
+
+
+  /*
+   * Formats values from their natural logarithm.
+   * This avoids numerical underflow for extremely small rates.
+   */
+
+  function scientificHTMLFromLog(logValue, unitHTML = "") {
+
+    if (logValue === Number.NEGATIVE_INFINITY) {
+
+      return unitHTML
+        ? "0 " + unitHTML
+        : "0";
+
+    }
+
+    if (!Number.isFinite(logValue)) {
+      return "Not available";
+    }
+
+    const log10Value = logValue / LN_10;
+
+    let exponent = Math.floor(log10Value);
+
+    let mantissa =
+      Math.pow(10, log10Value - exponent);
+
+    if (mantissa >= 9.9999995) {
+      mantissa = 1.0;
+      exponent += 1;
+    }
+
+    const unitText =
+      unitHTML ? " " + unitHTML : "";
+
+    return (
+      mantissa.toFixed(6) +
+      " × 10<sup>" +
+      exponent +
+      "</sup>" +
+      unitText
+    );
+
+  }
+
+
+  function log10Text(logValue) {
+
+    if (logValue === Number.NEGATIVE_INFINITY) {
+      return "log₁₀(k) = −∞";
+    }
+
+    if (!Number.isFinite(logValue)) {
+      return "log₁₀(k) is unavailable";
+    }
+
+    return (
+      "log₁₀(k / s⁻¹) = " +
+      (logValue / LN_10).toFixed(6)
+    );
+
+  }
+
+
+  function logSumExp(logValues) {
+
+    const maximum =
+      Math.max(...logValues);
+
+    if (maximum === Number.NEGATIVE_INFINITY) {
+      return Number.NEGATIVE_INFINITY;
+    }
+
+    let scaledSum = 0;
+
+    for (const value of logValues) {
+      scaledSum += Math.exp(value - maximum);
+    }
+
+    return maximum + Math.log(scaledSum);
+
+  }
+
+
+  /* =========================
+     RATE FUNCTIONS
+     ========================= */
+
+  function marcusLogRate(deltaG, coupling, lambda, temperature) {
+
+    if (coupling === 0) {
+      return {
+        logRate: Number.NEGATIVE_INFINITY,
+        exponent: -Math.pow(deltaG + lambda, 2) /
+          (4 * lambda * K_B * temperature)
+      };
+    }
+
+    const logPrefactor =
+      Math.log(2 * Math.PI / HBAR_EVS) +
+      2 * Math.log(Math.abs(coupling));
+
+    const logNormalization =
+      -0.5 *
+      Math.log(
+        4 *
+        Math.PI *
+        lambda *
+        K_B *
+        temperature
+      );
+
+    const exponent =
+      -Math.pow(deltaG + lambda, 2) /
+      (
+        4 *
+        lambda *
+        K_B *
+        temperature
+      );
+
+    return {
+      logRate:
+        logPrefactor +
+        logNormalization +
+        exponent,
+
+      exponent: exponent
+    };
+
+  }
+
+
+  function mljLogRate(
+    deltaG,
+    coupling,
+    lambdaS,
+    sEff,
+    hbarOmega,
+    temperature,
+    vMax
+  ) {
+
+    if (coupling === 0) {
+      return {
+        logRate: Number.NEGATIVE_INFINITY,
+        terms: []
+      };
+    }
+
+    const logPrefactor =
+      Math.log(2 * Math.PI / HBAR_EVS) +
+      2 * Math.log(Math.abs(coupling));
+
+    const logNormalization =
+      -0.5 *
+      Math.log(
+        4 *
+        Math.PI *
+        lambdaS *
+        K_B *
+        temperature
+      );
+
+    const terms = [];
+    const logContributions = [];
+
+    let logFC = -sEff;
+
+    for (let v = 0; v <= vMax; v += 1) {
+
+      if (sEff === 0) {
+
+        logFC =
+          v === 0
+            ? 0
+            : Number.NEGATIVE_INFINITY;
+
+      } else if (v > 0) {
+
+        logFC +=
+          Math.log(sEff) -
+          Math.log(v);
+
+      }
+
+      const gaussianExponent =
+        -Math.pow(
+          deltaG +
+          lambdaS +
+          v * hbarOmega,
+          2
+        ) /
+        (
+          4 *
+          lambdaS *
+          K_B *
+          temperature
+        );
+
+      const logContribution =
+        logFC + gaussianExponent;
+
+      terms.push({
+        v: v,
+        logFC: logFC,
+        logGaussian: gaussianExponent,
+        logContribution: logContribution
+      });
+
+      logContributions.push(logContribution);
+
+    }
+
+    const logSummation =
+      logSumExp(logContributions);
+
+    return {
+      logRate:
+        logPrefactor +
+        logNormalization +
+        logSummation,
+
+      terms: terms
+    };
+
+  }
+
+
+  /* =========================
+     DISPLAY FUNCTIONS
+     ========================= */
+
+  function resetMLJDisplay() {
+
+    mljRateElement.textContent =
+      "Not calculated";
+
+    mljLogElement.textContent =
+      "Supply the optional MLJ inputs.";
+
+    relativeRateElement.textContent =
+      "—";
+
+    interpretationElement.textContent =
+      "MLJ inputs have not yet been supplied.";
+
+    mljConsistency.style.display =
+      "none";
+
+    channelsSection.style.display =
+      "none";
+
+    channelsTableBody.innerHTML =
+      "";
+
+  }
+
+
+  function displayChannels(terms) {
+
+    const sortedTerms =
+      [...terms]
+        .sort(
+          (a, b) =>
+            b.logContribution -
+            a.logContribution
+        )
+        .slice(0, 10);
+
+    channelsTableBody.innerHTML = "";
+
+    for (const term of sortedTerms) {
+
+      const row =
+        document.createElement("tr");
+
+      const vCell =
+        document.createElement("td");
+
+      const fcCell =
+        document.createElement("td");
+
+      const gaussianCell =
+        document.createElement("td");
+
+      const contributionCell =
+        document.createElement("td");
+
+      vCell.textContent =
+        term.v.toString();
+
+      fcCell.innerHTML =
+        scientificHTMLFromLog(term.logFC);
+
+      gaussianCell.innerHTML =
+        scientificHTMLFromLog(
+          term.logGaussian
+        );
+
+      contributionCell.innerHTML =
+        scientificHTMLFromLog(
+          term.logContribution
+        );
+
+      row.appendChild(vCell);
+      row.appendChild(fcCell);
+      row.appendChild(gaussianCell);
+      row.appendChild(contributionCell);
+
+      channelsTableBody.appendChild(row);
+
+    }
+
+    channelsSection.style.display =
+      "block";
+
+  }
+
+
+  /* =========================
+     CALCULATION
+     ========================= */
+
+  rateForm.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+      hideMessage();
+      resetMLJDisplay();
+
+
+      /* -------------------------
+         CHECK COMMON INPUTS
+         ------------------------- */
+
+      const missingCommon = [];
+
+      if (isBlank(deltaGInput)) {
+        missingCommon.push("ΔG");
+      }
+
+      if (isBlank(lambdaTotalInput)) {
+        missingCommon.push("λtotal");
+      }
+
+      if (isBlank(couplingInput)) {
+        missingCommon.push("Hab");
+      }
+
+      if (isBlank(temperatureInput)) {
+        missingCommon.push("temperature");
+      }
+
+      if (missingCommon.length > 0) {
+
+        showMessage(
+          "error",
+          "Please provide the following required value(s): " +
+          missingCommon.join(", ") +
+          "."
+        );
+
+        resultsSection.classList.remove(
+          "visible"
+        );
+
+        return;
+
+      }
+
+
+      const deltaG =
+        parseInput(deltaGInput);
+
+      const lambdaTotal =
+        parseInput(lambdaTotalInput);
+
+      const coupling =
+        parseInput(couplingInput);
+
+      const temperature =
+        parseInput(temperatureInput);
+
+
+      if (
+        !Number.isFinite(deltaG) ||
+        !Number.isFinite(lambdaTotal) ||
+        !Number.isFinite(coupling) ||
+        !Number.isFinite(temperature)
+      ) {
+
+        showMessage(
+          "error",
+          "All common inputs must be valid numerical values."
+        );
+
+        resultsSection.classList.remove(
+          "visible"
+        );
+
+        return;
+
+      }
+
+
+      if (lambdaTotal <= 0) {
+
+        showMessage(
+          "error",
+          "The total reorganisation energy, λtotal, must be greater than zero."
+        );
+
+        resultsSection.classList.remove(
+          "visible"
+        );
+
+        return;
+
+      }
+
+
+      if (coupling < 0) {
+
+        showMessage(
+          "error",
+          "The electronic-coupling magnitude must not be negative."
+        );
+
+        resultsSection.classList.remove(
+          "visible"
+        );
+
+        return;
+
+      }
+
+
+      if (temperature <= 0) {
+
+        showMessage(
+          "error",
+          "The temperature must be greater than zero."
+        );
+
+        resultsSection.classList.remove(
+          "visible"
+        );
+
+        return;
+
+      }
+
+
+      /* -------------------------
+         CLASSICAL MARCUS
+         ------------------------- */
+
+      const marcusResult =
+        marcusLogRate(
+          deltaG,
+          coupling,
+          lambdaTotal,
+          temperature
+        );
+
+      marcusRateElement.innerHTML =
+        scientificHTMLFromLog(
+          marcusResult.logRate,
+          "s<sup>−1</sup>"
+        );
+
+      marcusLogElement.textContent =
+        log10Text(
+          marcusResult.logRate
+        );
+
+      marcusExponentElement.textContent =
+        formatNumber(
+          marcusResult.exponent,
+          6
+        );
+
+      resultsSection.classList.add(
+        "visible"
+      );
+
+
+      /* -------------------------
+         CHECK MLJ INPUTS
+         ------------------------- */
+
+      const missingMLJ = [];
+
+      if (isBlank(sEffInput)) {
+        missingMLJ.push("effective Huang–Rhys factor, Seff");
+      }
+
+      if (isBlank(omegaEffInput)) {
+        missingMLJ.push("effective vibrational frequency, ωeff");
+      }
+
+      if (isBlank(vMaxInput)) {
+        missingMLJ.push("vibrational cutoff, vmax");
+      }
+
+
+      if (missingMLJ.length > 0) {
+
+        showMessage(
+          "warning",
+          "The classical Marcus rate has been calculated. " +
+          "To obtain the MLJ rate, please provide: " +
+          missingMLJ.join(", ") +
+          "."
+        );
+
+        return;
+
+      }
+
+
+      const sEff =
+        parseInput(sEffInput);
+
+      const omegaEff =
+        parseInput(omegaEffInput);
+
+      const vMax =
+        parseInput(vMaxInput);
+
+
+      if (
+        !Number.isFinite(sEff) ||
+        !Number.isFinite(omegaEff) ||
+        !Number.isFinite(vMax)
+      ) {
+
+        showMessage(
+          "error",
+          "The MLJ inputs must be valid numerical values."
+        );
+
+        return;
+
+      }
+
+
+      if (sEff < 0) {
+
+        showMessage(
+          "error",
+          "The effective Huang–Rhys factor, Seff, must be greater than or equal to zero."
+        );
+
+        return;
+
+      }
+
+
+      if (omegaEff <= 0) {
+
+        showMessage(
+          "error",
+          "The effective vibrational frequency, ωeff, must be greater than zero."
+        );
+
+        return;
+
+      }
+
+
+      if (
+        !Number.isInteger(vMax) ||
+        vMax < 0 ||
+        vMax > 500
+      ) {
+
+        showMessage(
+          "error",
+          "The vibrational cutoff, vmax, must be an integer between 0 and 500."
+        );
+
+        return;
+
+      }
+
+
+      /* -------------------------
+         MLJ CONSISTENCY
+         ------------------------- */
+
+      const hbarOmega =
+        omegaEff * CM_TO_EV;
+
+      const lambdaIn =
+        sEff * hbarOmega;
+
+      const lambdaS =
+        lambdaTotal - lambdaIn;
+
+
+      hbarOmegaResult.textContent =
+        formatNumber(hbarOmega, 8) +
+        " eV";
+
+      lambdaInResult.textContent =
+        formatNumber(lambdaIn, 8) +
+        " eV";
+
+      lambdaSResult.textContent =
+        formatNumber(lambdaS, 8) +
+        " eV";
+
+      mljConsistency.style.display =
+        "block";
+
+
+      if (lambdaS <= 0) {
+
+        mljRateElement.textContent =
+          "Cannot calculate";
+
+        mljLogElement.textContent =
+          "The derived outer-sphere reorganisation energy is not positive.";
+
+        showMessage(
+          "error",
+          "MLJ consistency error: λs = λtotal − λin = " +
+          formatNumber(lambdaS, 8) +
+          " eV. For this expression, λtotal must be greater than λin."
+        );
+
+        return;
+
+      }
+
+
+      /* -------------------------
+         MLJ RATE
+         ------------------------- */
+
+      const mljResult =
+        mljLogRate(
+          deltaG,
+          coupling,
+          lambdaS,
+          sEff,
+          hbarOmega,
+          temperature,
+          vMax
+        );
+
+      mljRateElement.innerHTML =
+        scientificHTMLFromLog(
+          mljResult.logRate,
+          "s<sup>−1</sup>"
+        );
+
+      mljLogElement.textContent =
+        log10Text(
+          mljResult.logRate
+        );
+
+
+      /* -------------------------
+         RATE COMPARISON
+         ------------------------- */
+
+      if (
+        marcusResult.logRate ===
+          Number.NEGATIVE_INFINITY &&
+        mljResult.logRate ===
+          Number.NEGATIVE_INFINITY
+      ) {
+
+        relativeRateElement.textContent =
+          "Undefined";
+
+        interpretationElement.textContent =
+          "Both rates are zero because the electronic coupling is zero.";
+
+      } else {
+
+        const logRelativeRate =
+          mljResult.logRate -
+          marcusResult.logRate;
+
+        relativeRateElement.innerHTML =
+          scientificHTMLFromLog(
+            logRelativeRate
+          );
+
+        if (logRelativeRate > 1e-10) {
+
+          interpretationElement.textContent =
+            "The one-effective-mode MLJ model predicts a faster rate than the classical Marcus model.";
+
+        } else if (logRelativeRate < -1e-10) {
+
+          interpretationElement.textContent =
+            "The one-effective-mode MLJ model predicts a slower rate than the classical Marcus model.";
+
+        } else {
+
+          interpretationElement.textContent =
+            "The two models predict approximately the same rate.";
+
+        }
+
+      }
+
+
+      displayChannels(
+        mljResult.terms
+      );
+
+      showMessage(
+        "success",
+        "Both the classical Marcus and one-effective-mode MLJ rates were calculated successfully."
+      );
+
+    }
+  );
+
+
+  /* =========================
+     EXAMPLE VALUES
+     ========================= */
+
+  document
+    .getElementById("loadMarcusExample")
+    .addEventListener(
+      "click",
+      function () {
+
+        deltaGInput.value =
+          "-5.91";
+
+        lambdaTotalInput.value =
+          "0.31";
+
+        couplingInput.value =
+          "0.04775";
+
+        temperatureInput.value =
+          "298";
+
+        sEffInput.value =
+          "";
+
+        omegaEffInput.value =
+          "";
+
+        vMaxInput.value =
+          "100";
+
+        hideMessage();
+        resetMLJDisplay();
+
+        resultsSection.classList.remove(
+          "visible"
+        );
+
+      }
+    );
+
+
+  document
+    .getElementById("loadMLJExample")
+    .addEventListener(
+      "click",
+      function () {
+
+        deltaGInput.value =
+          "-4.67";
+
+        lambdaTotalInput.value =
+          "0.64";
+
+        couplingInput.value =
+          "0.10202";
+
+        temperatureInput.value =
+          "298";
+
+        sEffInput.value =
+          "1.55";
+
+        omegaEffInput.value =
+          "513.73";
+
+        vMaxInput.value =
+          "100";
+
+        hideMessage();
+        resetMLJDisplay();
+
+        resultsSection.classList.remove(
+          "visible"
+        );
+
+      }
+    );
+
+
+  /* =========================
+     CLEAR FORM
+     ========================= */
+
+  document
+    .getElementById("clearForm")
+    .addEventListener(
+      "click",
+      function () {
+
+        rateForm.reset();
+
+        deltaGInput.value =
+          "";
+
+        lambdaTotalInput.value =
+          "";
+
+        couplingInput.value =
+          "";
+
+        temperatureInput.value =
+          "";
+
+        sEffInput.value =
+          "";
+
+        omegaEffInput.value =
+          "";
+
+        vMaxInput.value =
+          "100";
+
+        hideMessage();
+        resetMLJDisplay();
+
+        resultsSection.classList.remove(
+          "visible"
+        );
+
+      }
+    );
+
+</script>
+
+
+</body>
+
+</html>
