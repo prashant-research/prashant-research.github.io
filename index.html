@@ -1029,18 +1029,19 @@
 
 
     /* =========================
-   CLEAN DESKTOP NAVIGATION
+   NAVIGATION
    ========================= */
 
         .nav-inner {
-          width: min(1200px, 94%);
+          width: min(1400px, 96%);
           min-height: 72px;
+          margin: 0 auto;
         
           display: flex;
           align-items: center;
           justify-content: space-between;
         
-          gap: 30px;
+          gap: 24px;
         }
         
         .brand {
@@ -1053,14 +1054,19 @@
           align-items: center;
           justify-content: flex-end;
         
-          gap: 24px;
+          gap: 18px;
         
           margin-left: auto;
+          flex-wrap: nowrap;
         }
         
         .nav-links > a {
           white-space: nowrap;
+          font-size: 0.9rem;
         }
+        
+        
+        /* Utilities */
         
         .nav-dropdown {
           position: relative;
@@ -1068,16 +1074,15 @@
         }
         
         .nav-dropdown-button {
-          padding: 9px 12px;
+          padding: 7px 9px;
         
           color: var(--navy);
-          background: white;
+          background: transparent;
         
-          border: 1px solid #d6e0ea;
-          border-radius: 8px;
+          border: none;
         
           font: inherit;
-          font-size: 0.92rem;
+          font-size: 0.9rem;
           font-weight: 600;
         
           cursor: pointer;
@@ -1085,23 +1090,20 @@
         
         .nav-dropdown-button:hover {
           color: var(--blue);
-          border-color: var(--blue);
-          background: var(--blue-light);
         }
         
         .nav-dropdown-menu {
           position: absolute;
-          top: calc(100% + 8px);
+          top: calc(100% + 10px);
           right: 0;
           z-index: 1200;
         
           display: none;
         
-          min-width: 220px;
+          min-width: 230px;
           padding: 8px;
         
           background: white;
-        
           border: 1px solid var(--border);
           border-radius: 10px;
         
@@ -1110,7 +1112,6 @@
         
         .nav-dropdown-menu a {
           display: block;
-        
           padding: 10px 12px;
         
           color: var(--navy);
@@ -1131,9 +1132,53 @@
           display: block;
         }
         
+        
+        /* Language */
+        
         .language-selector {
           flex-shrink: 0;
         }
+        
+        .language-selector select {
+          padding: 7px 10px;
+        
+          color: var(--navy);
+          background: white;
+        
+          border: 1px solid #d6e0ea;
+          border-radius: 8px;
+        
+          font-size: 0.9rem;
+          cursor: pointer;
+        }
+        
+        
+        /* Smaller screens */
+        
+        @media (max-width: 1150px) {
+        
+          .nav-inner {
+            width: 97%;
+          }
+        
+          .nav-links {
+            gap: 11px;
+          }
+        
+          .nav-links > a,
+          .nav-dropdown-button,
+          .language-selector select {
+            font-size: 0.82rem;
+          }
+        
+          .brand {
+            font-size: 0.93rem;
+          }
+        
+        }
+        
+        
+        /* Mobile */
         
         @media (max-width: 850px) {
         
@@ -1151,10 +1196,12 @@
             flex-wrap: wrap;
             justify-content: flex-start;
         
-            gap: 12px;
+            gap: 12px 16px;
           }
         
         }
+
+
 
   </style>
 </head>
@@ -1162,14 +1209,6 @@
 
 <body>
 
-
-<!-- =========================
-     NAVIGATION
-     ========================= -->
-
-<!-- =========================
-     NAVIGATION
-     ========================= -->
 
 <nav>
 
@@ -1181,36 +1220,11 @@
 
     <div class="nav-links">
 
-      <a href="#home">
-        Home
-      </a>
+      <a href="#home">Home</a>
 
-      <a href="#research">
-        Research
-      </a>
+      <a href="#research">Research</a>
 
-      <a href="#publications">
-        Publications
-      </a>
-
-
-      <!-- UTILITIES DROPDOWN -->
-
-      <div class="nav-dropdown">
-
-        <button class="nav-dropdown-button" type="button">
-          Utilities ▾
-        </button>
-
-        <div class="nav-dropdown-menu">
-
-          <a href="marcus-rate.html">
-            Marcus &amp; MLJ Rate Calculator
-          </a>
-
-        </div>
-
-      </div>
+      <a href="#experience">Experience</a>
 
 
       <!-- MORE DROPDOWN -->
@@ -1223,8 +1237,8 @@
 
         <div class="nav-dropdown-menu">
 
-          <a href="#experience">
-            Experience
+          <a href="#publications">
+            Publications
           </a>
 
           <a href="#skills">
@@ -1241,6 +1255,29 @@
 
           <a href="#contact">
             Contact
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- UTILITIES DROPDOWN -->
+
+      <div class="nav-dropdown">
+
+        <button class="nav-dropdown-button" type="button">
+          Utilities ▾
+        </button>
+
+        <div class="nav-dropdown-menu">
+
+          <a href="marcus-rate.html">
+            Marcus Rate Calculator
+          </a>
+
+          <a href="huang-rhys.html">
+            Huang–Rhys Factor Calculator
           </a>
 
         </div>
