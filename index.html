@@ -1248,6 +1248,31 @@
       
       }
 
+    /* =========================
+   INTERACTIVE PARTICLES
+   ========================= */
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      #particleCanvas {
+        position: absolute;
+        inset: 0;
+      
+        width: 100%;
+        height: 100%;
+      
+        pointer-events: none;
+        z-index: 0;
+      }
+      
+      .hero .container {
+        position: relative;
+        z-index: 1;
+      }
+
 
   </style>
 </head>
@@ -1378,6 +1403,8 @@
   class="hero"
   id="home"
 >
+
+  <canvas id="particleCanvas"></canvas>
 
   <div class="container hero-grid">
 
@@ -2394,6 +2421,146 @@
 
 </footer>
 
+  <script>
+    
+    const canvas = document.getElementById("particleCanvas");
+    const ctx = canvas.getContext("2d");
+    
+    let particles = [];
+    let mouse = {
+      x: null,
+      y: null,
+      radius: 110
+    };
+    
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      createParticles();
+    }
+    
+    function createParticles() {
+    
+      particles = [];
+    
+      const density = window.innerWidth < 700 ? 45 : 100;
+    
+      for (let i = 0; i < density; i++) {
+    
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+    
+          baseX: Math.random() * canvas.width,
+          baseY: Math.random() * canvas.height,
+    
+          size: Math.random() * 1.8 + 0.7,
+    
+          vx: (Math.random() - 0.5) * 0.12,
+          vy: (Math.random() - 0.5) * 0.12
+        });
+    
+      }
+    
+    }
+    
+    function animate() {
+    
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+      for (const p of particles) {
+    
+        p.baseX += p.vx;
+        p.baseY += p.vy;
+    
+        if (p.baseX < 0 || p.baseX > canvas.width) {
+          p.vx *= -1;
+        }
+    
+        if (p.baseY < 0 || p.baseY > canvas.height) {
+          p.vy *= -1;
+        }
+    
+        let targetX = p.baseX;
+        let targetY = p.baseY;
+    
+        if (mouse.x !== null) {
+    
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+    
+          const distance = Math.sqrt(dx * dx + dy * dy);
+    
+          if (distance < mouse.radius) {
+    
+            const force =
+              (mouse.radius - distance) /
+              mouse.radius;
+    
+            const angle = Math.atan2(dy, dx);
+    
+            targetX -= Math.cos(angle) * force * 45;
+            targetY -= Math.sin(angle) * force * 45;
+    
+          }
+    
+        }
+    
+        p.x += (targetX - p.x) * 0.05;
+        p.y += (targetY - p.y) * 0.05;
+    
+        ctx.beginPath();
+    
+        ctx.arc(
+          p.x,
+          p.y,
+          p.size,
+          0,
+          Math.PI * 2
+        );
+    
+        ctx.fillStyle =
+          "rgba(23,105,170,0.22)";
+    
+        ctx.fill();
+    
+      }
+    
+      requestAnimationFrame(animate);
+    
+    }
+    
+    canvas.parentElement.addEventListener(
+      "mousemove",
+      function(event) {
+    
+        const rect = canvas.getBoundingClientRect();
+    
+        mouse.x = event.clientX - rect.left;
+        mouse.y = event.clientY - rect.top;
+    
+      }
+    );
+    
+    canvas.parentElement.addEventListener(
+      "mouseleave",
+      function() {
+    
+        mouse.x = null;
+        mouse.y = null;
+    
+      }
+    );
+    
+    window.addEventListener(
+      "resize",
+      resizeCanvas
+    );
+    
+    resizeCanvas();
+    animate();
+    
+    </script>
 
 </body>
 </html>
