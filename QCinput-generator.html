@@ -12,11 +12,11 @@
 
   <meta
     name="description"
-    content="Quantum chemistry input-file generator for Gaussian 16 and ORCA 6 by Dr. Prashant Kumar."
+    content="RasaYantra Ψ is a quantum chemistry input-file generator for Gaussian 16 and ORCA 6."
   >
 
   <title>
-    Quantum Chemistry Input Generator | Prashant Kumar
+    RasaYantra Ψ | Quantum Chemistry Input-File Generator
   </title>
 
 
@@ -1145,6 +1145,38 @@
 
     }
 
+    .psi-symbol {
+      color: var(--blue);
+      font-weight: 800;
+    }
+    
+    .tool-subtitle {
+      margin-top: -8px;
+      margin-bottom: 18px;
+    
+      color: var(--blue-dark);
+    
+      font-size: 1.3rem;
+      font-weight: 750;
+    
+      letter-spacing: 0.2px;
+    }
+
+    .generator-brand {
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+    
+    .generator-brand strong {
+      color: var(--navy);
+      font-weight: 750;
+    }
+    
+    .generator-brand span {
+      margin-left: 6px;
+    }
+
   </style>
 
 </head>
@@ -1196,17 +1228,21 @@
 
 
     <h1>
-      Quantum Chemistry Input Generator
+      RasaYantra <span class="psi-symbol">Ψ</span>
     </h1>
+    
+    <div class="tool-subtitle">
+      Quantum Chemistry Input-File Generator
+    </div>
 
 
     <p class="hero-intro">
 
-      Build starting input files for Gaussian 16 and ORCA 6.
-      Choose the calculation type, electronic-structure method,
-      basis set, solvation model, computational resources,
-      molecular charge and multiplicity, then paste Cartesian
-      coordinates in Ångström.
+        Build starting input files for Gaussian 16 and ORCA 6.
+        Select the calculation type, electronic-structure method,
+        basis set, solvation model, computational resources,
+        molecular charge and spin multiplicity, then provide
+        Cartesian coordinates in Ångström.
 
     </p>
 
@@ -1229,6 +1265,11 @@
          SETUP WINDOW
          ========================= -->
 
+    <div class="generator-brand">
+      <strong>RasaYantra Ψ</strong>
+      <span>Input Builder</span>
+    </div>
+    
     <section class="setup-shell">
 
 
@@ -2739,8 +2780,14 @@ H    0.12846622    0.52477185    1.30554439"
 
   <div class="container">
 
-    © 2026 Prashant Kumar ·
-    Computational Chemistry Utilities
+    © 2026 Prashant Kumar. All rights reserved.
+
+    <br>
+
+    <strong>
+      RasaYantra Ψ™
+    </strong>
+    — Quantum Chemistry Input-File Generator
 
   </div>
 
