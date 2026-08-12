@@ -2606,7 +2606,7 @@
                   class="action-button primary-button"
                   type="button"
                 >
-                  Use Drawn Molecule
+                  Generate Initial 3D Geometry
                 </button>
           
               </div>
@@ -2691,6 +2691,7 @@
 
           <div
             class="field"
+            id="xyzInputPanel"
             style="margin-top: 20px;"
           >
 
@@ -6280,6 +6281,11 @@ window.addEventListener(
       document.getElementById(
         "drawingStatus"
       );
+
+    const xyzInputPanel =
+      document.getElementById(
+        "xyzInputPanel"
+      );
     
     
     let drawnMolfile = "";
@@ -6295,11 +6301,13 @@ window.addEventListener(
           .classList
           .remove("hidden");
     
+        xyzInputPanel
+          .classList
+          .add("hidden");
     
         showDrawingButton
           .classList
           .add("active");
-    
     
         showXYZButton
           .classList
@@ -6319,11 +6327,13 @@ window.addEventListener(
           .classList
           .add("hidden");
     
+        xyzInputPanel
+          .classList
+          .remove("hidden");
     
         showXYZButton
           .classList
           .add("active");
-    
     
         showDrawingButton
           .classList
@@ -6335,7 +6345,15 @@ window.addEventListener(
     
     /* CAPTURE DRAWN MOLECULE */
     
-    captureDrawingButton.addEventListener(
+/* =========================================================
+   GENERATE 3D GEOMETRY FROM DRAWING
+   ========================================================= */
+
+const RDKIT_API_URL =
+  "https://rasayantra-3d.onrender.com";
+
+
+captureDrawingButton.addEventListener(
       "click",
       async function() {
     
@@ -6344,7 +6362,24 @@ window.addEventListener(
         );
     
     
+        const originalButtonText =
+          captureDrawingButton.textContent;
+    
+    
+        captureDrawingButton.disabled =
+          true;
+    
+    
+        captureDrawingButton.textContent =
+          "Generating 3D Geometry...";
+    
+    
         try {
+    
+    
+          /* -------------------------
+             GET KETCHER STRUCTURE
+             ------------------------- */
     
           const frame =
             document.getElementById(
@@ -6358,13 +6393,9 @@ window.addEventListener(
     
           if (!ketcher) {
     
-            setStatus(
-              drawingStatus,
-              "warning",
-              "The molecular editor is still loading. Please wait a moment and try again."
+            throw new Error(
+              "The molecular editor is still loading."
             );
-    
-            return;
     
           }
     
@@ -6380,42 +6411,205 @@ window.addEventListener(
             drawnMolfile.trim() === ""
           ) {
     
-            setStatus(
-              drawingStatus,
-              "warning",
-              "Please draw a molecule before continuing."
+            throw new Error(
+              "Please draw a molecule first."
             );
     
-            return;
+          }
+    
+    
+    
+          /* -------------------------
+             SEND STRUCTURE TO RDKIT
+             ------------------------- */
+    
+          const response =
+            await fetch(
+              RDKIT_API_URL +
+              "/generate-3d",
+              {
+    
+                method: "POST",
+    
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+    
+                body: JSON.stringify({
+                  molfile: drawnMolfile
+                })
+    
+              }
+            );
+    
+    
+          const data =
+            await response.json();
+    
+    
+    
+          if (!response.ok) {
+    
+            throw new Error(
+    
+              data.detail ||
+    
+              "3D geometry generation failed."
+    
+            );
+    
+          }
+    
+    
+    
+          /* -------------------------
+             CONVERT XYZ BLOCK
+             ------------------------- */
+    
+          let xyzLines =
+            data.xyz
+              .split(/\r?\n/);
+    
+    
+          /*
+           * RDKit XYZ output begins:
+           *
+           * number_of_atoms
+           * comment
+           * C x y z
+           * ...
+           */
+    
+          if (
+            xyzLines.length > 2 &&
+            /^\s*\d+\s*$/.test(
+              xyzLines[0]
+            )
+          ) {
+    
+            xyzLines =
+              xyzLines.slice(2);
+    
+          }
+    
+    
+          const coordinateText =
+            xyzLines
+    
+            .filter(function(line) {
+    
+              return (
+                line.trim() !== ""
+              );
+    
+            })
+    
+            .join("\n");
+    
+    
+    
+          /* -------------------------
+             FILL XYZ BOX
+             ------------------------- */
+    
+          coordinates.value =
+            coordinateText;
+    
+    
+          updateSummary();
+    
+    
+    
+          /* -------------------------
+             SHOW XYZ MODE
+             ------------------------- */
+    
+          showXYZButton.click();
+    
+    
+    
+          /* -------------------------
+             MESSAGE
+             ------------------------- */
+    
+          let message =
+    
+            "Initial 3D geometry generated successfully for " +
+    
+            data.atoms +
+    
+            " atoms using " +
+    
+            data.method +
+    
+            ".";
+    
+    
+          if (data.warning) {
+    
+            message +=
+              " " +
+              data.warning;
     
           }
     
     
           setStatus(
-            drawingStatus,
-            "success",
-            "Molecular structure captured successfully. The next stage is conversion of this 2D molecular structure into an initial 3D geometry."
+            validationStatus,
+            data.warning
+              ? "warning"
+              : "success",
+            message
           );
     
     
-          console.log(
-            "Captured MOL file:",
-            drawnMolfile
-          );
+    
+          /* -------------------------
+             SCROLL TO COORDINATES
+             ------------------------- */
+    
+          xyzInputPanel
+            .scrollIntoView({
+    
+              behavior:
+                "smooth",
+    
+              block:
+                "center"
+    
+            });
     
     
         } catch(error) {
     
-          console.error(error);
+    
+          console.error(
+            error
+          );
     
     
           setStatus(
             drawingStatus,
             "error",
-            "The molecular structure could not be read from the drawing editor."
+            error.message ||
+            "The initial 3D geometry could not be generated."
           );
     
+    
+        } finally {
+    
+    
+          captureDrawingButton.disabled =
+            false;
+    
+    
+          captureDrawingButton.textContent =
+            originalButtonText;
+    
+    
         }
+    
     
       }
     );
