@@ -38,9 +38,9 @@ def health():
 @app.post("/generate-3d")
 def generate_3d(request: MolRequest):
 
-    molblock = request.molfile.strip()
+    molblock = request.molfile
 
-    if not molblock:
+    if not molblock.strip():
         raise HTTPException(
             status_code=400,
             detail="No molecular structure was supplied."
