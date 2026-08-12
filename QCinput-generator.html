@@ -1071,6 +1071,182 @@
       font-size: 0.88rem;
     }
 
+    /* =========================
+   MOLECULE DRAWING
+   ========================= */
+
+    .molecule-input-section {
+      margin-bottom: 28px;
+    }
+    
+    .molecule-source-header {
+      margin-bottom: 16px;
+    }
+    
+    .molecule-source-header h3 {
+      margin: 0 0 6px;
+    
+      color: var(--navy);
+    
+      font-size: 1.12rem;
+    }
+    
+    .molecule-source-header p {
+      margin: 0;
+    
+      color: var(--muted);
+    
+      font-size: 0.9rem;
+    }
+    
+    
+    .structure-source-buttons {
+      display: flex;
+    
+      flex-wrap: wrap;
+    
+      gap: 9px;
+    
+      margin-bottom: 18px;
+    }
+    
+    
+    .structure-source-button {
+      padding: 9px 15px;
+    
+      color: var(--navy);
+    
+      background: white;
+    
+      border:
+        1px solid var(--border-dark);
+    
+      border-radius: 8px;
+    
+      font-weight: 700;
+    
+      cursor: pointer;
+    }
+    
+    
+    .structure-source-button:hover {
+      color: var(--blue);
+    
+      background: var(--blue-light);
+    }
+    
+    
+    .structure-source-button.active {
+      color: white;
+    
+      background: var(--blue);
+    
+      border-color: var(--blue);
+    }
+    
+    
+    .molecule-drawing-panel {
+      margin-bottom: 25px;
+    
+      padding: 18px;
+    
+      background: #f8fafc;
+    
+      border:
+        1px solid var(--border);
+    
+      border-radius: 12px;
+    }
+    
+    
+    .drawing-note {
+      margin-bottom: 13px;
+    
+      color: var(--muted);
+    
+      font-size: 0.87rem;
+    }
+    
+    
+    .ketcher-container {
+      width: 100%;
+    
+      height: 620px;
+    
+      overflow: hidden;
+    
+      background: white;
+    
+      border:
+        1px solid var(--border-dark);
+    
+      border-radius: 10px;
+    }
+    
+    
+    #ketcherFrame {
+      display: block;
+    
+      width: 100%;
+      height: 100%;
+    
+      border: 0;
+    }
+    
+    
+    .drawing-actions {
+      display: flex;
+    
+      gap: 10px;
+    
+      margin-top: 15px;
+    }
+    
+    
+    .drawing-information {
+      margin-top: 15px;
+    
+      padding: 12px 14px;
+    
+      color: #536477;
+    
+      background: var(--blue-light);
+    
+      border-radius: 8px;
+    
+      font-size: 0.84rem;
+    }
+    
+    
+    .drawing-information strong {
+      color: var(--navy);
+    }
+    
+    
+    .ketcher-credit {
+      margin-top: 12px;
+    
+      color: #7a8593;
+    
+      font-size: 0.75rem;
+      text-align: right;
+    }
+    
+    
+    @media (max-width: 800px) {
+    
+      .ketcher-container {
+        height: 520px;
+      }
+    
+      .structure-source-buttons {
+        display: grid;
+    
+        grid-template-columns: 1fr 1fr;
+      }
+    
+    }
+
 
 
     /* =========================
@@ -1176,6 +1352,9 @@
     .generator-brand span {
       margin-left: 6px;
     }
+
+
+    
 
   </style>
 
@@ -2350,6 +2529,124 @@
 
           </div>
 
+          <!-- =========================
+     MOLECULE DRAWING
+     ========================= -->
+
+          <div class="molecule-input-section">
+          
+            <div class="molecule-source-header">
+          
+              <h3>
+                Molecular Structure
+              </h3>
+          
+              <p>
+                Draw a molecular structure using atoms, bonds,
+                rings, and the periodic table, or continue by
+                entering Cartesian coordinates manually.
+              </p>
+          
+            </div>
+          
+          
+            <div class="structure-source-buttons">
+          
+              <button
+                id="showXYZButton"
+                class="structure-source-button active"
+                type="button"
+              >
+                XYZ Coordinates
+              </button>
+          
+              <button
+                id="showDrawingButton"
+                class="structure-source-button"
+                type="button"
+              >
+                Draw Molecule
+              </button>
+          
+            </div>
+          
+          
+            <!-- MOLECULE DRAWING PANEL -->
+          
+            <div
+              id="moleculeDrawingPanel"
+              class="molecule-drawing-panel hidden"
+            >
+          
+              <div class="drawing-note">
+          
+                Draw the molecular connectivity below.
+                Hydrogen atoms may be added explicitly in the editor
+                where required.
+          
+              </div>
+          
+          
+              <div class="ketcher-container">
+          
+                <iframe
+                  id="ketcherFrame"
+                  src="ketcher/index.html"
+                  title="RasaYantra Molecular Structure Editor"
+                  loading="lazy"
+                ></iframe>
+          
+              </div>
+          
+          
+              <div class="drawing-actions">
+          
+                <button
+                  id="captureDrawingButton"
+                  class="action-button primary-button"
+                  type="button"
+                >
+                  Use Drawn Molecule
+                </button>
+          
+              </div>
+          
+          
+              <div
+                id="drawingStatus"
+                class="status"
+                role="status"
+                aria-live="polite"
+              ></div>
+          
+          
+              <div class="drawing-information">
+          
+                <strong>Structure workflow:</strong>
+          
+                Draw molecule
+                →
+                capture molecular connectivity
+                →
+                generate initial 3D geometry
+                →
+                populate XYZ coordinates
+                →
+                generate Gaussian or ORCA input.
+          
+              </div>
+          
+          
+              <div class="ketcher-credit">
+          
+                Molecular drawing interface powered by Ketcher.
+          
+              </div>
+          
+            </div>
+          
+          </div>
+
 
           <div class="form-grid three">
 
@@ -2405,9 +2702,9 @@
               id="coordinates"
               spellcheck="false"
               placeholder="C   -0.21400778    0.19453585   -0.00254661
-C   -1.56208578    0.08817285   -0.38232861
-C   -2.59366178    0.31834985    0.52638239
-H    0.12846622    0.52477185    1.30554439"
+                            C   -1.56208578    0.08817285   -0.38232861
+                            C   -2.59366178    0.31834985    0.52638239
+                            H    0.12846622    0.52477185    1.30554439"
             ></textarea>
 
             <div class="help-text">
@@ -2690,8 +2987,8 @@ H    0.12846622    0.52477185    1.30554439"
         </h2>
 
         <p>
-          The generator is designed so that additional
-          quantum-chemistry packages can be incorporated in future
+          The generator is designed for Gaussian and Orca
+          quantum-chemistry packages at the moment but others will be incorporated in future
           versions.
         </p>
 
@@ -5949,6 +6246,179 @@ window.addEventListener(
 
   }
 );
+
+
+  /* =========================================================
+   MOLECULE DRAWING
+   ========================================================= */
+
+    const showXYZButton =
+      document.getElementById(
+        "showXYZButton"
+      );
+    
+    
+    const showDrawingButton =
+      document.getElementById(
+        "showDrawingButton"
+      );
+    
+    
+    const moleculeDrawingPanel =
+      document.getElementById(
+        "moleculeDrawingPanel"
+      );
+    
+    
+    const captureDrawingButton =
+      document.getElementById(
+        "captureDrawingButton"
+      );
+    
+    
+    const drawingStatus =
+      document.getElementById(
+        "drawingStatus"
+      );
+    
+    
+    let drawnMolfile = "";
+    
+    
+    /* SHOW DRAWING EDITOR */
+    
+    showDrawingButton.addEventListener(
+      "click",
+      function() {
+    
+        moleculeDrawingPanel
+          .classList
+          .remove("hidden");
+    
+    
+        showDrawingButton
+          .classList
+          .add("active");
+    
+    
+        showXYZButton
+          .classList
+          .remove("active");
+    
+      }
+    );
+    
+    
+    /* SHOW MANUAL XYZ MODE */
+    
+    showXYZButton.addEventListener(
+      "click",
+      function() {
+    
+        moleculeDrawingPanel
+          .classList
+          .add("hidden");
+    
+    
+        showXYZButton
+          .classList
+          .add("active");
+    
+    
+        showDrawingButton
+          .classList
+          .remove("active");
+    
+      }
+    );
+    
+    
+    /* CAPTURE DRAWN MOLECULE */
+    
+    captureDrawingButton.addEventListener(
+      "click",
+      async function() {
+    
+        clearStatus(
+          drawingStatus
+        );
+    
+    
+        try {
+    
+          const frame =
+            document.getElementById(
+              "ketcherFrame"
+            );
+    
+    
+          const ketcher =
+            frame.contentWindow.ketcher;
+    
+    
+          if (!ketcher) {
+    
+            setStatus(
+              drawingStatus,
+              "warning",
+              "The molecular editor is still loading. Please wait a moment and try again."
+            );
+    
+            return;
+    
+          }
+    
+    
+          drawnMolfile =
+            await ketcher.getMolfile(
+              "v3000"
+            );
+    
+    
+          if (
+            !drawnMolfile ||
+            drawnMolfile.trim() === ""
+          ) {
+    
+            setStatus(
+              drawingStatus,
+              "warning",
+              "Please draw a molecule before continuing."
+            );
+    
+            return;
+    
+          }
+    
+    
+          setStatus(
+            drawingStatus,
+            "success",
+            "Molecular structure captured successfully. The next stage is conversion of this 2D molecular structure into an initial 3D geometry."
+          );
+    
+    
+          console.log(
+            "Captured MOL file:",
+            drawnMolfile
+          );
+    
+    
+        } catch(error) {
+    
+          console.error(error);
+    
+    
+          setStatus(
+            drawingStatus,
+            "error",
+            "The molecular structure could not be read from the drawing editor."
+          );
+    
+        }
+    
+      }
+    );
 
 
 
