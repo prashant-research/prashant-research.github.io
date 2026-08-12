@@ -1599,15 +1599,6 @@
           </button>
 
 
-          <button
-            class="tab-button"
-            type="button"
-            data-tab="preview"
-          >
-            Preview
-          </button>
-
-
         </div>
 
       </div>
@@ -2713,89 +2704,6 @@ H    0.12846622    0.52477185    1.30554439"
               coordinates in Ångström.
             </div>
 
-          </div>
-
-
-        </section>
-
-
-
-        <!-- =========================
-             PREVIEW
-             ========================= -->
-
-        <section
-          class="tab-panel"
-          id="panel-preview"
-        >
-
-          <div class="panel-heading">
-
-            <h2>
-              Preview and Validation
-            </h2>
-
-            <p>
-              Click Generate Input below. The generated file
-              will appear in the copyable code window.
-            </p>
-
-          </div>
-
-
-          <div class="form-grid">
-
-
-            <div class="field">
-
-              <span class="field-label">
-                Current software
-              </span>
-
-              <div
-                class="subpanel"
-                style="margin-top: 0;"
-              >
-
-                <strong id="previewSoftware">
-                  Gaussian 16
-                </strong>
-
-              </div>
-
-            </div>
-
-
-
-            <div class="field">
-
-              <span class="field-label">
-                Output filename
-              </span>
-
-              <div
-                class="subpanel"
-                style="margin-top: 0;"
-              >
-
-                <strong id="previewFilename">
-                  calculation.gjf
-                </strong>
-
-              </div>
-
-            </div>
-
-
-          </div>
-
-
-          <div
-            id="validationStatus"
-            class="status"
-            role="status"
-            aria-live="polite"
-          >
           </div>
 
 
@@ -5805,13 +5713,6 @@ function generateInput() {
     );
 
 
-    document
-      .querySelector(
-        '[data-tab="preview"]'
-      )
-      .click();
-
-
     return;
 
 
@@ -5927,14 +5828,6 @@ function generateInput() {
     " atoms. Review the generated file carefully before running it."
 
   );
-
-
-
-  document
-    .querySelector(
-      '[data-tab="preview"]'
-    )
-    .click();
 
 
 
