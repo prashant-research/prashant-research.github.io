@@ -2712,12 +2712,21 @@ H    0.12846622    0.52477185    1.30554439"
 
       </div>
 
+  
+
 
 
       <!-- =========================
            ACTION BAR
            ========================= -->
 
+        <div
+            id="validationStatus"
+            class="status"
+            role="status"
+            aria-live="polite"
+          ></div>
+      
       <div class="action-bar">
 
 
@@ -3382,18 +3391,6 @@ const codeFilename =
   );
 
 
-const previewFilename =
-  document.getElementById(
-    "previewFilename"
-  );
-
-
-const previewSoftware =
-  document.getElementById(
-    "previewSoftware"
-  );
-
-
 let generatedText = "";
 
 let downloadURL = null;
@@ -3527,8 +3524,6 @@ function updateOutputFilename() {
     filename;
 
 
-  previewFilename.textContent =
-    filename;
 
 
 }
@@ -3808,15 +3803,6 @@ function updateConditionalUI() {
       "hidden",
       !hasSolvent
     );
-
-
-
-  previewSoftware.textContent =
-    isGaussian
-
-      ? "Gaussian 16"
-
-      : "ORCA 6";
 
 
 
@@ -5756,10 +5742,6 @@ function generateInput() {
 
 
   codeFilename.textContent =
-    filename;
-
-
-  previewFilename.textContent =
     filename;
 
 
