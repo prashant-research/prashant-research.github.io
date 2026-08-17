@@ -12,7 +12,7 @@
 
   <meta
     name="description"
-    content="RasaYantra Ψ is a quantum chemistry input-file generator for Gaussian 16 and ORCA 6."
+    content="RasaYantra Ψ is a quantum chemistry input-file generator for Gaussian and ORCA."
   >
 
   <title>
@@ -229,6 +229,27 @@
       color: #40546a;
 
       font-size: 1.12rem;
+    }
+
+    .learning-mode-button {
+      display: inline-block;
+      margin-top: 22px;
+      padding: 10px 16px;
+    
+      color: var(--blue-dark);
+      background: white;
+    
+      border: 1px solid #bcd1e2;
+      border-radius: 8px;
+    
+      text-decoration: none;
+      font-weight: 750;
+    }
+    
+    .learning-mode-button:hover {
+      color: white;
+      background: var(--blue);
+      border-color: var(--blue);
     }
 
 
@@ -1353,6 +1374,74 @@
       margin-left: 6px;
     }
 
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(260px, 0.8fr);
+      align-items: center;
+      gap: 55px;
+    }
+    
+    .wisdom-card {
+      padding: 24px 25px;
+    
+      background: rgba(255, 255, 255, 0.72);
+      border-left: 3px solid var(--blue);
+      border-radius: 10px;
+    
+      box-shadow: 0 10px 28px rgba(10, 40, 70, 0.07);
+    }
+    
+    .wisdom-card blockquote {
+      margin: 0;
+    
+      color: var(--navy);
+    
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      line-height: 1.6;
+    }
+    
+    .wisdom-card cite {
+      display: block;
+      margin-top: 9px;
+    
+      color: var(--blue-dark);
+    
+      font-size: 0.82rem;
+      font-style: normal;
+      font-weight: 700;
+    }
+    
+    .quote-divider {
+      width: 35px;
+      height: 1px;
+    
+      margin: 19px 0;
+    
+      background: #c8d7e4;
+    }
+    
+    .wisdom-card .secondary-quote {
+      font-size: 0.95rem;
+    }
+    
+    
+    /* MOBILE */
+    
+    @media (max-width: 850px) {
+    
+      .hero-layout {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    
+      .wisdom-card {
+        max-width: 520px;
+      }
+    
+    }
+
 
     
 
@@ -1401,31 +1490,66 @@
 
   <div class="container">
 
-    <div class="utility-label">
-      Computational Chemistry Utility · Version 1.0
-    </div>
+    <div class="hero-layout">
+  
+      <div class="hero-main">
+  
+        <div class="utility-label">
+          Computational Chemistry Utility · Version 1.0
+        </div>
+  
+        <h1>
+          RasaYantra <span class="psi-symbol">Ψ</span>
+        </h1>
+  
+        <div class="tool-subtitle">
+          Quantum Chemistry Input-File Generator
+        </div>
+  
+        <p class="hero-intro">
+          Build starting input files for Gaussian and ORCA.
+          Select the calculation type, electronic-structure method,
+          basis set, solvation model, computational resources,
+          molecular charge and spin multiplicity, then provide
+          Cartesian coordinates in Ångström.
+        </p>
+
+        <a
+          href="learning-mode.html"
+          class="learning-mode-button"
+        >
+          Learning Mode
+        </a>
+  
+      </div>
 
 
-    <h1>
-      RasaYantra <span class="psi-symbol">Ψ</span>
-    </h1>
-    
-    <div class="tool-subtitle">
-      Quantum Chemistry Input-File Generator
-    </div>
+    <aside class="wisdom-card">
 
+      <blockquote>
+        “You learn while you are doing.
+        The doing is the learning.”
+      </blockquote>
 
-    <p class="hero-intro">
+      <cite>
+        — J. Krishnamurti
+      </cite>
 
-        Build starting input files for Gaussian 16 and ORCA 6.
-        Select the calculation type, electronic-structure method,
-        basis set, solvation model, computational resources,
-        molecular charge and spin multiplicity, then provide
-        Cartesian coordinates in Ångström.
+      <div class="quote-divider"></div>
 
-    </p>
+      <blockquote class="secondary-quote">
+        “Experience is the only teacher.”
+      </blockquote>
+
+      <cite>
+        — Swami Vivekananda
+      </cite>
+
+    </aside>
 
   </div>
+
+</div>
 
 </header>
 
