@@ -994,19 +994,38 @@
 
 
     .result-label {
-
       color: var(--muted);
-
       font-size: 0.76rem;
-
       font-weight: 700;
-
-      text-transform: uppercase;
-
-      letter-spacing: 0.45px;
-
+      text-transform: none;
+      letter-spacing: 0.2px;
     }
 
+    .mlj-result {
+      background: #f1fbf4;
+      border-color: #a9d8b5;
+    }
+    
+    .mlj-result .result-label {
+      color: #17713a;
+    }
+    
+    .mlj-result .result-value {
+      color: #126532;
+    }
+    
+    .mlj-note {
+      margin: 0 0 20px;
+      padding: 10px 13px;
+    
+      color: #176534;
+      background: #edf9f0;
+    
+      border-left: 4px solid #2d8a4e;
+      border-radius: 6px;
+    
+      font-size: 0.84rem;
+    }
 
     .result-value {
 
@@ -2138,91 +2157,109 @@
           Final-state normal-mode basis.
         </p>
 
+        <div class="mlj-note">
+          <strong>MLJ parameters:</strong>
+          The values highlighted in green,
+          <em>S</em><sub>eff</sub> and
+          ω<sub>eff</sub>, are the effective Huang–Rhys
+          parameters used in Marcus–Levich–Jortner (MLJ)
+          rate calculations.
+        </div>
+
 
         <div class="results-grid">
 
 
-          <div class="result-card">
+          <!-- EFFECTIVE HUANG-RHYS FACTOR -->
 
-            <div class="result-label">
-              S<sub>eff</sub>
-            </div>
-
-            <div
-              class="result-value"
-              id="resultSeff"
-            >
-              —
-            </div>
-
-            <div class="result-unit">
-              Total Huang–Rhys factor
-            </div>
-
+        <div class="result-card mlj-result">
+        
+          <div class="result-label">
+            Effective Huang–Rhys factor
+            (<em>S</em><sub>eff</sub>)
           </div>
-
-
-
-          <div class="result-card">
-
-            <div class="result-label">
-              ω<sub>eff</sub>
-            </div>
-
-            <div
-              class="result-value"
-              id="resultOmega"
-            >
-              —
-            </div>
-
-            <div class="result-unit">
-              cm⁻¹
-            </div>
-
+        
+          <div
+            class="result-value"
+            id="resultSeff"
+          >
+            —
           </div>
-
-
-
-          <div class="result-card">
-
-            <div class="result-label">
-              ħω
-            </div>
-
-            <div
-              class="result-value"
-              id="resultHbarOmega"
-            >
-              —
-            </div>
-
-            <div class="result-unit">
-              eV
-            </div>
-
+        
+          <div class="result-unit">
+            dimensionless
           </div>
-
-
-
-          <div class="result-card">
-
-            <div class="result-label">
-              λ<sub>in</sub>
-            </div>
-
-            <div
-              class="result-value"
-              id="resultLambda"
-            >
-              —
-            </div>
-
-            <div class="result-unit">
-              eV
-            </div>
-
+        
+        </div>
+        
+        
+        <!-- EFFECTIVE VIBRATIONAL FREQUENCY -->
+        
+        <div class="result-card mlj-result">
+        
+          <div class="result-label">
+            Effective vibrational frequency
+            (ω<sub>eff</sub>)
           </div>
+        
+          <div
+            class="result-value"
+            id="resultOmega"
+          >
+            —
+          </div>
+        
+          <div class="result-unit">
+            cm⁻¹
+          </div>
+        
+        </div>
+        
+        
+        <!-- VIBRATIONAL ENERGY -->
+        
+        <div class="result-card">
+        
+          <div class="result-label">
+            Effective vibrational energy
+            (ℏω<sub>eff</sub>)
+          </div>
+        
+          <div
+            class="result-value"
+            id="resultHbarOmega"
+          >
+            —
+          </div>
+        
+          <div class="result-unit">
+            eV
+          </div>
+        
+        </div>
+        
+        
+        <!-- REORGANIZATION ENERGY -->
+        
+        <div class="result-card">
+        
+          <div class="result-label">
+            Intramolecular reorganization energy
+            (λ<sub>in</sub>)
+          </div>
+        
+          <div
+            class="result-value"
+            id="resultLambda"
+          >
+            —
+          </div>
+        
+          <div class="result-unit">
+            eV
+          </div>
+        
+        </div>
 
 
 
