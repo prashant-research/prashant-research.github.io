@@ -12,7 +12,7 @@
 
   <meta
     name="description"
-    content="RasaYantra Ψ is a quantum chemistry input-file generator for Gaussian and ORCA."
+    content="RasaYantra Ψ is a quantum chemistry input-file generator for Gaussian, ORCA and PySCF."
   >
 
   <title>
@@ -1506,14 +1506,17 @@
           Quantum Chemistry Input-File Generator
         </div>
   
-        <p class="hero-intro">
-          Build starting input files for Gaussian and ORCA.
-          Select the calculation type, electronic-structure method,
-          basis set, solvation model, computational resources,
-          molecular charge and spin multiplicity, then provide
-          Cartesian coordinates in Ångström.
-        </p>
-
+       
+          <p class="hero-intro">
+            Build starting input files and scripts for Gaussian,
+            ORCA, and PySCF, including the Microsoft Research
+            Skala exchange–correlation functional.
+            Select the calculation type, electronic-structure method,
+            basis set, solvation model, computational resources,
+            molecular charge and spin multiplicity, then provide
+            Cartesian coordinates in Ångström.
+          </p>
+        
         <a
           href="learning-mode.html"
           class="learning-mode-button"
@@ -1781,6 +1784,10 @@
                   ORCA 6
                 </option>
 
+                <option value="pyscf">
+                  PySCF — including Skala
+                </option>
+
               </select>
 
             </div>
@@ -1829,7 +1836,7 @@
             <div class="field">
 
               <label for="additionalKeywords">
-                Additional keywords
+                Additional keywords / Python code
               </label>
 
               <input
@@ -1839,10 +1846,11 @@
               >
 
               <div class="help-text">
-                Added exactly as entered. Verify advanced
-                keywords against the relevant software manual.
+                For Gaussian and ORCA, this is added as an advanced
+                software keyword. For PySCF, valid Python code entered
+                here is inserted into the generated script before the
+                calculation is executed. Advanced use only.
               </div>
-
             </div>
 
 
@@ -2063,37 +2071,16 @@
                 DFT functional
               </label>
 
+              
+
               <select id="functional">
-
-                <option value="B3LYP">
-                  B3LYP
-                </option>
-
-                <option value="PBE0">
-                  PBE0
-                </option>
-
-                <option value="CAM-B3LYP">
-                  CAM-B3LYP
-                </option>
-
-                <option value="M06-2X">
-                  M06-2X
-                </option>
-
-                <option value="TPSSh">
-                  TPSSh
-                </option>
-
-                <option value="BP86">
-                  BP86
-                </option>
-
-                <option value="wB97X-D">
-                  ωB97X-D
-                </option>
-
               </select>
+              
+              <div class="help-text">
+                Available functionals are adjusted automatically for
+                the selected quantum-chemistry software. PySCF includes
+                Microsoft Research Skala 1.1.
+              </div>
 
             </div>
 
@@ -2117,6 +2104,47 @@
             </div>
 
 
+          </div>
+
+                    <!-- PYSCF INFORMATION -->
+          
+          <div
+            class="subpanel hidden"
+            id="pyscfInfo"
+          >
+          
+            <h3>
+              PySCF / Skala
+            </h3>
+          
+            <div class="help-text" style="font-size:0.88rem; margin-top:0;">
+          
+              RasaYantra generates an executable Python script
+              when PySCF is selected.
+          
+              <br><br>
+          
+              <strong>PySCF Version 1 support:</strong>
+              single-point calculations are generated for DFT,
+              Skala 1.1, HF, MP2, CCSD, CCSD(T), and CASSCF.
+              Geometry optimization is available for DFT,
+              Skala 1.1, and HF.
+          
+              <br><br>
+          
+              Frequency, Optimization + Frequency, IRC, and
+              TD-DFT generation are intentionally disabled for
+              PySCF in this first implementation until their
+              workflows are treated separately.
+          
+              <br><br>
+          
+              The current Skala generator uses the CPU PySCF
+              implementation. GPU4PySCF support can be added
+              separately in a future version.
+          
+            </div>
+          
           </div>
 
 
@@ -2596,6 +2624,30 @@
 
             </div>
 
+            <div
+              class="field hidden"
+              id="pyscfMemoryField"
+            >
+            
+              <label for="pyscfMemory">
+                PySCF maximum memory
+              </label>
+            
+              <input
+                id="pyscfMemory"
+                type="number"
+                min="1"
+                step="1"
+                value="32000"
+              >
+            
+              <div class="help-text">
+                MB available to PySCF. This is a software memory
+                setting and does not allocate memory automatically.
+              </div>
+            
+            </div>
+
 
 
             <div class="field">
@@ -2747,7 +2799,7 @@
                 →
                 populate XYZ coordinates
                 →
-                generate Gaussian or ORCA input.
+                generate Gaussian, ORCA, or PySCF input.
           
               </div>
           
@@ -2946,7 +2998,7 @@ H    0.12846622    0.52477185    1.30554439"
 
 
 
-        <pre id="outputCode"><span class="preview-placeholder">Your generated Gaussian or ORCA input file will appear here.</span></pre>
+        <pre id="outputCode"><span class="preview-placeholder">Your generated Gaussian, ORCA, or PySCF input file will appear here.</span></pre>
 
 
       </div>
@@ -3015,6 +3067,38 @@ H    0.12846622    0.52477185    1.30554439"
             ORCA Tutorials →
           </a>
 
+          <a
+            href="https://pyscf.org/user/index.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            PySCF User Guide →
+          </a>
+          
+          <a
+            href="https://pyscf.org/quickstart.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            PySCF Quickstart →
+          </a>
+          
+          <a
+            href="https://microsoft.github.io/skala/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Skala Documentation →
+          </a>
+          
+          <a
+            href="https://github.com/microsoft/skala"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Skala GitHub →
+          </a>
+
 
         </div>
 
@@ -3028,11 +3112,16 @@ H    0.12846622    0.52477185    1.30554439"
           Future Software Support
         </h2>
 
-        <p>
-          The generator is designed for Gaussian and Orca
-          quantum-chemistry packages at the moment but others will be incorporated in future
-          versions.
-        </p>
+        
+          <p>
+            RasaYantra currently supports Gaussian, ORCA,
+            and PySCF, including generation of PySCF scripts
+            using the Microsoft Research Skala functional.
+            Additional quantum-chemistry packages and more
+            advanced software-specific workflows will be
+            incorporated in future versions.
+          </p>
+        
 
 
         <div class="future-list">
@@ -3143,6 +3232,33 @@ H    0.12846622    0.52477185    1.30554439"
 "use strict";
 
 
+
+
+/* =========================================================
+   SOFTWARE CONFIGURATION
+   ========================================================= */
+
+const SOFTWARE_CONFIG = {
+
+  gaussian: {
+    label: "Gaussian 16",
+    filename: "calculation.gjf"
+  },
+
+  orca: {
+    label: "ORCA 6",
+    filename: "calculation.inp"
+  },
+
+  pyscf: {
+    label: "PySCF",
+    filename: "calculation.py"
+  }
+
+};
+
+
+
 /* =========================================================
    BASIS SET OPTIONS
    ========================================================= */
@@ -3187,6 +3303,88 @@ const BASIS_OPTIONS = {
     ["cc-pVTZ", "cc-pVTZ"],
 
     ["CUSTOM", "Custom..."]
+
+  ],
+
+
+  pyscf: [
+
+    ["sto-3g", "STO-3G"],
+
+    ["3-21g", "3-21G"],
+
+    ["6-31g*", "6-31G(d)"],
+
+    ["6-31+g**", "6-31+G(d,p)"],
+
+    ["cc-pvdz", "cc-pVDZ"],
+
+    ["cc-pvtz", "cc-pVTZ"],
+
+    ["def2-svp", "def2-SVP"],
+
+    ["def2-tzvp", "def2-TZVP"],
+
+    ["def2-tzvpp", "def2-TZVPP"],
+
+    ["CUSTOM", "Custom..."]
+
+  ]
+
+};
+
+
+
+/* =========================================================
+   FUNCTIONAL MENUS
+   ========================================================= */
+
+const FUNCTIONAL_OPTIONS = {
+
+  gaussian: [
+
+    ["B3LYP", "B3LYP"],
+    ["PBE0", "PBE0"],
+    ["CAM-B3LYP", "CAM-B3LYP"],
+    ["M06-2X", "M06-2X"],
+    ["TPSSh", "TPSSh"],
+    ["BP86", "BP86"],
+    ["wB97X-D", "ωB97X-D"]
+
+  ],
+
+
+  orca: [
+
+    ["B3LYP", "B3LYP"],
+    ["PBE0", "PBE0"],
+    ["CAM-B3LYP", "CAM-B3LYP"],
+    ["M06-2X", "M06-2X"],
+    ["TPSSh", "TPSSh"],
+    ["BP86", "BP86"],
+    ["wB97X-D", "ωB97X-D"]
+
+  ],
+
+
+  pyscf: [
+
+    [
+      "SKALA-1.1",
+      "Skala 1.1 — Microsoft Research"
+    ],
+
+    ["B3LYP", "B3LYP"],
+
+    ["PBE0", "PBE0"],
+
+    ["CAM-B3LYP", "CAM-B3LYP"],
+
+    ["M06-2X", "M06-2X"],
+
+    ["TPSSh", "TPSSh"],
+
+    ["BP86", "BP86"]
 
   ]
 
@@ -3247,6 +3445,109 @@ const ORCA_FUNCTIONALS = {
 
   "wB97X-D":
     "wB97X-D"
+
+};
+
+
+
+const PYSCF_FUNCTIONALS = {
+
+  "B3LYP":
+    "B3LYP",
+
+  "PBE0":
+    "PBE0",
+
+  "CAM-B3LYP":
+    "CAM-B3LYP",
+
+  "M06-2X":
+    "M06-2X",
+
+  "TPSSh":
+    "TPSSh",
+
+  "BP86":
+    "BP86"
+
+};
+
+
+
+/* =========================================================
+   PYSCF SOLVENT DATA
+   ========================================================= */
+
+/*
+ * Static dielectric constants used for the
+ * PySCF PCM generator.
+ */
+
+const PYSCF_PCM_EPS = {
+
+  Water:
+    78.355,
+
+  Acetonitrile:
+    35.688,
+
+  Methanol:
+    32.613,
+
+  Ethanol:
+    24.852,
+
+  Dichloromethane:
+    8.93,
+
+  Chloroform:
+    4.7113,
+
+  Toluene:
+    2.3741,
+
+  THF:
+    7.4257,
+
+  Hexane:
+    1.8819
+
+};
+
+
+
+/*
+ * Names expected by the PySCF SMD solvent database.
+ */
+
+const PYSCF_SMD_SOLVENTS = {
+
+  Water:
+    "water",
+
+  Acetonitrile:
+    "acetonitrile",
+
+  Methanol:
+    "methanol",
+
+  Ethanol:
+    "ethanol",
+
+  Dichloromethane:
+    "dichloromethane",
+
+  Chloroform:
+    "chloroform",
+
+  Toluene:
+    "toluene",
+
+  THF:
+    "tetrahydrofuran",
+
+  Hexane:
+    "n-hexane"
 
 };
 
@@ -3441,6 +3742,11 @@ const orcaMaxCore =
   document.getElementById(
     "orcaMaxCore"
   );
+  
+const pyscfMemory =
+  document.getElementById(
+    "pyscfMemory"
+  );
 
 
 const scfMaxIter =
@@ -3624,17 +3930,13 @@ function clearStatus(element) {
 
 function getOutputFilename() {
 
-
-  return software.value ===
-    "gaussian"
-
-    ? "calculation.gjf"
-
-    : "calculation.inp";
-
+  return (
+    SOFTWARE_CONFIG[
+      software.value
+    ].filename
+  );
 
 }
-
 
 
 function updateOutputFilename() {
@@ -3723,17 +4025,196 @@ function populateBasisSets() {
   } else {
 
 
-    basisSet.value =
-      software.value ===
-        "gaussian"
+    const defaultBasis = {
 
-        ? "6-31G(d)"
+  gaussian:
+    "6-31G(d)",
 
-        : "def2-TZVP";
+  orca:
+    "def2-TZVP",
 
+  pyscf:
+    "def2-tzvp"
+
+};
+
+
+basisSet.value =
+  defaultBasis[
+    software.value
+  ];
 
   }
 
+
+}
+
+
+  /* =========================================================
+   FUNCTIONAL MENU
+   ========================================================= */
+
+function populateFunctionals() {
+
+  const current =
+    functional.value;
+
+
+  functional.innerHTML =
+    "";
+
+
+  FUNCTIONAL_OPTIONS[
+    software.value
+  ]
+  .forEach(function(entry) {
+
+    const option =
+      document.createElement(
+        "option"
+      );
+
+
+    option.value =
+      entry[0];
+
+
+    option.textContent =
+      entry[1];
+
+
+    functional.appendChild(
+      option
+    );
+
+  });
+
+
+  const availableValues =
+    Array.from(
+      functional.options
+    )
+    .map(function(option) {
+
+      return option.value;
+
+    });
+
+
+  if (
+    current &&
+    availableValues.includes(
+      current
+    )
+  ) {
+
+    functional.value =
+      current;
+
+  } else {
+
+    functional.value =
+
+      software.value ===
+        "pyscf"
+
+      ? "SKALA-1.1"
+
+      : "B3LYP";
+
+  }
+
+}
+
+
+
+/* =========================================================
+   JOB AVAILABILITY
+   ========================================================= */
+
+function updateJobAvailability() {
+
+  const isPySCF =
+    software.value ===
+      "pyscf";
+
+
+  const pyscfCanOptimize =
+
+    methodFamily.value === "dft" ||
+
+    methodFamily.value === "hf";
+
+
+  Array.from(
+    jobType.options
+  )
+  .forEach(function(option) {
+
+    if (!isPySCF) {
+
+      option.disabled =
+        false;
+
+      return;
+
+    }
+
+
+    if (
+      option.value ===
+        "energy"
+    ) {
+
+      option.disabled =
+        false;
+
+      return;
+
+    }
+
+
+    if (
+      option.value ===
+        "opt"
+    ) {
+
+      option.disabled =
+        !pyscfCanOptimize;
+
+      return;
+
+    }
+
+
+    /*
+     * Frequency, Opt+Freq, IRC and TD-DFT
+     * are intentionally unavailable in
+     * the first PySCF implementation.
+     */
+
+    option.disabled =
+      true;
+
+  });
+
+
+  const selectedOption =
+
+    jobType.options[
+      jobType.selectedIndex
+    ];
+
+
+  if (
+    selectedOption &&
+    selectedOption.disabled
+  ) {
+
+    jobType.value =
+      "energy";
+
+  }
 
 }
 
@@ -3745,7 +4226,6 @@ function populateBasisSets() {
 
 function updateConditionalUI() {
 
-
   const isGaussian =
     software.value ===
       "gaussian";
@@ -3754,6 +4234,11 @@ function updateConditionalUI() {
   const isOrca =
     software.value ===
       "orca";
+
+
+  const isPySCF =
+    software.value ===
+      "pyscf";
 
 
   const isDFT =
@@ -3769,6 +4254,9 @@ function updateConditionalUI() {
   const isCustom =
     methodFamily.value ===
       "custom";
+
+
+  updateJobAvailability();
 
 
   const isTDDFT =
@@ -3822,6 +4310,17 @@ function updateConditionalUI() {
 
   document
     .getElementById(
+      "pyscfMemoryField"
+    )
+    .classList.toggle(
+      "hidden",
+      !isPySCF
+    );
+
+
+
+  document
+    .getElementById(
       "auxBasisField"
     )
     .classList.toggle(
@@ -3838,6 +4337,17 @@ function updateConditionalUI() {
     .classList.toggle(
       "hidden",
       !isOrca
+    );
+
+
+
+  document
+    .getElementById(
+      "pyscfInfo"
+    )
+    .classList.toggle(
+      "hidden",
+      !isPySCF
     );
 
 
@@ -3881,7 +4391,8 @@ function updateConditionalUI() {
     )
     .classList.toggle(
       "hidden",
-      !isCASSCF || !isOrca
+      !isCASSCF ||
+      !isOrca
     );
 
 
@@ -3940,18 +4451,29 @@ function updateConditionalUI() {
 
       ? "Controls the ORCA TDA setting for the excited-state calculation."
 
+      : isPySCF
+
+      ? "TD-DFT generation is not enabled for PySCF in this first version."
+
       : "Adds TDA to the Gaussian TD keyword when selected.";
+
+
+
+  additionalKeywords.placeholder =
+
+    isPySCF
+
+    ? "Optional valid PySCF Python statement"
+
+    : "Optional advanced keywords";
 
 
 
   updateOutputFilename();
 
-
   updateSummary();
 
-
 }
-
 
 
 /* =========================================================
@@ -3979,9 +4501,21 @@ function updateSummary() {
   ) {
 
 
-    methodText +=
-      " / " +
-      functional.value;
+  const selectedFunctional =
+    functional.options[
+      functional.selectedIndex
+    ];
+  
+  
+  methodText +=
+    " / " +
+    (
+      selectedFunctional
+  
+      ? selectedFunctional.textContent
+  
+      : functional.value
+    );
 
 
   }
@@ -4030,17 +4564,14 @@ function updateSummary() {
 
 
   document
-    .getElementById(
-      "summarySoftware"
-    )
-    .textContent =
+  .getElementById(
+    "summarySoftware"
+  )
+  .textContent =
 
-      software.value ===
-        "gaussian"
-
-      ? "Gaussian 16"
-
-      : "ORCA 6";
+    SOFTWARE_CONFIG[
+      software.value
+    ].label;
 
 
 
@@ -4683,6 +5214,135 @@ function validateCommonInputs() {
 
   }
 
+  /* =========================================================
+   PYSCF VALIDATION
+   ========================================================= */
+
+if (
+  software.value ===
+    "pyscf"
+) {
+
+
+  if (
+    !Number.isFinite(
+      Number(
+        pyscfMemory.value
+      )
+    ) ||
+
+    Number(
+      pyscfMemory.value
+    ) <= 0
+  ) {
+
+    problems.push(
+      "PySCF maximum memory must be greater than zero."
+    );
+
+  }
+
+
+
+  const supportedPySCFJobs = [
+
+    "energy",
+
+    "opt"
+
+  ];
+
+
+  if (
+    !supportedPySCFJobs.includes(
+      jobType.value
+    )
+  ) {
+
+    problems.push(
+      "This PySCF version currently supports single-point energy and geometry optimization generation."
+    );
+
+  }
+
+
+
+  if (
+    jobType.value ===
+      "opt" &&
+
+    methodFamily.value !==
+      "dft" &&
+
+    methodFamily.value !==
+      "hf"
+  ) {
+
+    problems.push(
+      "PySCF geometry optimization is currently generated only for DFT and Hartree–Fock methods."
+    );
+
+  }
+
+
+
+  if (
+    methodFamily.value ===
+      "custom"
+  ) {
+
+    problems.push(
+      "Custom PySCF method generation is not enabled in this first version."
+    );
+
+  }
+
+
+
+  const isSkala =
+
+    methodFamily.value ===
+      "dft" &&
+
+    functional.value ===
+      "SKALA-1.1";
+
+
+  if (
+    isSkala &&
+
+    solvationModel.value !==
+      "none"
+  ) {
+
+    problems.push(
+      "RasaYantra currently generates Skala 1.1 calculations in the gas phase only. Choose None / Gas Phase for solvation."
+    );
+
+  }
+
+
+
+  if (
+    solvationModel.value !==
+      "none" &&
+
+    methodFamily.value !==
+      "dft" &&
+
+    methodFamily.value !==
+      "hf"
+  ) {
+
+    problems.push(
+      "PySCF solvent generation is currently supported only for DFT and Hartree–Fock calculations."
+    );
+
+  }
+
+
+}
+
 
 
   return problems;
@@ -4852,6 +5512,17 @@ function getOrcaMethod() {
 
   }
 
+
+}
+
+  function getPyscfFunctional() {
+
+  return (
+    PYSCF_FUNCTIONALS[
+      functional.value
+    ] ||
+    functional.value
+  );
 
 }
 
@@ -5764,6 +6435,943 @@ function generateOrcaInput(
 
 
 /* =========================================================
+   PYSCF GENERATOR
+   ========================================================= */
+
+function generatePyscfInput(
+  coordinateLines
+) {
+
+  const lines =
+    [];
+
+
+  const basis =
+    getBasisKeyword();
+
+
+  const molecularCharge =
+    Number(
+      charge.value
+    );
+
+
+  /*
+   * PySCF uses:
+   *
+   * spin = Nalpha - Nbeta = 2S
+   *
+   * Multiplicity = 2S + 1
+   *
+   * therefore:
+   *
+   * spin = multiplicity - 1
+   */
+
+  const pyscfSpin =
+
+    Number(
+      multiplicity.value
+    ) - 1;
+
+
+  const isOpenShell =
+
+    pyscfSpin !== 0;
+
+
+  const isSkala =
+
+    methodFamily.value ===
+      "dft" &&
+
+    functional.value ===
+      "SKALA-1.1";
+
+
+  const title =
+
+    titleInput
+      .value
+      .trim()
+      .replace(
+        /\r?\n/g,
+        " "
+      )
+
+    ||
+
+    "Generated quantum chemistry calculation";
+
+
+
+  /* -------------------------
+     HEADER
+     ------------------------- */
+
+  lines.push(
+    "#!/usr/bin/env python3"
+  );
+
+
+  lines.push("");
+
+
+  lines.push(
+    "# RasaYantra Ψ — PySCF input script"
+  );
+
+
+  lines.push(
+    "# " + title
+  );
+
+
+  lines.push("#");
+
+
+  lines.push(
+    "# Generated starting template."
+  );
+
+
+  lines.push(
+    "# Verify all settings before production calculations."
+  );
+
+
+  lines.push("#");
+
+
+  if (isSkala) {
+
+    lines.push(
+      "# Required packages:"
+    );
+
+    lines.push(
+      "#   pip install pyscf skala"
+    );
+
+    lines.push(
+      "#"
+    );
+
+    lines.push(
+      "# Skala model: skala-1.1"
+    );
+
+  } else {
+
+    lines.push(
+      "# Required package:"
+    );
+
+    lines.push(
+      "#   pip install pyscf"
+    );
+
+  }
+
+
+  if (
+    jobType.value ===
+      "opt"
+  ) {
+
+    lines.push(
+      "#"
+    );
+
+    lines.push(
+      "# Geometry optimization additionally requires:"
+    );
+
+    lines.push(
+      "#   pip install geometric"
+    );
+
+  }
+
+
+  lines.push("");
+
+
+
+  /* -------------------------
+     IMPORTS
+     ------------------------- */
+
+  lines.push(
+    "from pyscf import gto, lib"
+  );
+
+
+  if (isSkala) {
+
+    lines.push(
+      "from skala.pyscf import SkalaKS"
+    );
+
+  } else {
+
+
+    if (
+      methodFamily.value ===
+        "dft"
+    ) {
+
+      lines.push(
+        "from pyscf import dft"
+      );
+
+    } else {
+
+      lines.push(
+        "from pyscf import scf"
+      );
+
+    }
+
+
+    if (
+      methodFamily.value ===
+        "mp2"
+    ) {
+
+      lines.push(
+        "from pyscf import mp"
+      );
+
+    }
+
+
+    if (
+      methodFamily.value ===
+        "ccsd" ||
+
+      methodFamily.value ===
+        "ccsdt"
+    ) {
+
+      lines.push(
+        "from pyscf import cc"
+      );
+
+    }
+
+
+    if (
+      methodFamily.value ===
+        "casscf"
+    ) {
+
+      lines.push(
+        "from pyscf import mcscf"
+      );
+
+    }
+
+  }
+
+
+
+  if (
+    solvationModel.value !==
+      "none"
+  ) {
+
+    lines.push(
+      "from pyscf import solvent as pyscf_solvent"
+    );
+
+  }
+
+
+
+  if (
+    jobType.value ===
+      "opt"
+  ) {
+
+    lines.push(
+      "from pyscf.geomopt.geometric_solver import optimize"
+    );
+
+  }
+
+
+  lines.push("");
+
+
+
+  /* -------------------------
+     CPU THREADS
+     ------------------------- */
+
+  lines.push(
+
+    "lib.num_threads(" +
+
+    Number(
+      nProc.value
+    ) +
+
+    ")"
+
+  );
+
+
+  lines.push("");
+
+
+
+  /* -------------------------
+     MOLECULE
+     ------------------------- */
+
+  lines.push(
+    "mol = gto.M("
+  );
+
+
+  lines.push(
+    '    atom="""'
+  );
+
+
+  coordinateLines
+    .forEach(
+      function(line) {
+
+        lines.push(
+          "        " +
+          line
+        );
+
+      }
+    );
+
+
+  lines.push(
+    '    """,'
+  );
+
+
+  lines.push(
+
+    "    basis=" +
+
+    JSON.stringify(
+      basis
+    ) +
+
+    ","
+
+  );
+
+
+  lines.push(
+
+    "    charge=" +
+
+    molecularCharge +
+
+    ","
+
+  );
+
+
+  lines.push(
+
+    "    spin=" +
+
+    pyscfSpin +
+
+    ",  # 2S = multiplicity - 1"
+
+  );
+
+
+  lines.push(
+    '    unit="Angstrom",'
+  );
+
+
+  lines.push(
+
+    "    max_memory=" +
+
+    Number(
+      pyscfMemory.value
+    ) +
+
+    ",  # MB"
+
+  );
+
+
+  lines.push(
+    "    verbose=4,"
+  );
+
+
+  if (
+    noSymmetry.checked
+  ) {
+
+    lines.push(
+      "    symmetry=False,"
+    );
+
+  }
+
+
+  lines.push(
+    ")"
+  );
+
+
+  lines.push("");
+
+
+
+  /* -------------------------
+     MEAN-FIELD METHOD
+     ------------------------- */
+
+  if (
+    methodFamily.value ===
+      "dft"
+  ) {
+
+
+    if (isSkala) {
+
+      lines.push(
+        'mf = SkalaKS(mol, xc="skala-1.1")'
+      );
+
+    } else {
+
+      lines.push(
+
+        "mf = " +
+
+        (
+          isOpenShell
+
+          ? "dft.UKS(mol)"
+
+          : "dft.RKS(mol)"
+        )
+
+      );
+
+
+      lines.push(
+
+        "mf.xc = " +
+
+        JSON.stringify(
+          getPyscfFunctional()
+        )
+
+      );
+
+    }
+
+
+  } else if (
+    methodFamily.value ===
+      "casscf"
+  ) {
+
+
+    lines.push(
+
+      "mf = " +
+
+      (
+        isOpenShell
+
+        ? "scf.ROHF(mol)"
+
+        : "scf.RHF(mol)"
+      )
+
+    );
+
+
+  } else {
+
+
+    lines.push(
+
+      "mf = " +
+
+      (
+        isOpenShell
+
+        ? "scf.UHF(mol)"
+
+        : "scf.RHF(mol)"
+      )
+
+    );
+
+  }
+
+
+
+  /* -------------------------
+     SCF SETTINGS
+     ------------------------- */
+
+  lines.push(
+
+    "mf.max_cycle = " +
+
+    Number(
+      scfMaxIter.value
+    )
+
+  );
+
+
+  if (
+    tightScf.checked
+  ) {
+
+    lines.push(
+      "mf.conv_tol = 1e-9"
+    );
+
+  }
+
+
+  lines.push("");
+
+
+
+  /* -------------------------
+     SOLVATION
+     ------------------------- */
+
+  if (
+    solvationModel.value ===
+      "pcm"
+  ) {
+
+    const dielectric =
+      PYSCF_PCM_EPS[
+        solvent.value
+      ];
+
+
+    lines.push(
+      "# PCM solvation"
+    );
+
+
+    lines.push(
+      "mf = pyscf_solvent.PCM(mf)"
+    );
+
+
+    lines.push(
+
+      "mf.with_solvent.eps = " +
+
+      dielectric
+
+    );
+
+
+    lines.push("");
+
+  }
+
+
+
+  if (
+    solvationModel.value ===
+      "smd"
+  ) {
+
+    const smdSolvent =
+      PYSCF_SMD_SOLVENTS[
+        solvent.value
+      ];
+
+
+    lines.push(
+      "# SMD solvation"
+    );
+
+
+    lines.push(
+      "mf = pyscf_solvent.SMD(mf)"
+    );
+
+
+    lines.push(
+
+      "mf.with_solvent.solvent = " +
+
+      JSON.stringify(
+        smdSolvent
+      )
+
+    );
+
+
+    lines.push("");
+
+  }
+
+
+
+  /* -------------------------
+     USER PYTHON CODE
+     ------------------------- */
+
+  if (
+    additionalKeywords
+      .value
+      .trim() !== ""
+  ) {
+
+    lines.push(
+      "# Additional user-supplied PySCF code"
+    );
+
+
+    lines.push(
+      additionalKeywords
+        .value
+        .trim()
+    );
+
+
+    lines.push("");
+
+  }
+
+
+
+  /* -------------------------
+     GEOMETRY OPTIMIZATION
+     ------------------------- */
+
+  if (
+    jobType.value ===
+      "opt"
+  ) {
+
+    lines.push(
+      "# Geometry optimization using geomeTRIC"
+    );
+
+
+    lines.push(
+      "mol_eq = optimize(mf, maxsteps=100)"
+    );
+
+
+    lines.push("");
+
+
+    lines.push(
+      'print("\\nOptimized geometry:")'
+    );
+
+
+    lines.push(
+      "print(mol_eq.tostring())"
+    );
+
+
+    lines.push("");
+
+
+    return lines.join(
+      "\n"
+    );
+
+  }
+
+
+
+  /* -------------------------
+     SINGLE-POINT METHODS
+     ------------------------- */
+
+  switch (
+    methodFamily.value
+  ) {
+
+
+    case "dft":
+
+    case "hf":
+
+
+      lines.push(
+        "energy = mf.kernel()"
+      );
+
+
+      lines.push("");
+
+
+      lines.push(
+        'if not mf.converged:'
+      );
+
+
+      lines.push(
+        '    raise RuntimeError("SCF did not converge.")'
+      );
+
+
+      lines.push("");
+
+
+      lines.push(
+        'print(f"Total energy = {energy:.12f} Hartree")'
+      );
+
+
+      break;
+
+
+
+    case "mp2":
+
+
+      lines.push(
+        "mf.kernel()"
+      );
+
+
+      lines.push("");
+
+
+      lines.push(
+        'if not mf.converged:'
+      );
+
+
+      lines.push(
+        '    raise RuntimeError("SCF did not converge.")'
+      );
+
+
+      lines.push("");
+
+
+      lines.push(
+        "my_mp2 = mp.MP2(mf).run()"
+      );
+
+
+      lines.push("");
+
+
+      lines.push(
+        'print(f"MP2 total energy = {my_mp2.e_tot:.12f} Hartree")'
+      );
+
+
+      break;
+
+
+
+    case "ccsd":
+
+
+      lines.push(
+        "mf.kernel()"
+      );
+
+
+      lines.push("");
+
+
+      lines.push(
+        'if not mf.converged:'
+      );
+
+
+      lines.push(
+        '    raise RuntimeError("SCF did not converge.")'
+      );
+
+
+      lines.push("");
+
+
+      lines.push(
+        "my_cc = cc.CCSD(mf).run()"
+      );
+
+
+      lines.push("");
+
+
+      lines.push(
+        'print(f"CCSD total energy = {my_cc.e_tot:.12f} Hartree")'
+      );
+
+
+      break;
+
+
+
+    case "ccsdt":
+
+
+      lines.push(
+        "mf.kernel()"
+      );
+
+
+      lines.push("");
+
+
+      lines.push(
+        'if not mf.converged:'
+      );
+
+
+      lines.push(
+        '    raise RuntimeError("SCF did not converge.")'
+      );
+
+
+      lines.push("");
+
+
+      lines.push(
+        "my_cc = cc.CCSD(mf).run()"
+      );
+
+
+      lines.push(
+        "triples_correction = my_cc.ccsd_t()"
+      );
+
+
+      lines.push(
+
+        "ccsdt_energy = " +
+
+        "my_cc.e_tot + " +
+
+        "triples_correction"
+
+      );
+
+
+      lines.push("");
+
+
+      lines.push(
+        'print(f"CCSD(T) total energy = {ccsdt_energy:.12f} Hartree")'
+      );
+
+
+      break;
+
+
+
+    case "casscf":
+
+
+      lines.push(
+        "mf.kernel()"
+      );
+
+
+      lines.push("");
+
+
+      lines.push(
+        'if not mf.converged:'
+      );
+
+
+      lines.push(
+        '    raise RuntimeError("Reference SCF did not converge.")'
+      );
+
+
+      lines.push("");
+
+
+      lines.push(
+
+        "mc = mcscf.CASSCF(" +
+
+        "mf, " +
+
+        Number(
+          activeOrbitals.value
+        ) +
+
+        ", " +
+
+        Number(
+          activeElectrons.value
+        ) +
+
+        ")"
+
+      );
+
+
+      lines.push(
+        "mc.kernel()"
+      );
+
+
+      lines.push("");
+
+
+      lines.push(
+        'print(f"CASSCF total energy = {mc.e_tot:.12f} Hartree")'
+      );
+
+
+      break;
+
+
+    default:
+
+
+      lines.push(
+        "# Unsupported PySCF method."
+      );
+
+
+      break;
+
+  }
+
+
+  lines.push("");
+
+
+  return lines.join(
+    "\n"
+  );
+
+}
+
+
+
+/* =========================================================
    GENERATE INPUT
    ========================================================= */
 
@@ -5831,27 +7439,36 @@ function generateInput() {
 
 
   if (
-    software.value ===
-      "gaussian"
-  ) {
+  software.value ===
+    "gaussian"
+) {
 
+  generatedText =
+    generateGaussianInput(
+      parsed.coordinates
+    );
 
-    generatedText =
-      generateGaussianInput(
-        parsed.coordinates
-      );
+} else if (
+  software.value ===
+    "orca"
+) {
 
+  generatedText =
+    generateOrcaInput(
+      parsed.coordinates
+    );
 
-  } else {
+} else if (
+  software.value ===
+    "pyscf"
+) {
 
+  generatedText =
+    generatePyscfInput(
+      parsed.coordinates
+    );
 
-    generatedText =
-      generateOrcaInput(
-        parsed.coordinates
-      );
-
-
-  }
+}
 
 
 
@@ -6096,12 +7713,28 @@ software.addEventListener(
   "change",
   function() {
 
-
     populateBasisSets();
+
+    populateFunctionals();
+
+
+    /*
+     * When PySCF is first selected,
+     * make Skala the default DFT functional.
+     */
+
+    if (
+      software.value ===
+        "pyscf"
+    ) {
+
+      functional.value =
+        "SKALA-1.1";
+
+    }
 
 
     updateConditionalUI();
-
 
   }
 );
@@ -6120,7 +7753,14 @@ methodFamily.addEventListener(
   updateConditionalUI
 );
 
+  
 
+functional.addEventListener(
+  "change",
+  updateConditionalUI
+);
+
+  
 
 basisSet.addEventListener(
   "change",
@@ -6620,6 +8260,8 @@ captureDrawingButton.addEventListener(
    ========================================================= */
 
 populateBasisSets();
+
+populateFunctionals();
 
 updateConditionalUI();
 
