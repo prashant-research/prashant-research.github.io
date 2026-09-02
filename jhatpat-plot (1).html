@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Jhatpat Plot™ is a browser-based scientific plotting utility for publication-ready and interactive figures.">
+<title>Jhatpat Plot™ | Publication-Ready Scientific Plotting</title>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v314.0.6/full/pyodide.js"></script>
+<script src="https://cdn.plot.ly/plotly-3.3.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+<style>
+*{box-sizing:border-box}
+:root{--navy:#0b1f33;--blue:#1769aa;--blue-dark:#0f4f82;--blue-light:#eaf3fb;--text:#1f2937;--muted:#5f6b7a;--bg:#f6f8fb;--white:#fff;--border:#dfe6ee;--border-dark:#cbd6e2;--success:#166534;--success-bg:#edf9f0;--warn:#7a4d00;--warn-bg:#fff6dc;--error:#991b1b;--error-bg:#fff0f0;--code:#0c1e30}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.6}
+button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:var(--blue)}
+.container{width:min(1220px,94%);margin:auto}.hidden{display:none!important}
+nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(8px)}
+.nav-inner{width:min(1220px,94%);min-height:70px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{color:var(--navy);text-decoration:none;font-weight:750}.back-link{text-decoration:none;font-size:.92rem;font-weight:700}
+.hero{padding:60px 0 50px;background:radial-gradient(circle at 88% 15%,rgba(23,105,170,.14),transparent 31%),linear-gradient(135deg,#fff,#f1f7fc);border-bottom:1px solid var(--border)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(270px,.7fr);gap:45px;align-items:center}
+.eyebrow{color:var(--blue);font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:1.4px}
+h1{margin:10px 0 8px;color:var(--navy);font-size:clamp(2.5rem,5.5vw,4.5rem);line-height:1.05;letter-spacing:-1.8px}
+.subtitle{margin-bottom:16px;color:var(--blue-dark);font-size:1.3rem;font-weight:750}
+.hero p{max-width:820px;margin:0;color:#40546a;font-size:1.05rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.chip{padding:6px 10px;background:rgba(255,255,255,.85);border:1px solid #d4e0ea;border-radius:999px;font-size:.76rem;font-weight:700;color:#40546a}
+.privacy{padding:22px;background:rgba(255,255,255,.82);border-left:3px solid var(--blue);border-radius:11px}.privacy h2{margin:0 0 7px;color:var(--navy);font-size:1rem}.privacy p{font-size:.84rem;color:var(--muted)}
+main{padding:42px 0 80px}.utility-name{margin-bottom:12px;color:var(--muted);font-size:.86rem}.utility-name strong{color:var(--navy)}
+.shell{overflow:hidden;background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:0 12px 34px rgba(10,40,70,.08)}
+.panel{padding:26px}.heading{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:18px}.heading h2{margin:0 0 4px;color:var(--navy);font-size:1.38rem}.heading p{margin:0;color:var(--muted);font-size:.88rem}.badge{padding:5px 9px;color:var(--blue-dark);background:var(--blue-light);border-radius:999px;font-size:.72rem;font-weight:800;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.field{min-width:0}.field.full{grid-column:1/-1}.field label,.field-label{display:block;margin-bottom:6px;color:var(--navy);font-size:.86rem;font-weight:750}
+.field input,.field select,.field textarea{width:100%;min-height:45px;padding:9px 11px;color:var(--text);background:#fff;border:1px solid var(--border-dark);border-radius:8px;font-size:.93rem}
+.field textarea{min-height:105px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{outline:3px solid rgba(23,105,170,.14);border-color:var(--blue)}
+.help{margin-top:5px;color:var(--muted);font-size:.76rem}
+.source-buttons{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}.source-btn{padding:8px 13px;border:1px solid var(--border-dark);background:#fff;color:var(--navy);border-radius:8px;font-size:.84rem;font-weight:720}.source-btn.active{color:#fff;background:var(--blue);border-color:var(--blue)}
+.source-panel{padding:16px;background:#f8fafc;border:1px solid var(--border);border-radius:10px}
+.examples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.example{padding:14px;background:#fff;border:1px solid var(--border);border-radius:9px}.example strong{display:block;color:var(--navy);font-size:.88rem}.example p{min-height:58px;margin:6px 0 11px;color:var(--muted);font-size:.75rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:41px;padding:8px 14px;border-radius:8px;font-size:.84rem;font-weight:750;text-decoration:none}.primary{color:#fff;background:var(--blue);border:1px solid var(--blue)}.primary:hover{background:var(--blue-dark)}.secondary{color:var(--blue-dark);background:#fff;border:1px solid #bcd1e2}.secondary:hover{background:var(--blue-light)}.soft{color:var(--navy);background:#f7f9fc;border:1px solid var(--border)}.btn:disabled{opacity:.5;cursor:not-allowed}
+.status{display:none;margin-top:14px;padding:11px 14px;border-radius:8px;font-size:.82rem}.status.info{display:block;color:#174a72;background:#edf5fb;border-left:4px solid var(--blue)}.status.success{display:block;color:var(--success);background:var(--success-bg);border-left:4px solid var(--success)}.status.warning{display:block;color:var(--warn);background:var(--warn-bg);border-left:4px solid #d49a1d}.status.error{display:block;color:var(--error);background:var(--error-bg);border-left:4px solid var(--error)}
+.dataset{margin-top:23px;padding-top:22px;border-top:1px solid var(--border)}.metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin-bottom:15px}.metric{padding:11px;background:#f8fafc;border:1px solid var(--border);border-radius:8px}.metric span{display:block;color:var(--muted);font-size:.68rem;font-weight:700;text-transform:uppercase}.metric strong{display:block;margin-top:2px;color:var(--navy);font-size:1rem}
+.table-wrap{max-height:310px;overflow:auto;border:1px solid var(--border);border-radius:9px}table{width:100%;border-collapse:collapse;font-size:.76rem}th,td{padding:7px 9px;text-align:left;border-bottom:1px solid #edf0f3;white-space:nowrap}th{position:sticky;top:0;background:#f7f9fc;color:var(--navy)}
+.suggestions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.suggestion{padding:6px 9px;color:var(--blue-dark);background:var(--blue-light);border:1px solid #d2e3f1;border-radius:999px;font-size:.74rem;font-weight:700}
+details.advanced{border-top:1px solid var(--border);background:#fbfcfe}details.advanced>summary{padding:17px 26px;background:#f5f8fb;color:var(--navy);font-size:.92rem;font-weight:800;cursor:pointer;list-style:none}details.advanced>summary::-webkit-details-marker{display:none}details.advanced>summary::after{content:"＋";float:right;color:var(--blue)}details.advanced[open]>summary::after{content:"−"}
+.advanced-body{padding:23px 26px}.sub{margin-bottom:20px;padding:18px;background:#fff;border:1px solid var(--border);border-radius:10px}.sub:last-child{margin-bottom:0}.sub h3{margin:0 0 4px;color:var(--navy);font-size:1rem}.sub>p{margin:0 0 14px;color:var(--muted);font-size:.78rem}
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.check{display:flex;gap:8px;padding:10px;background:#f9fbfd;border:1px solid var(--border);border-radius:8px;font-size:.8rem}.check input{width:17px;height:17px;accent-color:var(--blue)}
+.action{display:flex;flex-wrap:wrap;align-items:center;gap:9px;padding:17px 26px;background:#f8fafc;border-top:1px solid var(--border)}.spacer{flex:1}
+.preview-section{margin-top:30px}.preview-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-end;margin-bottom:12px}.preview-head h2{margin:0 0 3px;color:var(--navy);font-size:1.4rem}.preview-head p{margin:0;color:var(--muted);font-size:.82rem}
+.mode{display:flex;gap:3px;padding:4px;background:#edf2f7;border-radius:9px}.mode button{padding:6px 10px;border:0;background:transparent;color:#445569;border-radius:7px;font-size:.78rem;font-weight:750}.mode button.active{background:var(--blue);color:#fff}
+.preview{min-height:500px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--border);border-radius:13px;overflow:hidden}.static{width:100%;padding:16px;text-align:center}.static img{display:block;max-width:100%;max-height:760px;margin:auto}.interactive{width:100%;min-height:500px}.placeholder{max-width:520px;padding:30px;color:#718096;text-align:center}.placeholder strong{display:block;margin-bottom:6px;color:var(--navy)}
+.export{margin-top:22px;padding:20px;background:#fff;border:1px solid var(--border);border-radius:11px}.export h2{margin:0 0 4px;color:var(--navy);font-size:1.12rem}.export p{margin:0 0 12px;color:var(--muted);font-size:.78rem}.export-buttons{display:flex;flex-wrap:wrap;gap:7px}
+.code{margin-top:18px;border:1px solid #17344e;border-radius:10px;overflow:hidden}.code summary{padding:10px 13px;background:#102941;color:#dbeaf5;cursor:pointer;font-size:.8rem;font-weight:700}pre{max-height:500px;margin:0;padding:16px;overflow:auto;background:var(--code);color:#e9f1f7;font-family:Consolas,monospace;font-size:.76rem;line-height:1.48;white-space:pre}
+.info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin-top:28px}.info{padding:20px;background:#fff;border:1px solid var(--border);border-radius:11px}.info h2{margin:0 0 7px;color:var(--navy);font-size:1.08rem}.info p{margin:0 0 11px;color:var(--muted);font-size:.8rem}.links{display:flex;flex-wrap:wrap;gap:7px}.links a{padding:6px 9px;background:var(--blue-light);color:var(--blue-dark);border-radius:7px;text-decoration:none;font-size:.74rem;font-weight:700}
+.disclaimer{margin-top:25px;padding:19px 21px;background:#f0f3f6;border:1px solid var(--border);border-radius:11px;color:#596575;font-size:.81rem}.disclaimer strong{color:var(--navy)}
+footer{padding:28px 0 42px;color:#6b7280;text-align:center;font-size:.82rem}
+@media(max-width:900px){.hero-grid,.grid,.grid3,.grid4,.examples,.metrics,.checks,.info-grid{grid-template-columns:1fr}.nav-inner{padding:13px 0;flex-direction:column;align-items:flex-start;gap:5px}.hero{padding:42px 0 36px}.panel,.advanced-body{padding:19px 15px}details.advanced>summary{padding:15px}.action{padding:15px}.spacer{display:none}.action .btn{width:100%}.preview-head{align-items:flex-start;flex-direction:column}.preview,.interactive{min-height:410px}}
+</style>
+</head>
+
+<body>
+<nav><div class="nav-inner">
+<a class="brand" href="index.html">Dr. Prashant Kumar, PhD, MRSC</a>
+<a class="back-link" href="index.html">← Return to main website</a>
+</div></nav>
+
+<header class="hero"><div class="container"><div class="hero-grid">
+<div>
+<div class="eyebrow">Scientific Utility · Version 1.0</div>
+<h1>Jhatpat Plot™</h1>
+<div class="subtitle">Publication-Ready Scientific Plotting in Your Browser</div>
+<p>No installation required. Upload CSV or Excel data, provide a public dataset URL, or explore a built-in scientific dataset. Choose what you want to compare, create publication-ready Matplotlib and Seaborn-style figures, explore data interactively, and export high-quality graphics.</p>
+<div class="chips"><span class="chip">No installation</span><span class="chip">CSV / Excel</span><span class="chip">Matplotlib</span><span class="chip">Seaborn</span><span class="chip">Interactive</span><span class="chip">SVG / PDF / PNG / JPEG</span><span class="chip">Python code</span></div>
+</div>
+<aside class="privacy"><h2>Browser-first plotting</h2><p>Local files are read directly in your browser. Publication rendering runs Python in-browser through Pyodide, so ordinary local-file use does not require a data-upload backend.</p></aside>
+</div></div></header>
+
+<main><div class="container">
+<div class="utility-name"><strong>Jhatpat Plot™</strong> · Scientific Figure Builder</div>
+<section class="shell">
+<div class="panel">
+
+<div class="heading"><div><h2>1. Load your data</h2><p>Start with your own file, a public URL, or one of the built-in datasets.</p></div><span class="badge">QUICK START</span></div>
+
+<div class="source-buttons">
+<button class="source-btn active" type="button" data-source="upload">Upload File</button>
+<button class="source-btn" type="button" data-source="url">Data URL</button>
+<button class="source-btn" type="button" data-source="example">Example Dataset</button>
+</div>
+
+<div id="source-upload" class="source-panel">
+<div class="grid"><div>
+<strong style="color:var(--navy)">Choose a scientific dataset</strong>
+<div class="help">Version 1.0 supports CSV, TSV, TXT, XLSX and XLS.</div>
+</div><div style="text-align:right">
+<label class="btn primary" for="fileInput">Choose File</label>
+<input id="fileInput" type="file" accept=".csv,.tsv,.txt,.xlsx,.xls" hidden>
+</div></div>
+</div>
+
+<div id="source-url" class="source-panel hidden">
+<div class="grid">
+<div class="field"><label for="dataUrl">Public dataset URL</label><input id="dataUrl" type="url" placeholder="https://example.org/data.csv"><div class="help">The host must permit browser access through CORS.</div></div>
+<div class="field"><label>Load</label><button id="loadUrlButton" class="btn primary" type="button">Load URL</button></div>
+</div>
+</div>
+
+<div id="source-example" class="source-panel hidden">
+<div class="examples">
+<div class="example"><strong>🧪 Chemistry · ESOL</strong><p>Delaney molecular aqueous-solubility data for molecular-property plots and regression-style comparisons.</p><button class="btn secondary example-load" data-example="esol" type="button">Load ESOL</button></div>
+<div class="example"><strong>🤖 Machine Learning · Iris</strong><p>Classic classification dataset with four numerical measurements and three species.</p><button class="btn secondary example-load" data-example="iris" type="button">Load Iris</button></div>
+<div class="example"><strong>🌍 Environment · Air Quality</strong><p>Daily New York air-quality data including ozone, solar radiation, wind and temperature.</p><button class="btn secondary example-load" data-example="airquality" type="button">Load Air Quality</button></div>
+</div>
+</div>
+
+<div id="dataStatus" class="status" role="status" aria-live="polite"></div>
+
+<div id="datasetShell" class="dataset hidden">
+<div class="heading"><div><h2>Dataset recognised</h2><p id="datasetName">—</p></div></div>
+<div class="metrics">
+<div class="metric"><span>Rows</span><strong id="mRows">—</strong></div>
+<div class="metric"><span>Columns</span><strong id="mCols">—</strong></div>
+<div class="metric"><span>Numeric</span><strong id="mNum">—</strong></div>
+<div class="metric"><span>Categorical</span><strong id="mCat">—</strong></div>
+<div class="metric"><span>Missing</span><strong id="mMiss">—</strong></div>
+</div>
+<div class="table-wrap"><table id="previewTable"><thead></thead><tbody></tbody></table></div>
+<div id="suggestions" class="suggestions"></div>
+</div>
+
+<div id="quickPlot" class="dataset hidden">
+<div class="heading"><div><h2>2. What would you like to plot?</h2><p>Column names are read from your dataset and placed into the menus automatically.</p></div><span class="badge">SIMPLE MODE</span></div>
+<div class="grid">
+<div class="field"><label for="plotType">Plot type</label><select id="plotType">
+<optgroup label="Relationship"><option value="scatter">Scatter Plot</option><option value="line">Line Plot</option><option value="line_scatter">Line + Markers</option><option value="errorbar">Error-Bar Plot</option><option value="step">Step Plot</option><option value="area">Area / Fill Plot</option></optgroup>
+<optgroup label="Categorical"><option value="bar">Bar Plot</option><option value="barh">Horizontal Bar</option><option value="grouped_bar">Grouped Bar</option><option value="stacked_bar">Stacked Bar</option></optgroup>
+<optgroup label="Statistical"><option value="histogram">Histogram</option><option value="kde">KDE / Density</option><option value="box">Box Plot</option><option value="violin">Violin Plot</option></optgroup>
+<optgroup label="Multivariable"><option value="corr_heatmap">Correlation Heatmap</option><option value="heatmap">Heatmap</option><option value="hist2d">2D Histogram</option><option value="hexbin">Hexbin</option><option value="contour">Contour</option><option value="contourf">Filled Contour</option><option value="scatter3d">3D Scatter</option></optgroup>
+<optgroup label="Advanced statistical"><option value="pairplot">Pair Plot</option><option value="jointplot">Joint Plot</option></optgroup>
+</select></div>
+<div class="field"><label for="renderMode">Rendering mode</label><select id="renderMode"><option value="static" selected>Publication / Static</option><option value="interactive">Interactive</option></select><div class="help">Publication uses Python + Matplotlib/Seaborn; interactive uses Plotly.</div></div>
+<div class="field"><label for="xVar">X variable</label><select id="xVar"></select></div>
+<div class="field"><label for="yVar">Y variable</label><select id="yVar"></select></div>
+<div class="field"><label for="groupVar">Colour / group by</label><select id="groupVar"></select></div>
+<div class="field"><label for="quickTitle">Plot title</label><input id="quickTitle" type="text" placeholder="Leave blank for automatic title"></div>
+</div>
+</div>
+
+</div>
+
+<details class="advanced">
+<summary>Advanced Settings — multiple Y-axes, palettes, labels, filters, regression, figure size and publication controls</summary>
+<div class="advanced-body">
+
+<section class="sub"><h3>Variables and multiple Y-axes</h3><p>Add up to three additional Y variables. Use secondary/right-offset axes or separate panels for different units.</p>
+<div class="grid4">
+<div class="field"><label>Y2 variable</label><select id="y2Var"></select></div><div class="field"><label>Y2 placement</label><select id="y2Axis"><option value="same">Same Y-axis</option><option value="right">Secondary Y-axis</option><option value="right2">Right offset axis</option><option value="panel">Separate panel</option></select></div>
+<div class="field"><label>Y3 variable</label><select id="y3Var"></select></div><div class="field"><label>Y3 placement</label><select id="y3Axis"><option value="same">Same Y-axis</option><option value="right">Secondary Y-axis</option><option value="right2" selected>Right offset axis</option><option value="panel">Separate panel</option></select></div>
+<div class="field"><label>Y4 variable</label><select id="y4Var"></select></div><div class="field"><label>Y4 placement</label><select id="y4Axis"><option value="same">Same Y-axis</option><option value="right">Secondary Y-axis</option><option value="right2">Right offset axis</option><option value="panel" selected>Separate panel</option></select></div>
+<div class="field"><label>Z variable</label><select id="zVar"></select><div class="help">For contour and 3D plots.</div></div>
+<div class="field"><label>Marker size by</label><select id="sizeVar"></select></div>
+<div class="field"><label>X error column</label><select id="xErrVar"></select></div>
+<div class="field"><label>Y error column</label><select id="yErrVar"></select></div>
+<div class="field"><label>Point label / identifier</label><select id="labelVar"></select></div>
+<div class="field"><label>Annotate top-N Y values</label><input id="annotateTop" type="number" min="0" max="30" value="0"></div>
+</div>
+<div id="axisWarning" class="status warning hidden">Multiple Y-axes can be difficult to interpret. Separate panels are usually clearer when quantities have unrelated units or scales.</div>
+</section>
+
+<section class="sub"><h3>Labels, title and legend</h3><p>Use automatic, custom or no labels. Matplotlib math text such as $\Delta G$ / eV is accepted in publication mode.</p>
+<div class="grid3">
+<div class="field"><label>Title</label><select id="titleMode"><option value="auto">Auto</option><option value="custom">Custom</option><option value="none">None</option></select></div>
+<div class="field"><label>Custom title</label><input id="titleText" type="text"></div>
+<div class="field"><label>Subtitle</label><input id="subtitleText" type="text"></div>
+<div class="field"><label>X-axis label</label><select id="xLabelMode"><option value="auto">Auto</option><option value="custom">Custom</option><option value="none">None</option></select></div>
+<div class="field"><label>Custom X label</label><input id="xLabelText" type="text" placeholder="$\Delta G$ / eV"></div>
+<div class="field"><label>Legend</label><select id="legendPos"><option value="best">Best</option><option value="upper right">Upper right</option><option value="upper left">Upper left</option><option value="lower right">Lower right</option><option value="lower left">Lower left</option><option value="outside">Outside right</option><option value="none">None</option></select></div>
+<div class="field"><label>Y1 custom label</label><input id="y1Label" type="text"></div>
+<div class="field"><label>Y2 custom label</label><input id="y2Label" type="text"></div>
+<div class="field"><label>Y3 custom label</label><input id="y3Label" type="text"></div>
+<div class="field"><label>Y4 custom label</label><input id="y4Label" type="text"></div>
+<div class="field"><label>Title size</label><input id="titleSize" type="number" min="6" max="48" value="12"></div>
+<div class="field"><label>Axis-label size</label><input id="labelSize" type="number" min="6" max="40" value="10"></div>
+<div class="field"><label>Tick size</label><input id="tickSize" type="number" min="5" max="30" value="9"></div>
+</div></section>
+
+<section class="sub"><h3>Publication style and colour</h3><p>Use automatic publication styling or choose Seaborn-inspired palettes and visual details manually.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px"><button id="autoStyle" class="btn primary" type="button">Auto Style for Publication</button><button id="checkAccess" class="btn secondary" type="button">Check Figure Accessibility</button></div>
+<div class="grid4">
+<div class="field"><label>Output style</label><select id="stylePreset"><option value="publication">Publication</option><option value="minimal">Minimal</option><option value="exploratory">Exploratory</option><option value="presentation">Presentation</option><option value="poster">Poster</option></select></div>
+<div class="field"><label>Colour strategy</label><select id="palette"><option value="auto">Auto — Recommended</option><option value="colorblind">Colour-blind Friendly</option><option value="deep">Seaborn Deep</option><option value="muted">Seaborn Muted</option><option value="pastel">Seaborn Pastel</option><option value="viridis">Viridis</option><option value="cividis">Cividis</option><option value="plasma">Plasma</option><option value="magma">Magma</option><option value="inferno">Inferno</option><option value="Blues">Blue shades</option><option value="Greens">Green shades</option><option value="Purples">Purple shades</option><option value="coolwarm">Cool–Warm Diverging</option><option value="RdBu">Red–Blue Diverging</option><option value="Spectral">Spectral</option><option value="Greys">Greyscale</option></select></div>
+<div class="field"><label>Line style</label><select id="lineStyle"><option value="-">Solid</option><option value="--">Dashed</option><option value=":">Dotted</option><option value="-.">Dash-dot</option><option value="none">None</option></select></div>
+<div class="field"><label>Marker</label><select id="marker"><option value="o">Circle</option><option value="s">Square</option><option value="D">Diamond</option><option value="^">Triangle up</option><option value="v">Triangle down</option><option value="*">Star</option><option value="+">Plus</option><option value="x">Cross</option><option value="none">None</option></select></div>
+<div class="field"><label>Line width</label><input id="lineWidth" type="number" min=".1" max="10" step=".1" value="1.5"></div>
+<div class="field"><label>Marker size</label><input id="markerSize" type="number" min="1" max="50" value="6"></div>
+<div class="field"><label>Alpha</label><input id="alpha" type="number" min=".05" max="1" step=".05" value=".85"></div>
+<div class="field"><label>Plot frame</label><select id="spines"><option value="leftbottom">Left + bottom only</option><option value="full">Full box</option><option value="none">No spines</option></select></div>
+</div>
+<div id="accessStatus" class="status" role="status" aria-live="polite"></div>
+</section>
+
+<section class="sub"><h3>Figure size and publication preset</h3><p>Aspect ratio and physical width are separate. Journal presets are dimension starting points, not guarantees of publisher compliance.</p>
+<div class="grid4">
+<div class="field"><label>Dimension preset</label><select id="pubPreset"><option value="generic">Generic Scientific</option><option value="acs">ACS-style dimensions</option><option value="rsc">RSC-style dimensions</option><option value="nature">Nature-style dimensions</option><option value="custom">Custom</option></select></div>
+<div class="field"><label>Figure width</label><select id="widthPreset"><option value="3.5">Single-column · 3.5 in</option><option value="5.2">1.5-column · 5.2 in</option><option value="7" selected>Double-column · 7.0 in</option><option value="10">Presentation · 10 in</option><option value="custom">Custom</option></select></div>
+<div class="field"><label>Custom width / in</label><input id="customWidth" type="number" min="1" max="30" step=".1" value="7"></div>
+<div class="field"><label>Aspect ratio</label><select id="ratio"><option value="auto">Auto</option><option value="golden" selected>Golden Ratio · 1.618:1</option><option value="1">Square · 1:1</option><option value="1.333333">4:3</option><option value="1.5">3:2</option><option value="1.777778">16:9</option><option value=".75">3:4 Portrait</option><option value=".666667">2:3 Portrait</option><option value=".7071">A4 Portrait</option><option value="1.4142">A4 Landscape</option><option value="custom">Custom</option></select></div>
+<div class="field"><label>Custom height / in</label><input id="customHeight" type="number" min="1" max="30" step=".1" value="4.33"></div>
+<div class="field"><label>Raster DPI</label><select id="dpi"><option>150</option><option selected>300</option><option>600</option><option>1200</option></select></div>
+<div class="field"><label>Multi-panel layout</label><select id="panelLayout"><option value="single">Single plot</option><option value="1x2">1 × 2</option><option value="2x1">2 × 1</option><option value="2x2">2 × 2</option><option value="3x1">3 × 1</option><option value="auto">Auto from Y variables</option></select></div>
+<div class="field"><label>Background</label><select id="background"><option value="white">White</option><option value="transparent">Transparent</option></select></div>
+</div>
+<div class="checks" style="margin-top:12px"><label class="check"><input id="shareX" type="checkbox" checked>Share X-axis between panels</label><label class="check"><input id="shareY" type="checkbox">Share Y-axis between panels</label></div>
+</section>
+
+<section class="sub"><h3>Axes, scales and grid</h3><p>X and Y axes can use independent linear, logarithmic or symmetric-log scaling.</p>
+<div class="grid4">
+<div class="field"><label>X scale</label><select id="xScale"><option>linear</option><option>log</option><option>symlog</option></select></div>
+<div class="field"><label>X minimum</label><input id="xMin" type="number" step="any" placeholder="Auto"></div>
+<div class="field"><label>X maximum</label><input id="xMax" type="number" step="any" placeholder="Auto"></div>
+<div class="field"><label>Grid</label><select id="gridMode"><option value="major">Major only</option><option value="both">Major + minor</option><option value="none">None</option></select></div>
+<div class="field"><label>Y1 scale</label><select id="y1Scale"><option>linear</option><option>log</option><option>symlog</option></select></div>
+<div class="field"><label>Y1 minimum</label><input id="y1Min" type="number" step="any" placeholder="Auto"></div>
+<div class="field"><label>Y1 maximum</label><input id="y1Max" type="number" step="any" placeholder="Auto"></div>
+<div class="field"><label>Y2 scale</label><select id="y2Scale"><option>linear</option><option>log</option><option>symlog</option></select></div>
+<div class="field"><label>Y3 scale</label><select id="y3Scale"><option>linear</option><option>log</option><option>symlog</option></select></div>
+<div class="field"><label>Y4 scale</label><select id="y4Scale"><option>linear</option><option>log</option><option>symlog</option></select></div>
+</div>
+<div class="checks" style="margin-top:12px"><label class="check"><input id="sciNotation" type="checkbox">Prefer scientific notation</label><label class="check"><input id="sortX" type="checkbox" checked>Sort X for line-type plots</label></div>
+</section>
+
+<section class="sub"><h3>Data preparation and filters</h3><p>Transformations apply only to the browser working copy; the source file is not changed.</p>
+<div class="grid3"><div class="field"><label>Missing values</label><select id="missingMode"><option value="drop">Drop affected rows</option><option value="ignore">Ignore where possible</option><option value="zero">Replace numeric missing with zero</option><option value="mean">Replace numeric missing with mean</option><option value="median">Replace numeric missing with median</option></select></div></div>
+<div id="filters" style="margin-top:13px"></div><button id="addFilter" class="btn secondary" type="button">+ Add Filter</button>
+</section>
+
+<section class="sub"><h3>Trend lines, references and annotations</h3><p>Fitted curves are visual aids; the user must decide whether a model is scientifically appropriate.</p>
+<div class="grid4">
+<div class="field"><label>Trend line</label><select id="trend"><option value="none">None</option><option value="linear">Linear</option><option value="poly2">Polynomial · degree 2</option><option value="poly3">Polynomial · degree 3</option></select></div>
+<div class="field"><label>Horizontal reference Y</label><input id="refY" type="number" step="any" placeholder="None"></div>
+<div class="field"><label>Horizontal label</label><input id="refYLabel" type="text"></div>
+<div class="field"><label>Vertical reference X</label><input id="refX" type="number" step="any" placeholder="None"></div>
+<div class="field"><label>Vertical label</label><input id="refXLabel" type="text"></div>
+</div>
+<div class="checks" style="margin-top:12px"><label class="check"><input id="showEquation" type="checkbox" checked>Show fitted equation</label><label class="check"><input id="showR2" type="checkbox" checked>Show R²</label></div>
+</section>
+
+</div></details>
+
+<div class="action">
+<button id="generate" class="btn primary" type="button" disabled>Generate Plot</button>
+<button id="resetPlot" class="btn secondary" type="button">Reset Plot Settings</button>
+<button id="clearData" class="btn soft" type="button">Clear Data</button>
+<div class="spacer"></div>
+<span id="pythonStatus" style="color:var(--muted);font-size:.75rem">Python engine will load in the background.</span>
+</div>
+<div id="plotStatus" class="status" role="status" aria-live="polite" style="margin:0 26px 18px"></div>
+</section>
+
+<section class="preview-section" id="previewSection">
+<div class="preview-head"><div><h2>Plot Preview</h2><p>Explore interactively or generate a publication-ready static figure from the same selections.</p></div>
+<div class="mode"><button id="showStatic" class="active" type="button">Publication</button><button id="showInteractive" type="button">Interactive</button></div></div>
+<div class="preview">
+<div id="staticPreview" class="static"><div class="placeholder"><strong>Your publication figure will appear here.</strong>Load a dataset, choose X and Y, then select Generate Plot.</div></div>
+<div id="interactivePlot" class="interactive hidden"></div>
+</div>
+<div id="selectionStatus" class="status" role="status" aria-live="polite"></div>
+
+<div class="export"><h2>Export</h2><p>Publication formats are produced by Matplotlib. Interactive HTML preserves Plotly zoom, hover, pan and selection.</p>
+<div class="export-buttons">
+<button class="btn secondary static-export" data-format="svg" type="button" disabled>SVG</button><button class="btn secondary static-export" data-format="pdf" type="button" disabled>PDF</button><button class="btn secondary static-export" data-format="png" type="button" disabled>PNG</button><button class="btn secondary static-export" data-format="jpeg" type="button" disabled>JPEG</button>
+<button id="downloadHTML" class="btn secondary" type="button" disabled>Interactive HTML</button><button id="downloadPython" class="btn secondary" type="button" disabled>Python Script</button><button id="copyPython" class="btn secondary" type="button" disabled>Copy Python Code</button><button id="downloadConfig" class="btn secondary" type="button" disabled>Plot Configuration JSON</button><button id="downloadSelected" class="btn secondary" type="button" disabled>Selected Data CSV</button>
+</div>
+<details class="code"><summary>View reproducible Python code</summary><pre id="pythonCode">Generate a plot to create Python code.</pre></details>
+</div>
+</section>
+
+<div class="info-grid">
+<section class="info"><h2>Official Documentation</h2><p>The interface draws on Matplotlib's gallery, Seaborn's statistical styling and Plotly's interactive browser graphics.</p><div class="links">
+<a href="https://matplotlib.org/3.5.3/index.html" target="_blank" rel="noopener noreferrer">Matplotlib 3.5.3 →</a><a href="https://matplotlib.org/3.5.3/gallery/index.html" target="_blank" rel="noopener noreferrer">Matplotlib Gallery →</a><a href="https://seaborn.pydata.org/index.html" target="_blank" rel="noopener noreferrer">Seaborn →</a><a href="https://plotly.com/javascript/" target="_blank" rel="noopener noreferrer">Plotly.js →</a><a href="https://pyodide.org/" target="_blank" rel="noopener noreferrer">Pyodide →</a>
+</div></section>
+<section class="info"><h2>Version 1.0 Notes</h2><p>Most common plots work in publication and interactive modes. Pair and joint plots are publication-mode features. Matplotlib uses scattered-data triangulation for contour plots, while interactive contour exploration uses colour-mapped points unless the data are already gridded.</p><p style="margin:0">Multiple Y-axes are available, but separate panels are often clearer for unrelated units.</p></section>
+</div>
+
+<div class="disclaimer"><strong>Disclaimer:</strong> Jhatpat Plot™ is provided for academic, educational, research and general data-visualisation purposes. Generated plots, transformed data, fitted relationships, colour mappings, axis settings, labels, exported figures, interactive views and generated Python code are starting outputs that must be independently reviewed and validated by the user.<br><br><strong>The user is solely responsible</strong> for verifying data accuracy, units, data preparation, statistical appropriateness, accessibility, interpretation, publication requirements and scientific validity. Jhatpat Plot™ does not determine whether a visualisation, regression, transformation, multi-axis representation or statistical treatment is scientifically appropriate for a dataset.<br><br><strong>Use this utility at your own discretion and risk.</strong> The author accepts no responsibility for incorrect figures, misleading representations, data loss, publication outcomes, research conclusions or other consequences arising from use of generated outputs.</div>
+
+</div></main>
+
+<footer><div class="container">© 2026 Prashant Kumar. All rights reserved.<br><strong>Jhatpat Plot™</strong> — Browser-Based Scientific Plotting Utility</div></footer>
+
+<script id="pythonRenderer" type="text/plain">
+import json, io, base64, math
+import numpy as np
+import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+P=json.loads(plot_payload_json); df=pd.DataFrame(P["rows"]); s=P["settings"]
+for c in s["numericColumns"]:
+    if c in df.columns: df[c]=pd.to_numeric(df[c],errors="coerce")
+
+style=s["stylePreset"]
+sns.set_theme(style=("whitegrid" if style in ["exploratory","presentation","poster"] else "ticks"),
+              context=("talk" if style=="presentation" else "poster" if style=="poster" else "paper"))
+
+pal=s["palette"]
+if pal=="auto": pal="colorblind"
+def colors(n): return sns.color_palette(pal,n_colors=max(n,3))
+cols=colors(max(8,len(s["ySeries"])+2))
+
+w,h=float(s["figureWidth"]),float(s["figureHeight"])
+ptype=s["plotType"]; x=s["xVariable"]; ys=s["ySeries"]; group=s["groupVariable"] or None
+z=s["zVariable"] or None; xerr=s["xErrorVariable"] or None; yerr=s["yErrorVariable"] or None
+labelcol=s["pointLabelVariable"] or None
+
+def label(mode,custom,auto):
+    if mode=="none": return ""
+    if mode=="custom": return custom or ""
+    return auto or ""
+
+def cfg(ax,item,i=0):
+    ax.set_xscale(s["xScale"]); ax.set_yscale(s[["y1Scale","y2Scale","y3Scale","y4Scale"][min(i,3)]])
+    if s["xMin"] is not None or s["xMax"] is not None: ax.set_xlim(left=s["xMin"],right=s["xMax"])
+    if i==0 and (s["y1Min"] is not None or s["y1Max"] is not None): ax.set_ylim(bottom=s["y1Min"],top=s["y1Max"])
+    ax.set_xlabel(label(s["xLabelMode"],s["xLabelText"],x),fontsize=s["labelSize"])
+    ax.set_ylabel(item.get("label") or item["column"],fontsize=s["labelSize"])
+    ax.tick_params(labelsize=s["tickSize"])
+    if s["gridMode"]=="none": ax.grid(False)
+    elif s["gridMode"]=="both": ax.minorticks_on(); ax.grid(True,which="major",alpha=.25); ax.grid(True,which="minor",alpha=.12)
+    else: ax.grid(True,alpha=.22)
+    if s["spineStyle"]=="leftbottom": ax.spines["top"].set_visible(False); ax.spines["right"].set_visible(False)
+    elif s["spineStyle"]=="none":
+        for sp in ax.spines.values(): sp.set_visible(False)
+    if s["referenceY"] is not None: ax.axhline(s["referenceY"],ls="--",lw=1,color="#555")
+    if s["referenceX"] is not None: ax.axvline(s["referenceX"],ls="--",lw=1,color="#555")
+    if s["scientificNotation"]:
+        try: ax.ticklabel_format(style="sci",scilimits=(-3,4),axis="both")
+        except Exception: pass
+
+def trend(ax,xx,yy):
+    mode=s["trendMode"]
+    if mode=="none": return
+    a=np.asarray(xx,dtype=float); b=np.asarray(yy,dtype=float); m=np.isfinite(a)&np.isfinite(b); a=a[m]; b=b[m]
+    if len(a)<3:return
+    d={"linear":1,"poly2":2,"poly3":3}.get(mode,1); co=np.polyfit(a,b,d); f=np.poly1d(co); xf=np.linspace(a.min(),a.max(),250)
+    ax.plot(xf,f(xf),"--",color="#333",lw=1.2,label="Fit")
+    pred=f(a); ssr=((b-pred)**2).sum(); sst=((b-b.mean())**2).sum(); r2=1-ssr/sst if sst else np.nan
+    txt=[]
+    if s["showEquation"]: txt.append(f"y = {co[0]:.4g}x {co[1]:+.4g}" if d==1 else f"Polynomial fit (degree {d})")
+    if s["showR2"]: txt.append(f"$R^2$ = {r2:.4f}")
+    if txt: ax.text(.03,.97,"\n".join(txt),transform=ax.transAxes,va="top",fontsize=max(6,s["tickSize"]-1),bbox=dict(boxstyle="round",fc="white",ec="#ccc",alpha=.85))
+
+def draw_xy(ax,item,i):
+    y=item["column"]
+
+    def plot_subset(use,c,series_label):
+        # A column can be selected in more than one role (for example,
+        # X == Y, or the same column used as an error column).  If the
+        # selection list contains duplicate names, pandas returns a
+        # 2-D DataFrame for use[x] instead of a 1-D Series and
+        # pd.to_numeric() raises a TypeError.  Keep each column once.
+        keep=list(dict.fromkeys(
+            [x,y]
+            +([xerr] if xerr else [])
+            +([yerr] if yerr else [])
+        ))
+
+        use=use.loc[:,keep].copy()
+
+        def one_dimensional_column(frame,column):
+            selected=frame.loc[:,column]
+
+            # Extra protection if an imported table contains duplicate
+            # column labels.  Use the first matching column rather than
+            # passing a 2-D object to pd.to_numeric().
+            if isinstance(selected,pd.DataFrame):
+                selected=selected.iloc[:,0]
+
+            return selected
+
+        use[x]=pd.to_numeric(
+            one_dimensional_column(use,x),
+            errors="coerce"
+        )
+
+        use[y]=pd.to_numeric(
+            one_dimensional_column(use,y),
+            errors="coerce"
+        )
+
+        use=use.dropna(subset=[x,y])
+        if s["sortX"] and ptype in ["line","line_scatter","step","area"]:
+            use=use.sort_values(x)
+        xx,yy=use[x],use[y]
+        mk=None if s["markerStyle"]=="none" else s["markerStyle"]
+        ls="None" if s["lineStyle"]=="none" else s["lineStyle"]
+        kw=dict(color=c,alpha=s["alphaValue"],linewidth=s["lineWidth"],label=series_label)
+
+        if ptype=="scatter":
+            ax.scatter(xx,yy,s=max(4,s["markerSize"]**2),marker=mk or "o",color=c,alpha=s["alphaValue"],label=series_label)
+        elif ptype=="line":
+            ax.plot(xx,yy,linestyle=ls,**kw)
+        elif ptype=="line_scatter":
+            ax.plot(xx,yy,linestyle=ls,marker=mk or "o",markersize=s["markerSize"],**kw)
+        elif ptype=="errorbar":
+            xe=pd.to_numeric(use[xerr],errors="coerce") if xerr else None
+            ye=pd.to_numeric(use[yerr],errors="coerce") if yerr else None
+            ax.errorbar(xx,yy,xerr=xe,yerr=ye,linestyle=ls,marker=mk or "o",markersize=s["markerSize"],capsize=3,**kw)
+        elif ptype=="step":
+            ax.step(xx,yy,where="mid",linestyle=ls,**kw)
+        elif ptype=="area":
+            ax.plot(xx,yy,linestyle=ls,**kw)
+            ax.fill_between(xx,yy,color=c,alpha=min(.35,s["alphaValue"]))
+
+        trend(ax,xx,yy)
+
+        n=int(s["annotateTopN"])
+        if n>0:
+            tmp=use.nlargest(min(n,len(use)),y)
+            for idx,r in tmp.iterrows():
+                lab=str(df.loc[idx,labelcol]) if labelcol and labelcol in df.columns else str(idx)
+                ax.annotate(lab,(r[x],r[y]),xytext=(5,5),textcoords="offset points",fontsize=max(6,s["tickSize"]-1))
+
+    if group and group in df.columns:
+        groups=list(df.groupby(group,dropna=False))
+        for gi,(gname,gdf) in enumerate(groups):
+            base=item.get("label") or y
+            series_label=(base+" · "+str(gname)) if len(ys)>1 else str(gname)
+            plot_subset(gdf,cols[(i+gi)%len(cols)],series_label)
+    else:
+        plot_subset(df,cols[i%len(cols)],item.get("label") or y)
+
+def special():
+    global fig
+    if ptype=="corr_heatmap":
+        fig,ax=plt.subplots(figsize=(w,h)); nc=[c for c in s["numericColumns"] if c in df.columns][:16]; sns.heatmap(df[nc].corr(),cmap="coolwarm",center=0,square=True,ax=ax); return fig
+    if ptype=="heatmap":
+        fig,ax=plt.subplots(figsize=(w,h)); nc=[c for c in s["numericColumns"] if c in df.columns][:12]; sns.heatmap(df[nc].head(100),cmap="viridis",ax=ax); return fig
+    if ptype in ["hist2d","hexbin","contour","contourf"]:
+        fig,ax=plt.subplots(figsize=(w,h)); y=ys[0]["column"]; use=df[[x,y]+([z] if z else [])].copy()
+        for c in use.columns: use[c]=pd.to_numeric(use[c],errors="coerce")
+        use=use.dropna(); xx,yy=use[x].to_numpy(),use[y].to_numpy()
+        if ptype=="hist2d": im=ax.hist2d(xx,yy,bins=30,cmap="viridis"); fig.colorbar(im[3],ax=ax,label="Count")
+        elif ptype=="hexbin": im=ax.hexbin(xx,yy,gridsize=30,mincnt=1,cmap="viridis"); fig.colorbar(im,ax=ax,label="Count")
+        else:
+            if not z: raise ValueError("Contour plots require a Z variable.")
+            zz=use[z].to_numpy(); im=ax.tricontour(xx,yy,zz,levels=12,cmap="viridis") if ptype=="contour" else ax.tricontourf(xx,yy,zz,levels=12,cmap="viridis"); fig.colorbar(im,ax=ax,label=z)
+        cfg(ax,ys[0],0); return fig
+    if ptype=="scatter3d":
+        if not z: raise ValueError("3D scatter requires a Z variable.")
+        fig=plt.figure(figsize=(w,h)); ax=fig.add_subplot(111,projection="3d"); y=ys[0]["column"]; use=df[[x,y,z]].apply(pd.to_numeric,errors="coerce").dropna()
+        ax.scatter(use[x],use[y],use[z],s=max(4,s["markerSize"]**2),alpha=s["alphaValue"],c=[cols[0]]); ax.set_xlabel(x); ax.set_ylabel(y); ax.set_zlabel(z); return fig
+    if ptype=="pairplot":
+        nc=[c for c in s["numericColumns"] if c in df.columns][:6]; g=sns.pairplot(df[nc+([group] if group else [])],vars=nc,hue=group if group else None,diag_kind="hist",palette=pal); return g.fig
+    if ptype=="jointplot":
+        y=ys[0]["column"]; g=sns.jointplot(data=df,x=x,y=y,hue=group if group else None,kind="scatter",palette=pal); return g.fig
+    return None
+
+fig=special()
+if fig is None:
+    panel_items=[i for i in ys if i["axis"]=="panel"]
+    panels=(s["panelLayout"]!="single" or len(panel_items)>0)
+    if panels:
+        n=max(1,len(ys)); preset=s["panelLayout"]
+        shape={"1x2":(1,2),"2x1":(2,1),"2x2":(2,2),"3x1":(3,1)}.get(preset,(1,n) if n<=3 else (2,2))
+        fig,axs=plt.subplots(*shape,figsize=(w,h),squeeze=False,sharex=s["shareX"],sharey=s["shareY"]); flat=axs.ravel()
+        for i,item in enumerate(ys):
+            if i>=len(flat):break
+            ax=flat[i]; y=item["column"]
+            if ptype in ["scatter","line","line_scatter","errorbar","step","area"]: draw_xy(ax,item,i)
+            elif ptype=="histogram": sns.histplot(pd.to_numeric(df[y],errors="coerce").dropna(),ax=ax,color=cols[i])
+            elif ptype=="kde": sns.kdeplot(x=pd.to_numeric(df[y],errors="coerce").dropna(),fill=True,ax=ax,color=cols[i])
+            elif ptype=="box": sns.boxplot(data=df,x=group if group else None,y=y,ax=ax,palette=pal if group else None)
+            elif ptype=="violin": sns.violinplot(data=df,x=group if group else None,y=y,ax=ax,palette=pal if group else None,cut=0)
+            else: ax.plot(df[x],df[y])
+            cfg(ax,item,i); ax.set_title(item.get("label") or y,fontsize=max(8,s["titleSize"]-1))
+        for j in range(len(ys),len(flat)): flat[j].set_visible(False)
+    else:
+        fig,main=plt.subplots(figsize=(w,h)); axes={"same":main}; extra=[]
+        if ptype in ["grouped_bar","stacked_bar"]:
+            pos=np.arange(len(df)); labels=df[x].astype(str); n=max(1,len(ys)); bw=.8/n; bottom=np.zeros(len(df))
+            for i,item in enumerate(ys):
+                vals=pd.to_numeric(df[item["column"]],errors="coerce").fillna(0).to_numpy()
+                if ptype=="grouped_bar": main.bar(pos+(i-(n-1)/2)*bw,vals,width=bw,label=item["column"],color=cols[i])
+                else: main.bar(pos,vals,bottom=bottom,label=item["column"],color=cols[i]); bottom+=vals
+            main.set_xticks(pos); main.set_xticklabels(labels,rotation=45,ha="right"); cfg(main,ys[0],0)
+        else:
+            for i,item in enumerate(ys):
+                place=item["axis"]; ax=main
+                if i>0 and place!="same":
+                    ax=main.twinx(); off=1+.12*max(0,i-1)
+                    if i>1: ax.spines["right"].set_position(("axes",off)); ax.patch.set_visible(False)
+                    extra.append(ax)
+                y=item["column"]
+                if ptype in ["scatter","line","line_scatter","errorbar","step","area"]: draw_xy(ax,item,i)
+                elif ptype=="bar": ax.bar(df[x].astype(str),pd.to_numeric(df[y],errors="coerce"),label=y,color=cols[i],alpha=s["alphaValue"])
+                elif ptype=="barh": ax.barh(df[x].astype(str),pd.to_numeric(df[y],errors="coerce"),label=y,color=cols[i],alpha=s["alphaValue"])
+                elif ptype=="histogram": sns.histplot(pd.to_numeric(df[y],errors="coerce").dropna(),ax=ax,color=cols[i])
+                elif ptype=="kde": sns.kdeplot(x=pd.to_numeric(df[y],errors="coerce").dropna(),fill=True,ax=ax,color=cols[i])
+                elif ptype=="box": sns.boxplot(data=df,x=group if group else None,y=y,ax=ax,palette=pal if group else None)
+                elif ptype=="violin": sns.violinplot(data=df,x=group if group else None,y=y,ax=ax,palette=pal if group else None,cut=0)
+                if ax is main: cfg(ax,item,i)
+                else: ax.set_ylabel(item.get("label") or y,fontsize=s["labelSize"],color=cols[i]); ax.tick_params(axis="y",colors=cols[i],labelsize=s["tickSize"]); ax.set_yscale(s[["y1Scale","y2Scale","y3Scale","y4Scale"][min(i,3)]])
+        handles=[]; labels=[]
+        for ax in [main]+extra:
+            h1,l1=ax.get_legend_handles_labels(); handles+=h1; labels+=l1
+        if handles and s["legendPosition"]!="none":
+            if s["legendPosition"]=="outside": main.legend(handles,labels,loc="center left",bbox_to_anchor=(1.02,.5),frameon=False)
+            else: main.legend(handles,labels,loc=s["legendPosition"],frameon=False)
+
+auto_title=("Correlation Heatmap" if ptype=="corr_heatmap" else f"{ys[0]['column']} vs {x}" if ys else "Scientific Plot")
+ttl=label(s["titleMode"],s["titleText"],auto_title)
+if ttl:
+    if len(fig.axes)>1 and s["panelLayout"]!="single": fig.suptitle(ttl,fontsize=s["titleSize"])
+    elif fig.axes: fig.axes[0].set_title(ttl,fontsize=s["titleSize"])
+if s["subtitleText"]: fig.text(.5,.965,s["subtitleText"],ha="center",va="top",fontsize=max(6,s["titleSize"]-2),color="#555")
+try: fig.tight_layout()
+except Exception: pass
+
+transparent=s["backgroundMode"]=="transparent"
+def enc(fmt,dpi=None):
+    b=io.BytesIO(); kw=dict(format=fmt,bbox_inches="tight",transparent=(transparent if fmt!="jpeg" else False))
+    if dpi: kw["dpi"]=dpi
+    if fmt=="jpeg": kw["facecolor"]="white"
+    fig.savefig(b,**kw); out=base64.b64encode(b.getvalue()).decode("ascii"); b.close(); return out
+D=int(s["dpi"]); result={"png":enc("png",D),"jpeg":enc("jpeg",D),"svg":enc("svg"),"pdf":enc("pdf")}
+plt.close("all")
+json.dumps(result)
+</script>
+
+<script>
+"use strict";
+
+const EXAMPLES={
+esol:{label:"Delaney / ESOL Molecular Solubility",url:"https://raw.githubusercontent.com/deepchem/deepchem/master/datasets/delaney-processed.csv"},
+iris:{label:"Iris Machine-Learning Dataset",url:"https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"},
+airquality:{label:"Environmental Air Quality Dataset",url:"https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/datasets/airquality.csv"}
+};
+
+const $=id=>document.getElementById(id);
+const fileInput=$("fileInput"),dataUrl=$("dataUrl"),dataStatus=$("dataStatus"),datasetShell=$("datasetShell"),quickPlot=$("quickPlot"),plotType=$("plotType"),renderMode=$("renderMode"),xVar=$("xVar"),yVar=$("yVar"),groupVar=$("groupVar"),generate=$("generate"),plotStatus=$("plotStatus"),staticPreview=$("staticPreview"),interactivePlot=$("interactivePlot"),pythonStatus=$("pythonStatus"),pythonCode=$("pythonCode");
+
+let rows=[],columns=[],numeric=[],categorical=[],datasetLabel="",source={type:"",value:""},pyodide=null,pythonReady=false,pythonPromise=null,staticExports=null,lastPlotlyData=null,lastPlotlyLayout=null,lastPlotlyConfig=null,selectedIndices=[],generatedPython="",plotConfig=null;
+
+function status(el,type,msg){el.className="status "+type;el.textContent=msg}
+function clearStatus(el){el.className="status";el.textContent=""}
+function missing(v){return v===null||v===undefined||v===""||(typeof v==="number"&&!Number.isFinite(v))}
+function num(v){if(v===null||v===undefined||v==="")return null;if(typeof v==="number")return Number.isFinite(v)?v:null;const n=Number(String(v).trim().replaceAll(",",""));return Number.isFinite(n)?n:null}
+function nullable(id){const v=$(id).value;if(v==="")return null;const n=Number(v);return Number.isFinite(n)?n:null}
+function download(blob,name){const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+function b64blob(b64,mime){const bin=atob(b64),arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);return new Blob([arr],{type:mime})}
+function basename(url){return String(url).split("?")[0].split("/").pop()||"dataset"}
+
+document.querySelectorAll(".source-btn").forEach(btn=>btn.addEventListener("click",()=>{
+document.querySelectorAll(".source-btn").forEach(b=>b.classList.toggle("active",b===btn));
+["upload","url","example"].forEach(n=>$("source-"+n).classList.toggle("hidden",btn.dataset.source!==n));
+}));
+
+function normalize(data){
+if(!Array.isArray(data)||!data.length)throw new Error("The dataset contains no rows.");
+const first=data.find(r=>r&&typeof r==="object"&&Object.keys(r).length);if(!first)throw new Error("No tabular records were found.");
+const cols=Object.keys(first);const out=data.map(r=>{const o={};cols.forEach(c=>o[c]=typeof r[c]==="string"?r[c].trim():r[c]);return o}).filter(r=>cols.some(c=>!missing(r[c])));
+if(!out.length)throw new Error("The dataset contains no non-empty records.");return{rows:out,columns:cols}
+}
+function parseText(text,delimiter){const p=Papa.parse(text,{header:true,skipEmptyLines:true,delimiter:delimiter||""});return normalize(p.data)}
+function parseExcel(buf){const wb=XLSX.read(buf,{type:"array"});if(!wb.SheetNames.length)throw new Error("The workbook contains no worksheets.");const sn=wb.SheetNames[0],data=XLSX.utils.sheet_to_json(wb.Sheets[sn],{defval:""}),n=normalize(data);n.sheet=sn;return n}
+
+fileInput.addEventListener("change",async()=>{
+const file=fileInput.files[0];if(!file)return;status(dataStatus,"info","Reading "+file.name+" locally in your browser...");
+try{const ext=file.name.toLowerCase().split(".").pop();let p;if(ext==="xlsx"||ext==="xls")p=parseExcel(await file.arrayBuffer());else p=parseText(await file.text(),ext==="tsv"?"\t":undefined);source={type:"file",value:file.name};loadData(p.rows,p.columns,file.name+(p.sheet?" · Sheet: "+p.sheet:""));status(dataStatus,"success","Dataset loaded successfully from your local file.")}
+catch(e){console.error(e);status(dataStatus,"error",e.message||"The file could not be read.")}
+});
+
+$("loadUrlButton").addEventListener("click",()=>{const u=dataUrl.value.trim();if(!u)return status(dataStatus,"warning","Please enter a public dataset URL.");loadRemote(u,basename(u),{type:"url",value:u})});
+document.querySelectorAll(".example-load").forEach(b=>b.addEventListener("click",()=>{const d=EXAMPLES[b.dataset.example];loadRemote(d.url,d.label,{type:"example",value:b.dataset.example})}));
+
+async function loadRemote(url,label,src){
+status(dataStatus,"info","Loading public dataset...");
+try{const r=await fetch(url);if(!r.ok)throw new Error("HTTP "+r.status);const low=url.toLowerCase().split("?")[0];let p;if(low.endsWith(".xlsx")||low.endsWith(".xls"))p=parseExcel(await r.arrayBuffer());else p=parseText(await r.text(),low.endsWith(".tsv")?"\t":undefined);source=src;loadData(p.rows,p.columns,label);status(dataStatus,"success","Public dataset loaded successfully.")}
+catch(e){console.error(e);status(dataStatus,"error","The remote dataset could not be loaded. The host may block browser access (CORS), or the URL may not point directly to tabular data. "+(e.message||""))}
+}
+
+function detectTypes(){
+numeric=[];categorical=[];
+columns.forEach(c=>{const vals=rows.map(r=>r[c]).filter(v=>!missing(v)).slice(0,5000);if(!vals.length){categorical.push(c);return}const ratio=vals.filter(v=>num(v)!==null).length/vals.length;(ratio>=.85?numeric:categorical).push(c)});
+}
+function setOptions(sel,cols,none=true){
+const old=sel.value;sel.innerHTML="";if(none){const o=document.createElement("option");o.value="";o.textContent="None";sel.appendChild(o)}
+cols.forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c+(numeric.includes(c)?" · numeric":" · categorical");sel.appendChild(o)});if([...sel.options].some(o=>o.value===old))sel.value=old;
+}
+function loadData(r,c,label){
+rows=r;columns=c;datasetLabel=label;detectTypes();renderSummary();
+setOptions(xVar,columns,false);setOptions(yVar,columns,false);
+["groupVar","y2Var","y3Var","y4Var","zVar","sizeVar","xErrVar","yErrVar","labelVar"].forEach(id=>setOptions($(id),columns,true));
+refreshFilters();suggest();
+if(numeric.length>=2){xVar.value=numeric[0];yVar.value=numeric[1]}else if(numeric.length===1){xVar.value=columns[0];yVar.value=numeric[0]}
+datasetShell.classList.remove("hidden");quickPlot.classList.remove("hidden");generate.disabled=false;staticExports=null;lastPlotlyData=null;selectedIndices=[];updateExports();conditional();
+}
+function renderSummary(){
+$("datasetName").textContent=datasetLabel;$("mRows").textContent=rows.length.toLocaleString();$("mCols").textContent=columns.length;$("mNum").textContent=numeric.length;$("mCat").textContent=categorical.length;
+let miss=0;rows.forEach(r=>columns.forEach(c=>{if(missing(r[c]))miss++}));$("mMiss").textContent=miss.toLocaleString();
+const th=$("previewTable").querySelector("thead"),tb=$("previewTable").querySelector("tbody");th.innerHTML="";tb.innerHTML="";const tr=document.createElement("tr");columns.slice(0,15).forEach(c=>{const x=document.createElement("th");x.textContent=c;tr.appendChild(x)});th.appendChild(tr);
+rows.slice(0,12).forEach(r=>{const rr=document.createElement("tr");columns.slice(0,15).forEach(c=>{const td=document.createElement("td");td.textContent=missing(r[c])?"—":r[c];rr.appendChild(td)});tb.appendChild(rr)});
+}
+function suggest(){
+const box=$("suggestions");box.innerHTML="";const s=[];
+if(numeric.length>=2)s.push({t:"scatter",x:numeric[0],y:numeric[1],l:"Scatter: "+numeric[0]+" vs "+numeric[1]});
+if(numeric.length)s.push({t:"histogram",x:numeric[0],y:numeric[0],l:"Histogram: "+numeric[0]});
+if(numeric.length>=3)s.push({t:"corr_heatmap",x:numeric[0],y:numeric[1],l:"Correlation heatmap"});
+if(categorical.length&&numeric.length)s.push({t:"box",x:categorical[0],y:numeric[0],g:categorical[0],l:"Box: "+numeric[0]+" by "+categorical[0]});
+s.slice(0,4).forEach(q=>{const b=document.createElement("button");b.type="button";b.className="suggestion";b.textContent="Try "+q.l;b.onclick=()=>{plotType.value=q.t;xVar.value=q.x;yVar.value=q.y;if(q.g)groupVar.value=q.g;conditional()};box.appendChild(b)});
+}
+
+function addFilter(){
+if(!columns.length)return status(plotStatus,"warning","Load a dataset before adding filters.");
+const row=document.createElement("div");row.style.cssText="display:grid;grid-template-columns:1.2fr .8fr 1fr auto;gap:8px;align-items:end;margin-bottom:8px";
+row.innerHTML='<div class="field"><label>Column</label><select class="fc"></select></div><div class="field"><label>Operator</label><select class="fo"><option value="eq">=</option><option value="neq">≠</option><option value="gt">&gt;</option><option value="gte">≥</option><option value="lt">&lt;</option><option value="lte">≤</option><option value="contains">contains</option></select></div><div class="field"><label>Value</label><input class="fv" type="text"></div><button type="button" class="btn soft fr">×</button>';
+$("filters").appendChild(row);setOptions(row.querySelector(".fc"),columns,false);row.querySelector(".fr").onclick=()=>row.remove();
+}
+$("addFilter").addEventListener("click",addFilter);
+function refreshFilters(){document.querySelectorAll(".fc").forEach(s=>setOptions(s,columns,false))}
+function getFilters(){return[...$("filters").querySelectorAll(":scope > div")].map(r=>({c:r.querySelector(".fc").value,o:r.querySelector(".fo").value,v:r.querySelector(".fv").value})).filter(f=>f.c&&f.v!=="")}
+function applyFilters(data){
+const fs=getFilters();return data.filter(r=>fs.every(f=>{const a=r[f.c],na=num(a),nb=num(f.v);switch(f.o){case"eq":return na!==null&&nb!==null?na===nb:String(a)===f.v;case"neq":return na!==null&&nb!==null?na!==nb:String(a)!==f.v;case"gt":return na!==null&&nb!==null&&na>nb;case"gte":return na!==null&&nb!==null&&na>=nb;case"lt":return na!==null&&nb!==null&&na<nb;case"lte":return na!==null&&nb!==null&&na<=nb;case"contains":return String(a??"").toLowerCase().includes(f.v.toLowerCase());default:return true}}))}
+function stat(data,c,kind){const a=data.map(r=>num(r[c])).filter(v=>v!==null).sort((x,y)=>x-y);if(!a.length)return 0;if(kind==="mean")return a.reduce((s,v)=>s+v,0)/a.length;const m=Math.floor(a.length/2);return a.length%2?a[m]:(a[m-1]+a[m])/2}
+function prepared(){
+let d=applyFilters(rows).map(r=>({...r}));const mode=$("missingMode").value;const used=[xVar.value,yVar.value,$("y2Var").value,$("y3Var").value,$("y4Var").value,groupVar.value,$("zVar").value,$("sizeVar").value,$("xErrVar").value,$("yErrVar").value,$("labelVar").value].filter(Boolean);
+if(mode==="drop")return d.filter(r=>used.every(c=>!missing(r[c])));if(mode==="ignore")return d;
+const repl={};numeric.forEach(c=>repl[c]=mode==="zero"?0:stat(d,c,mode));d.forEach(r=>numeric.forEach(c=>{if(missing(r[c]))r[c]=repl[c]}));return d;
+}
+
+function dimensions(){
+const wp=$("widthPreset").value,w=wp==="custom"?Number($("customWidth").value):Number(wp),rp=$("ratio").value;let h;if(rp==="custom")h=Number($("customHeight").value);else if(rp==="auto")h=w/1.45;else h=w/(rp==="golden"?1.61803398875:Number(rp));return{width:Math.max(1,Math.min(30,w||7)),height:Math.max(1,Math.min(30,h||4.5))}
+}
+function settings(){
+const d=dimensions();if($("quickTitle").value.trim()){$("titleMode").value="custom";$("titleText").value=$("quickTitle").value.trim()}
+const ys=[{column:yVar.value,axis:"same",label:$("y1Label").value.trim()},{column:$("y2Var").value,axis:$("y2Axis").value,label:$("y2Label").value.trim()},{column:$("y3Var").value,axis:$("y3Axis").value,label:$("y3Label").value.trim()},{column:$("y4Var").value,axis:$("y4Axis").value,label:$("y4Label").value.trim()}].filter(x=>x.column);
+return{plotType:plotType.value,renderMode:renderMode.value,xVariable:xVar.value,ySeries:ys,groupVariable:groupVar.value,zVariable:$("zVar").value,sizeVariable:$("sizeVar").value,xErrorVariable:$("xErrVar").value,yErrorVariable:$("yErrVar").value,pointLabelVariable:$("labelVar").value,annotateTopN:Number($("annotateTop").value)||0,titleMode:$("titleMode").value,titleText:$("titleText").value.trim(),subtitleText:$("subtitleText").value.trim(),xLabelMode:$("xLabelMode").value,xLabelText:$("xLabelText").value.trim(),legendPosition:$("legendPos").value,titleSize:Number($("titleSize").value),labelSize:Number($("labelSize").value),tickSize:Number($("tickSize").value),stylePreset:$("stylePreset").value,palette:$("palette").value,lineStyle:$("lineStyle").value,markerStyle:$("marker").value,lineWidth:Number($("lineWidth").value),markerSize:Number($("markerSize").value),alphaValue:Number($("alpha").value),spineStyle:$("spines").value,figureWidth:d.width,figureHeight:d.height,dpi:Number($("dpi").value),panelLayout:$("panelLayout").value,shareX:$("shareX").checked,shareY:$("shareY").checked,backgroundMode:$("background").value,xScale:$("xScale").value,y1Scale:$("y1Scale").value,y2Scale:$("y2Scale").value,y3Scale:$("y3Scale").value,y4Scale:$("y4Scale").value,xMin:nullable("xMin"),xMax:nullable("xMax"),y1Min:nullable("y1Min"),y1Max:nullable("y1Max"),gridMode:$("gridMode").value,scientificNotation:$("sciNotation").checked,sortX:$("sortX").checked,missingMode:$("missingMode").value,filters:getFilters(),trendMode:$("trend").value,showEquation:$("showEquation").checked,showR2:$("showR2").checked,referenceY:nullable("refY"),referenceYLabel:$("refYLabel").value.trim(),referenceX:nullable("refX"),referenceXLabel:$("refXLabel").value.trim(),numericColumns:[...numeric],datasetLabel,source:{...source}}
+}
+function validate(s,d){
+const e=[];if(!d.length)e.push("No rows remain after filtering or missing-value handling.");if(!s.xVariable)e.push("Select an X variable.");if(!s.ySeries.length&&s.plotType!=="corr_heatmap")e.push("Select at least one Y variable.");
+const needNum=["scatter","line","line_scatter","errorbar","step","area","hist2d","hexbin","contour","contourf","scatter3d","jointplot"];if(needNum.includes(s.plotType)){if(!numeric.includes(s.xVariable))e.push("This plot requires a numeric X variable.");if(s.ySeries[0]&&!numeric.includes(s.ySeries[0].column))e.push("This plot requires a numeric Y variable.")}
+if(["contour","contourf","scatter3d"].includes(s.plotType)&&!s.zVariable)e.push("This plot requires a Z variable.");if(s.renderMode==="interactive"&&["pairplot","jointplot"].includes(s.plotType))e.push("Pair Plot and Joint Plot are publication-mode features in Version 1.0.");return e
+}
+function conditional(){const multi=$("y2Var").value||$("y3Var").value||$("y4Var").value;$("axisWarning").classList.toggle("hidden",!multi);renderMode.value==="interactive"?showInteractive():showStatic()}
+["plotType","renderMode","xVar","yVar","groupVar","y2Var","y3Var","y4Var"].forEach(id=>$(id).addEventListener("change",conditional));
+
+async function initPython(){
+if(pythonPromise)return pythonPromise;
+pythonPromise=(async()=>{try{pythonStatus.textContent="Loading Python plotting engine...";pyodide=await loadPyodide({indexURL:"https://cdn.jsdelivr.net/pyodide/v314.0.6/full/"});await pyodide.loadPackage(["numpy","pandas","matplotlib","scipy","micropip"]);const micropip=pyodide.pyimport("micropip");await micropip.install("seaborn");pythonReady=true;pythonStatus.textContent="Python + Matplotlib + Seaborn ready.";return pyodide}catch(e){console.error(e);pythonStatus.textContent="Python engine failed to load. Interactive mode remains available.";throw e}})();return pythonPromise
+}
+
+async function staticPlot(d,s){
+status(plotStatus,"info",pythonReady?"Generating publication figure with Matplotlib / Seaborn...":"Preparing the in-browser Python engine. The first publication plot can take a little longer...");
+await initPython();pyodide.globals.set("plot_payload_json",JSON.stringify({rows:d,settings:s}));const out=await pyodide.runPythonAsync($("pythonRenderer").textContent);staticExports=JSON.parse(out);
+staticPreview.innerHTML="";const im=document.createElement("img");im.alt="Jhatpat Plot publication figure";im.src="data:image/png;base64,"+staticExports.png;staticPreview.appendChild(im);showStatic();updateExports();status(plotStatus,"success","Publication figure generated. Review axes, units, statistics and scientific interpretation before use.")
+}
+
+const palettes={
+auto:["#0173b2","#de8f05","#029e73","#d55e00","#cc78bc","#ca9161","#949494","#56b4e9"],
+colorblind:["#0173b2","#de8f05","#029e73","#d55e00","#cc78bc","#ca9161","#fbafe4","#949494","#ece133","#56b4e9"],
+deep:["#4c72b0","#dd8452","#55a868","#c44e52","#8172b3","#937860","#da8bc3","#8c8c8c"],
+muted:["#4878d0","#ee854a","#6acc64","#d65f5f","#956cb4","#8c613c","#dc7ec0","#797979"],
+pastel:["#a1c9f4","#ffb482","#8de5a1","#ff9f9b","#d0bbff","#debb9b","#fab0e4","#cfcfcf"]
+};
+const markerMap={o:"circle",s:"square",D:"diamond","^":"triangle-up",v:"triangle-down","*":"star","+":"cross",x:"x",none:"circle"};
+const dashMap={"-":"solid","--":"dash",":":"dot","-.":"dashdot",none:"solid"};
+function jsPalette(name){return palettes[name]||palettes.auto}
+function titleOf(s){if(s.titleMode==="none")return"";if(s.titleMode==="custom")return s.titleText;if(s.plotType==="corr_heatmap")return"Correlation Heatmap";return s.ySeries.length?s.ySeries[0].column+" vs "+s.xVariable:"Scientific Plot"}
+function xLabelOf(s){if(s.xLabelMode==="none")return"";if(s.xLabelMode==="custom")return s.xLabelText;return s.xVariable}
+
+function corrMatrix(d,cols){
+function corr(a,b){const p=[];d.forEach(r=>{const x=num(r[a]),y=num(r[b]);if(x!==null&&y!==null)p.push([x,y])});if(p.length<2)return 0;const mx=p.reduce((q,z)=>q+z[0],0)/p.length,my=p.reduce((q,z)=>q+z[1],0)/p.length;let n=0,dx=0,dy=0;p.forEach(z=>{const a1=z[0]-mx,b1=z[1]-my;n+=a1*b1;dx+=a1*a1;dy+=b1*b1});const den=Math.sqrt(dx*dy);return den?n/den:0}
+return cols.map(a=>cols.map(b=>corr(a,b)))
+}
+
+function interactivePlotFn(d,s){
+const pal=jsPalette(s.palette),traces=[],x=s.xVariable,group=s.groupVariable,label=s.pointLabelVariable;
+const yref=(item,i)=>i===0||item.axis==="same"?"y":item.axis==="right"?"y2":i>=3?"y4":"y3";
+const mode=s.plotType==="line"?"lines":s.plotType==="line_scatter"?"lines+markers":"markers";
+const indexed=d.map((row,index)=>({row,index}));
+const relationships=["scatter","line","line_scatter","errorbar","step","area"];
+
+if(relationships.includes(s.plotType)){
+s.ySeries.forEach((item,si)=>{
+const groups=group?[...new Set(indexed.map(e=>String(e.row[group])))]:[null];
+groups.forEach((g,gi)=>{
+const sub=g===null?indexed:indexed.filter(e=>String(e.row[group])===g);
+const trace={type:"scatter",mode,name:(s.ySeries.length>1?item.column+" · ":"")+(g??(item.label||item.column)),x:sub.map(e=>e.row[x]),y:sub.map(e=>e.row[item.column]),yaxis:yref(item,si),customdata:sub.map(e=>e.index),text:sub.map(e=>{const a=[];if(label)a.push(String(e.row[label]));a.push(x+": "+e.row[x],item.column+": "+e.row[item.column]);if(group)a.push(group+": "+e.row[group]);return a.join("<br>")}),hovertemplate:"%{text}<extra></extra>",marker:{size:s.markerSize,symbol:markerMap[s.markerStyle]||"circle",color:pal[(si+gi)%pal.length],opacity:s.alphaValue},line:{width:s.lineWidth,dash:dashMap[s.lineStyle]||"solid",color:pal[(si+gi)%pal.length]}};
+if(s.plotType==="area")trace.fill="tozeroy";if(s.plotType==="step")trace.line.shape="hv";
+if(s.plotType==="errorbar"&&s.yErrorVariable)trace.error_y={type:"data",array:sub.map(e=>num(e.row[s.yErrorVariable])||0),visible:true};
+if(s.plotType==="errorbar"&&s.xErrorVariable)trace.error_x={type:"data",array:sub.map(e=>num(e.row[s.xErrorVariable])||0),visible:true};
+traces.push(trace)
+})
+})
+}else if(["bar","barh","grouped_bar","stacked_bar"].includes(s.plotType)){
+s.ySeries.forEach((item,i)=>traces.push({type:"bar",orientation:s.plotType==="barh"?"h":"v",name:item.label||item.column,x:s.plotType==="barh"?d.map(r=>r[item.column]):d.map(r=>r[x]),y:s.plotType==="barh"?d.map(r=>r[x]):d.map(r=>r[item.column]),customdata:d.map((r,j)=>j),marker:{color:pal[i%pal.length],opacity:s.alphaValue}}))
+}else if(s.plotType==="histogram"){
+s.ySeries.forEach((item,i)=>traces.push({type:"histogram",name:item.label||item.column,x:d.map(r=>r[item.column]),opacity:s.alphaValue,marker:{color:pal[i%pal.length]}}))
+}else if(s.plotType==="box"||s.plotType==="violin"){
+const y=s.ySeries[0].column;traces.push({type:s.plotType,name:y,x:group?d.map(r=>r[group]):undefined,y:d.map(r=>r[y]),box:{visible:true},meanline:{visible:true},marker:{color:pal[0]}})
+}else if(s.plotType==="hist2d"){
+traces.push({type:"histogram2d",x:d.map(r=>r[x]),y:d.map(r=>r[s.ySeries[0].column]),colorscale:"Viridis"})
+}else if(s.plotType==="corr_heatmap"){
+const c=numeric.slice(0,12);traces.push({type:"heatmap",z:corrMatrix(d,c),x:c,y:c,zmin:-1,zmax:1,colorscale:"RdBu",reversescale:true})
+}else if(s.plotType==="heatmap"){
+const y=s.ySeries[0].column;traces.push({type:"heatmap",z:d.slice(0,150).map(r=>[num(r[y])||0]),x:[y],y:d.slice(0,150).map((r,i)=>String(r[x]??i+1)),colorscale:"Viridis"})
+}else if(["contour","contourf"].includes(s.plotType)){
+traces.push({type:"scatter",mode:"markers",x:d.map(r=>r[x]),y:d.map(r=>r[s.ySeries[0].column]),marker:{size:Math.max(6,s.markerSize),color:d.map(r=>r[s.zVariable]),colorscale:"Viridis",showscale:true,colorbar:{title:s.zVariable}},text:d.map(r=>s.zVariable+": "+r[s.zVariable]),hovertemplate:"%{text}<extra></extra>"})
+}else if(s.plotType==="hexbin"){
+traces.push({type:"scattergl",mode:"markers",x:d.map(r=>r[x]),y:d.map(r=>r[s.ySeries[0].column]),marker:{size:5,opacity:.45,color:pal[0]}})
+}else if(s.plotType==="scatter3d"){
+traces.push({type:"scatter3d",mode:"markers",x:d.map(r=>r[x]),y:d.map(r=>r[s.ySeries[0].column]),z:d.map(r=>r[s.zVariable]),customdata:d.map((r,i)=>i),marker:{size:s.markerSize,opacity:s.alphaValue,color:pal[0]}})
+}else if(s.plotType==="kde"){
+status(plotStatus,"warning","Interactive KDE is approximated as a histogram in Version 1.0; publication mode uses Seaborn KDE.");traces.push({type:"histogram",histnorm:"probability density",x:d.map(r=>r[s.ySeries[0].column]),marker:{color:pal[0]},opacity:.75})
+}
+
+const layout={title:titleOf(s)?{text:titleOf(s),font:{size:s.titleSize}}:undefined,paper_bgcolor:s.backgroundMode==="transparent"?"rgba(0,0,0,0)":"white",plot_bgcolor:s.backgroundMode==="transparent"?"rgba(0,0,0,0)":"white",font:{family:"Arial, sans-serif",size:s.tickSize},hovermode:"closest",dragmode:"zoom",margin:{l:70,r:125,t:70,b:70},showlegend:s.legendPosition!=="none",xaxis:{title:xLabelOf(s),type:s.xScale==="log"?"log":"linear",showgrid:s.gridMode!=="none"},yaxis:{title:s.ySeries[0]?.label||s.ySeries[0]?.column||"",type:s.y1Scale==="log"?"log":"linear",showgrid:s.gridMode!=="none"}};
+if(s.xMin!==null&&s.xMax!==null)layout.xaxis.range=[s.xMin,s.xMax];
+if(s.ySeries.length>1)layout.yaxis2={title:s.ySeries[1].label||s.ySeries[1].column,overlaying:"y",side:"right",type:s.y2Scale==="log"?"log":"linear",showgrid:false};
+if(s.ySeries.length>2)layout.yaxis3={title:s.ySeries[2].label||s.ySeries[2].column,overlaying:"y",side:"right",anchor:"free",position:.93,type:s.y3Scale==="log"?"log":"linear",showgrid:false};
+if(s.ySeries.length>3)layout.yaxis4={title:s.ySeries[3].label||s.ySeries[3].column,overlaying:"y",side:"right",anchor:"free",position:.86,type:s.y4Scale==="log"?"log":"linear",showgrid:false};
+if(["bar","barh","grouped_bar"].includes(s.plotType))layout.barmode="group";if(s.plotType==="stacked_bar")layout.barmode="stack";
+if(s.referenceY!==null)layout.shapes=(layout.shapes||[]).concat([{type:"line",x0:0,x1:1,xref:"paper",y0:s.referenceY,y1:s.referenceY,line:{dash:"dash",color:"#555"}}]);
+if(s.referenceX!==null)layout.shapes=(layout.shapes||[]).concat([{type:"line",y0:0,y1:1,yref:"paper",x0:s.referenceX,x1:s.referenceX,line:{dash:"dash",color:"#555"}}]);
+
+const config={responsive:true,displaylogo:false,scrollZoom:true,modeBarButtonsToAdd:["select2d","lasso2d"],toImageButtonOptions:{format:"png",filename:"jhatpat_plot_interactive",scale:2}};
+Plotly.newPlot(interactivePlot,traces,layout,config);
+interactivePlot.on("plotly_selected",ev=>{selectedIndices=[];(ev?.points||[]).forEach(p=>{if(Number.isInteger(p.customdata)&&!selectedIndices.includes(p.customdata))selectedIndices.push(p.customdata)});if(selectedIndices.length)status($("selectionStatus"),"success",selectedIndices.length+" row(s) selected. You can download them as CSV.");else clearStatus($("selectionStatus"));updateExports()});
+lastPlotlyData=traces;lastPlotlyLayout=layout;lastPlotlyConfig=config;showInteractive();updateExports();status(plotStatus,"success","Interactive figure generated. Hover, zoom, pan, toggle legend entries, or select points with the toolbar.")
+}
+
+function showStatic(){staticPreview.classList.remove("hidden");interactivePlot.classList.add("hidden");$("showStatic").classList.add("active");$("showInteractive").classList.remove("active")}
+function showInteractive(){staticPreview.classList.add("hidden");interactivePlot.classList.remove("hidden");$("showStatic").classList.remove("active");$("showInteractive").classList.add("active");setTimeout(()=>{try{Plotly.Plots.resize(interactivePlot)}catch(e){}},50)}
+$("showStatic").onclick=showStatic;$("showInteractive").onclick=showInteractive;
+
+function pythonScript(s){
+  const y=s.ySeries[0]?.column||"";
+  let loadLines="";
+  if(s.source.type==="url"){
+    loadLines="DATA_SOURCE = "+JSON.stringify(s.source.value)+"\ndf = pd.read_csv(DATA_SOURCE)";
+  }else if(s.source.type==="example"){
+    loadLines="DATA_SOURCE = "+JSON.stringify(EXAMPLES[s.source.value].url)+"\ndf = pd.read_csv(DATA_SOURCE)";
+  }else{
+    loadLines=[
+      "DATA_SOURCE = "+JSON.stringify(s.source.value||"data.csv"),
+      'if DATA_SOURCE.lower().endswith((".xlsx",".xls")):',
+      "    df = pd.read_excel(DATA_SOURCE)",
+      'elif DATA_SOURCE.lower().endswith(".tsv"):',
+      '    df = pd.read_csv(DATA_SOURCE, sep="\\t")',
+      "else:",
+      "    df = pd.read_csv(DATA_SOURCE)"
+    ].join("\n");
+  }
+  const ttl=titleOf(s);
+  const lines=[
+    "#!/usr/bin/env python3",
+    '"""',
+    "Jhatpat Plot™ v1.0",
+    "Reproducible starting script.",
+    "",
+    "Required:",
+    "    pip install pandas numpy matplotlib seaborn openpyxl",
+    "",
+    "Review every scientific, statistical, unit and publication choice.",
+    '"""',
+    "import pandas as pd",
+    "import numpy as np",
+    "import matplotlib.pyplot as plt",
+    "import seaborn as sns",
+    "",
+    loadLines,
+    "",
+    'sns.set_theme(style="ticks", context="paper")',
+    "x = "+JSON.stringify(s.xVariable),
+    "y = "+JSON.stringify(y),
+    "group = "+JSON.stringify(s.groupVariable||null),
+    "fig, ax = plt.subplots(figsize=("+s.figureWidth+", "+s.figureHeight+"))",
+    "",
+    "plot_type = "+JSON.stringify(s.plotType),
+    'if plot_type == "scatter":',
+    "    sns.scatterplot(data=df, x=x, y=y, hue=group, ax=ax)",
+    'elif plot_type in ("line", "line_scatter"):',
+    '    sns.lineplot(data=df, x=x, y=y, hue=group, marker=("o" if plot_type == "line_scatter" else None), ax=ax)',
+    'elif plot_type == "histogram":',
+    "    sns.histplot(data=df, x=y, hue=group, ax=ax)",
+    'elif plot_type == "kde":',
+    "    sns.kdeplot(data=df, x=y, hue=group, fill=True, ax=ax)",
+    'elif plot_type == "box":',
+    "    sns.boxplot(data=df, x=(group if group else None), y=y, ax=ax)",
+    'elif plot_type == "violin":',
+    "    sns.violinplot(data=df, x=(group if group else None), y=y, cut=0, ax=ax)",
+    'elif plot_type == "corr_heatmap":',
+    '    sns.heatmap(df.select_dtypes(include="number").corr(), cmap="coolwarm", center=0, square=True, ax=ax)',
+    'elif plot_type == "hexbin":',
+    '    ax.hexbin(pd.to_numeric(df[x], errors="coerce"), pd.to_numeric(df[y], errors="coerce"), gridsize=30, mincnt=1, cmap="viridis")',
+    "else:",
+    "    # Advanced settings are stored in the JSON configuration download.",
+    "    sns.scatterplot(data=df, x=x, y=y, hue=group, ax=ax)",
+    "",
+    "ax.set_xlabel("+JSON.stringify(xLabelOf(s))+")",
+    "ax.set_ylabel("+JSON.stringify(s.ySeries[0]?.label||y)+")",
+    ttl ? "ax.set_title("+JSON.stringify(ttl)+")" : "# No title requested",
+    "fig.tight_layout()",
+    'fig.savefig("jhatpat_plot.svg", bbox_inches="tight")',
+    'fig.savefig("jhatpat_plot.pdf", bbox_inches="tight")',
+    'fig.savefig("jhatpat_plot.png", dpi='+s.dpi+', bbox_inches="tight")',
+    "plt.show()",
+    ""
+  ];
+  return lines.join("\n");
+}
+
+generate.addEventListener("click",async()=>{
+clearStatus(plotStatus);clearStatus($("selectionStatus"));selectedIndices=[];const d=prepared(),s=settings(),errs=validate(s,d);if(errs.length)return status(plotStatus,"error",errs.join(" "));
+plotConfig={utility:"Jhatpat Plot™",version:"1.0",generatedAt:new Date().toISOString(),settings:s};generatedPython=pythonScript(s);pythonCode.textContent=generatedPython;updateExports();
+generate.disabled=true;generate.textContent="Generating...";
+try{if(s.renderMode==="interactive")interactivePlotFn(d,s);else await staticPlot(d,s);$("previewSection").scrollIntoView({behavior:"smooth",block:"start"})}catch(e){console.error(e);status(plotStatus,"error",e.message||"The plot could not be generated.")}finally{generate.disabled=false;generate.textContent="Generate Plot"}
+});
+
+function updateExports(){
+document.querySelectorAll(".static-export").forEach(b=>b.disabled=!staticExports);$("downloadHTML").disabled=!lastPlotlyData;$("downloadPython").disabled=!generatedPython;$("copyPython").disabled=!generatedPython;$("downloadConfig").disabled=!plotConfig;$("downloadSelected").disabled=!selectedIndices.length
+}
+document.querySelectorAll(".static-export").forEach(b=>b.addEventListener("click",()=>{
+if(!staticExports)return;const f=b.dataset.format,m={svg:"image/svg+xml",pdf:"application/pdf",png:"image/png",jpeg:"image/jpeg"}[f],ext=f==="jpeg"?"jpg":f;download(b64blob(staticExports[f],m),"jhatpat_plot."+ext)
+}));
+$("downloadHTML").onclick=()=>{
+if(!lastPlotlyData)return;const data=JSON.stringify(lastPlotlyData).replaceAll("<"+"/script>","<\\/script>"),layout=JSON.stringify(lastPlotlyLayout).replaceAll("<"+"/script>","<\\/script>"),config=JSON.stringify(lastPlotlyConfig).replaceAll("<"+"/script>","<\\/script>");
+const h=`<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jhatpat Plot Interactive Figure</title><script src="https://cdn.plot.ly/plotly-3.3.0.min.js"><\/script></head><body><div id="plot" style="width:100%;min-height:620px"></div><script>Plotly.newPlot("plot",${data},${layout},${config});<\/script></body></html>`;download(new Blob([h],{type:"text/html;charset=utf-8"}),"jhatpat_plot_interactive.html")
+};
+$("downloadPython").onclick=()=>{if(generatedPython)download(new Blob([generatedPython],{type:"text/x-python;charset=utf-8"}),"jhatpat_plot.py")};
+$("copyPython").onclick=async()=>{try{await navigator.clipboard.writeText(generatedPython);status(plotStatus,"success","Python code copied to the clipboard.")}catch(e){status(plotStatus,"warning","Clipboard access was blocked. Open the code section and copy manually.")}};
+$("downloadConfig").onclick=()=>{if(plotConfig)download(new Blob([JSON.stringify(plotConfig,null,2)],{type:"application/json"}),"jhatpat_plot_configuration.json")};
+$("downloadSelected").onclick=()=>{const d=prepared(),sel=selectedIndices.map(i=>d[i]).filter(Boolean);download(new Blob([Papa.unparse(sel)],{type:"text/csv;charset=utf-8"}),"jhatpat_plot_selected_data.csv")};
+
+$("autoStyle").onclick=()=>{$("stylePreset").value="publication";$("palette").value="colorblind";$("lineStyle").value="-";$("marker").value="o";$("lineWidth").value="1.5";$("markerSize").value="6";$("alpha").value=".85";$("spines").value="leftbottom";$("widthPreset").value="7";$("ratio").value="golden";$("dpi").value="300";$("gridMode").value="major";$("background").value="white";status($("accessStatus"),"success","Publication defaults applied: colour-blind-friendly palette, restrained styling, golden-ratio figure and 300 DPI.")};
+$("checkAccess").onclick=()=>{const p=$("palette").value,m=$("marker").value,l=$("lineStyle").value,multi=$("y2Var").value||$("y3Var").value||$("y4Var").value||groupVar.value,friendly=["auto","colorblind","cividis","viridis","Greys"].includes(p);status($("accessStatus"),friendly&&(!multi||m!=="none"||l!=="-")?"success":"warning",friendly&&(!multi||m!=="none"||l!=="-")?"The chosen palette strategy is generally accessibility-friendly. Still inspect the final figure in its intended print/display context.":"Consider a colour-blind-friendly palette and combine colour with marker or line-style differences. Do not rely on colour alone.")};
+
+function resetPlot(){
+plotType.value="scatter";renderMode.value="static";$("quickTitle").value="";["y2Var","y3Var","y4Var","zVar","sizeVar","xErrVar","yErrVar","labelVar"].forEach(id=>$(id).value="");$("titleMode").value="auto";$("titleText").value="";$("subtitleText").value="";$("xLabelMode").value="auto";$("xLabelText").value="";$("palette").value="auto";$("stylePreset").value="publication";$("lineStyle").value="-";$("marker").value="o";$("lineWidth").value="1.5";$("markerSize").value="6";$("alpha").value=".85";$("widthPreset").value="7";$("ratio").value="golden";$("dpi").value="300";$("panelLayout").value="single";$("xScale").value="linear";$("y1Scale").value="linear";$("filters").innerHTML="";clearStatus($("accessStatus"));clearStatus(plotStatus);conditional()
+}
+$("resetPlot").onclick=resetPlot;
+$("clearData").onclick=()=>{rows=[];columns=[];numeric=[];categorical=[];datasetLabel="";source={type:"",value:""};fileInput.value="";dataUrl.value="";datasetShell.classList.add("hidden");quickPlot.classList.add("hidden");generate.disabled=true;$("filters").innerHTML="";staticExports=null;lastPlotlyData=null;lastPlotlyLayout=null;selectedIndices=[];generatedPython="";plotConfig=null;staticPreview.innerHTML='<div class="placeholder"><strong>Your publication figure will appear here.</strong>Load a dataset, choose X and Y, then select Generate Plot.</div>';try{Plotly.purge(interactivePlot)}catch(e){}updateExports();clearStatus(dataStatus);clearStatus(plotStatus);clearStatus($("selectionStatus"))};
+
+updateExports();showStatic();
+setTimeout(()=>initPython().catch(()=>{}),500);
+</script>
+</body>
+</html>
