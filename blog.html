@@ -1500,11 +1500,1089 @@
     
     </article>
 
-    
+   <!-- =====================================================
+     BLOG POST 003
+     ===================================================== -->
 
+<article class="post">
+
+
+  <div class="post-date">
+    BLOG #003 · 22 October 2026
+  </div>
+
+
+  <h2>
+    Following OLED Degradation in Motion
+  </h2>
+
+
+  <p>
+    <em>
+      Understanding why an OLED material degrades is not simply a question
+      of finding its weakest bond. A molecule may look vulnerable from a
+      static energetic picture yet behave differently once an excited state
+      is actually allowed to evolve in time. In our recent work, we combined
+      high-level electronic-structure calculations, non-adiabatic molecular
+      dynamics, and machine learning to examine degradation from both
+      perspectives.
+    </em>
+  </p>
+
+
+  <p>
+    This paper is also personally special to me for another reason:
+    <strong>
+      it is my first paper as a corresponding author.
+    </strong>
+  </p>
+
+
+  <p>
+    I am particularly happy about that milestone. For me, corresponding
+    authorship represents more than a different symbol beside a name on a
+    paper. It feels like another small step toward developing greater
+    scientific independence: identifying a problem, helping shape how it
+    should be attacked, bringing different computational approaches
+    together, and taking responsibility for the scientific story that
+    emerges.
+  </p>
+
+
+  <blockquote style="
+    margin:30px 0;
+    padding:20px 25px;
+    border-left:4px solid #1769aa;
+    background:#f4f8fc;
+    font-size:1.08rem;
+  ">
+    The central lesson from this work is simple:
+    <strong>
+      degradation cannot always be understood from a static molecular
+      picture alone.
+    </strong>
+    Thermodynamics tells us where a molecule may be vulnerable.
+    Dynamics tells us whether — and how — it actually gets there.
+  </blockquote>
+
+
+
+  <!-- =====================================================
+       WHY OLED DEGRADATION?
+       ===================================================== -->
+
+  <h3>
+    Why look at degradation in OLED host materials?
+  </h3>
+
+
+  <p>
+    Organic light-emitting diodes have developed enormously over the past
+    few decades. Modern OLED architectures can achieve impressive
+    efficiencies through phosphorescent emitters, thermally activated
+    delayed fluorescence, hyperfluorescence, and several newer strategies
+    for manipulating excited states.
+  </p>
+
+
+  <p>
+    But high efficiency is only one part of the problem.
+  </p>
+
+
+  <p>
+    A material also needs to survive.
+  </p>
+
+
+  <p>
+    The molecules inside an operating OLED are repeatedly exposed to
+    electrons, holes, excitons, and highly energetic states produced by
+    processes such as exciton–polaron annihilation and exciton–exciton
+    annihilation.
+  </p>
+
+
+  <p>
+    Under these conditions, chemical bonds that appear perfectly stable in
+    the neutral ground-state molecule may become substantially more
+    vulnerable.
+  </p>
+
+
+  <p>
+    Host materials are particularly interesting in this respect. Their role
+    is often discussed in terms of charge transport and energetic alignment,
+    but their intrinsic chemical stability is equally important for device
+    lifetime.
+  </p>
+
+
+
+  <!-- =====================================================
+       THREE HOST MATERIALS
+       ===================================================== -->
+
+  <h3>
+    Three molecules, and several possible routes to degradation
+  </h3>
+
+
+  <p>
+    We investigated three OLED host materials:
+  </p>
+
+
+  <ul>
+
+    <li>
+      <strong>TBSO</strong>
+      — 4-(m-tolylsulfonyl)-1,1-biphenyl,
+    </li>
+
+    <li>
+      <strong>DPPCarba</strong>
+      — 9-(3,5-diphenylphenyl)carbazole,
+    </li>
+
+    <li>
+      and <strong>DPPTriphen</strong>
+      — 2-(3,5-diphenylphenyl)triphenylene.
+    </li>
+
+  </ul>
+
+
+  <p>
+    The first part of the study asked a relatively conventional question:
+  </p>
+
+
+  <blockquote style="
+    margin:25px 0;
+    padding:18px 22px;
+    border-left:4px solid #2e8b57;
+    background:#f1faf5;
+  ">
+    Which bonds become thermodynamically susceptible to dissociation under
+    the electronic conditions that can occur during OLED operation?
+  </blockquote>
+
+
+  <p>
+    To answer this, we used high-level quantum-chemical calculations to
+    examine bond dissociation in several electronic situations rather than
+    considering only the neutral ground-state molecule.
+  </p>
+
+
+  <p>
+    These included the ground state, charged species, the lowest excited
+    state, and high-energy situations representative of annihilation
+    processes in an operating OLED.
+  </p>
+
+
+
+  <!-- =====================================================
+       STATIC PICTURE
+       ===================================================== -->
+
+  <h3>
+    The static picture: where are the weak points?
+  </h3>
+
+
+  <p>
+    Bond dissociation energies provide a very useful first map of molecular
+    stability.
+  </p>
+
+
+  <p>
+    In our calculations, the three hosts did not behave equally.
+  </p>
+
+
+  <p>
+    <strong>DPPTriphen showed the most favourable overall stability
+    profile</strong>, whereas
+    <strong>TBSO emerged as the most degradation-prone of the three</strong>.
+  </p>
+
+
+  <p>
+    A particularly important structural weakness in TBSO is associated with
+    cleavage of its <strong>S–aryl bond</strong>.
+  </p>
+
+
+  <p>
+    The calculations also revealed an important trend when charge is placed
+    on these molecules:
+  </p>
+
+
+  <blockquote style="
+    margin:30px 0;
+    padding:20px 25px;
+    border-left:4px solid #c85757;
+    background:#fff5f5;
+  ">
+    <strong>
+      The anionic species are generally more vulnerable to bond
+      dissociation than the corresponding cationic species.
+    </strong>
+  </blockquote>
+
+
+  <p>
+    This is significant because degradation inside an OLED cannot be viewed
+    solely as photochemistry of a neutral molecule. Charge injection and
+    charge trapping can change the molecular potential-energy landscape and
+    substantially modify the stability of particular bonds.
+  </p>
+
+
+  <p>
+    The static calculations therefore already provided an informative
+    hierarchy of potential degradation susceptibility.
+  </p>
+
+
+  <p>
+    But there was a problem.
+  </p>
+
+
+
+  <!-- =====================================================
+       LIMIT OF STATIC DESCRIPTORS
+       ===================================================== -->
+
+  <h3>
+    A low dissociation energy does not tell us the whole mechanism
+  </h3>
+
+
+  <p>
+    A static calculation tells us whether a dissociation pathway is
+    energetically favourable or accessible.
+  </p>
+
+
+  <p>
+    It does not tell us whether the molecule will actually find that pathway
+    during its excited-state evolution.
+  </p>
+
+
+  <p>
+    Nor does it tell us:
+  </p>
+
+
+  <ul>
+
+    <li>
+      how quickly a bond begins to distort,
+    </li>
+
+    <li>
+      which nuclear motions guide the molecule toward dissociation,
+    </li>
+
+    <li>
+      whether internal conversion competes successfully with bond breaking,
+    </li>
+
+    <li>
+      whether the electronically excited molecule reaches another region of
+      its potential-energy surface first,
+    </li>
+
+    <li>
+      or whether the dynamically preferred bond-breaking pathway is the same
+      one suggested by a static stability descriptor.
+    </li>
+
+  </ul>
+
+
+  <p>
+    This distinction became one of the most interesting aspects of the
+    project.
+  </p>
+
+
+  <blockquote style="
+    margin:30px 0;
+    padding:20px 25px;
+    border-left:4px solid #1769aa;
+    background:#f4f8fc;
+  ">
+    <strong>Static calculations ask:</strong>
+    which dissociation pathways are energetically vulnerable?
+    <br><br>
+    <strong>Dynamics asks:</strong>
+    which pathways can the excited molecule actually reach as it moves?
+  </blockquote>
+
+
+
+  <!-- =====================================================
+       NON-ADIABATIC DYNAMICS
+       ===================================================== -->
+
+  <h3>
+    Then we let the molecules move
+  </h3>
+
+
+  <p>
+    To obtain that dynamical picture, we used
+    <strong>non-adiabatic molecular dynamics (NAMD)</strong>,
+    employing fewest-switches surface hopping to follow nuclear motion
+    together with transitions between electronic states.
+  </p>
+
+
+  <p>
+    This changes the question completely.
+  </p>
+
+
+  <p>
+    Rather than examining isolated stationary structures, we now follow an
+    electronically excited molecule through time and observe how its bonds
+    distort while the electronic state itself can change.
+  </p>
+
+
+  <p>
+    For TBSO, the direct NAMD simulations showed that degradation can occur
+    on an <strong>ultrafast, sub-picosecond timescale</strong>.
+  </p>
+
+
+  <p>
+    More importantly, the dynamical simulations demonstrated why the
+    static and dynamic pictures should not simply be treated as
+    interchangeable.
+  </p>
+
+
+  <p>
+    In some cases, the dissociation behaviour observed during the dynamics
+    does not reduce to the pathway one might have selected from the static
+    bond-dissociation picture alone.
+  </p>
+
+
+  <p>
+    Nuclear motion, electronic-state evolution, and access to different
+    regions of the excited-state landscape all matter.
+  </p>
+
+
+  <p style="
+    text-align:center;
+    font-size:1.18rem;
+    font-weight:600;
+    line-height:2;
+    margin:38px 0;
+  ">
+
+    Static energetics
+    →
+    vulnerable bonds
+    →
+    excited-state dynamics
+    →
+    accessible pathways
+    →
+    degradation mechanism
+
+  </p>
+
+
+
+  <!-- =====================================================
+       HIGH-ENERGY CONDITIONS
+       ===================================================== -->
+
+  <h3>
+    High-energy excitons change the stability problem again
+  </h3>
+
+
+  <p>
+    Another important part of OLED degradation is that molecules are not
+    restricted to their lowest excited state.
+  </p>
+
+
+  <p>
+    Exciton–exciton annihilation, and particularly processes associated
+    with triplet accumulation, can generate much higher-energy electronic
+    states.
+  </p>
+
+
+  <p>
+    Once sufficient energy is available, bonds that would ordinarily be
+    chemically stable can become accessible to dissociation.
+  </p>
+
+
+  <p>
+    In our static analysis,
+    <strong>
+      all three host molecules showed susceptibility under sufficiently
+      high-energy annihilation conditions.
+    </strong>
+  </p>
+
+
+  <p>
+    This is an important reminder that molecular stability in an OLED is
+    conditional. A molecule that looks robust in its ground state or lowest
+    excited state may still become vulnerable after energetic
+    exciton–exciton or exciton–polaron processes.
+  </p>
+
+
+
+  <!-- =====================================================
+       MACHINE LEARNING
+       ===================================================== -->
+
+  <h3>
+    The dynamics we wanted were also the dynamics we could barely afford
+  </h3>
+
+
+  <p>
+    Non-adiabatic dynamics is powerful, but it is computationally expensive.
+  </p>
+
+
+  <p>
+    Every trajectory requires electronic energies and forces to be evaluated
+    repeatedly as the nuclei move, while the simulation simultaneously
+    tracks the evolution of the electronic states.
+  </p>
+
+
+  <p>
+    A single trajectory can therefore be expensive.
+  </p>
+
+
+  <p>
+    But degradation is also a statistical problem.
+  </p>
+
+
+  <p>
+    Bond dissociation may be a relatively rare event, and a handful of
+    trajectories cannot tell us reliably how frequently different outcomes
+    occur.
+  </p>
+
+
+  <p>
+    This creates an awkward computational situation:
+  </p>
+
+
+  <blockquote style="
+    margin:30px 0;
+    padding:20px 25px;
+    border-left:4px solid #d49a1d;
+    background:#fff9e8;
+  ">
+    The interesting chemistry requires many trajectories,
+    but the electronic-structure calculations make many trajectories
+    prohibitively expensive.
+  </blockquote>
+
+
+
+  <!-- =====================================================
+       ML-NAMD
+       ===================================================== -->
+
+  <h3>
+    Using machine learning to make the dynamical picture statistically useful
+  </h3>
+
+
+  <p>
+    To address this, we trained a fully connected neural-network potential
+    to reproduce the electronic-structure information needed for the
+    dynamics.
+  </p>
+
+
+  <p>
+    The objective was not to replace the underlying quantum chemistry with a
+    black box.
+  </p>
+
+
+  <p>
+    Instead, the quantum-chemical calculations provide the reference data,
+    while the machine-learning model acts as a much faster surrogate during
+    trajectory propagation.
+  </p>
+
+
+  <p>
+    This acceleration changed the scale of the dynamical investigation.
+  </p>
+
+
+  <p>
+    We were able to propagate
+    <strong>3519 trajectories to 1 ps</strong>
+    and observe
+    <strong>29 degradation events originating from the first excited
+    state</strong>.
+  </p>
+
+
+  <p>
+    Obtaining this level of sampling using conventional direct NAMD would
+    have been extremely demanding.
+  </p>
+
+
+  <p>
+    More trajectories are not valuable simply because the number is larger.
+  </p>
+
+
+  <p>
+    They allow us to ask a better mechanistic question:
+  </p>
+
+
+  <blockquote style="
+    margin:30px 0;
+    padding:20px 25px;
+    border-left:4px solid #2e8b57;
+    background:#f1faf5;
+  ">
+    What degradation pathways emerge from an ensemble of excited molecules,
+    rather than from one structure or a small number of trajectories?
+  </blockquote>
+
+
+  <p>
+    That statistical perspective is particularly important when the
+    dynamics identifies dissociation pathways that are not necessarily the
+    ones that appear most obvious from static descriptors.
+  </p>
+
+
+
+  <!-- =====================================================
+       ML LIMITATIONS
+       ===================================================== -->
+
+  <h3>
+    Machine learning accelerates the calculation — it does not remove the physics
+  </h3>
+
+
+  <p>
+    The machine-learning model also has limitations.
+  </p>
+
+
+  <p>
+    Molecular geometries encountered close to dissociation or in strongly
+    distorted regions are precisely the configurations that can be difficult
+    to represent if they are poorly sampled in the training data.
+  </p>
+
+
+  <p>
+    This is especially relevant near unusual geometries and electronically
+    complicated regions of the potential-energy landscape.
+  </p>
+
+
+  <p>
+    In other words, the model is most trustworthy inside the chemical space
+    it has learned.
+  </p>
+
+
+  <p>
+    Future development therefore requires an iterative strategy in which the
+    dynamics itself helps identify where additional quantum-chemical data
+    are needed.
+  </p>
+
+
+  <p>
+    Active learning provides a natural route toward that goal: identify
+    poorly represented regions, calculate new reference data there, retrain
+    the model, and progressively improve the description of degradation
+    events.
+  </p>
+
+
+
+  <!-- =====================================================
+       STATIC + DYNAMIC
+       ===================================================== -->
+
+  <h3>
+    Static versus dynamic is the wrong question
+  </h3>
+
+
+  <p>
+    One of the conclusions I like most from this work is that the useful
+    comparison is not:
+  </p>
+
+
+  <blockquote style="
+    margin:25px 0;
+    padding:18px 22px;
+    border-left:4px solid #c85757;
+    background:#fff5f5;
+  ">
+    “Should we use static calculations or molecular dynamics?”
+  </blockquote>
+
+
+  <p>
+    We need both.
+  </p>
+
+
+  <p>
+    Static calculations provide a systematic and comparatively affordable
+    way to map thermodynamic susceptibility across different bonds,
+    molecules, charge states, and electronic states.
+  </p>
+
+
+  <p>
+    Dynamics tells us how that energetic landscape is actually explored as
+    the excited molecule moves.
+  </p>
+
+
+  <p>
+    Machine learning then makes it possible to sample that dynamical picture
+    much more extensively.
+  </p>
+
+
+  <div style="
+    margin:30px 0;
+    padding:22px 25px;
+    background:#f7f9fc;
+    border:1px solid #dfe6ee;
+    border-radius:12px;
+  ">
+
+    <p style="margin-top:0;">
+      <strong>The three computational layers therefore answer different questions:</strong>
+    </p>
+
+    <ul style="margin-bottom:0;">
+
+      <li>
+        <strong>High-level electronic structure:</strong>
+        where is degradation thermodynamically possible?
+      </li>
+
+      <li>
+        <strong>Non-adiabatic dynamics:</strong>
+        which pathways are actually reached during excited-state motion?
+      </li>
+
+      <li>
+        <strong>Machine-learning-accelerated dynamics:</strong>
+        how frequently do those pathways emerge across a much larger
+        trajectory ensemble?
+      </li>
+
+    </ul>
 
   </div>
 
+
+
+  <!-- =====================================================
+       FOUR TAKEAWAYS
+       ===================================================== -->
+
+  <h3>
+    Four results that I take away from the study
+  </h3>
+
+
+  <div style="
+    margin:30px 0;
+    padding:22px 25px;
+    background:#fff;
+    border:1px solid #dfe6ee;
+    border-radius:12px;
+    box-shadow:0 8px 22px rgba(10,40,70,0.06);
+  ">
+
+    <p>
+      <strong>1. Molecular stability depends strongly on electronic state.</strong>
+      A host that is stable as a neutral ground-state molecule can become
+      substantially more vulnerable after charging or excitation.
+    </p>
+
+    <p>
+      <strong>2. Anions deserve particular attention.</strong>
+      In our analysis, anionic species generally showed greater
+      susceptibility toward dissociation than the corresponding cations.
+    </p>
+
+    <p>
+      <strong>3. Static descriptors are necessary but not sufficient.</strong>
+      Bond dissociation energies identify thermodynamic weak points, but
+      explicit dynamics can reveal a different mechanistic preference.
+    </p>
+
+    <p style="margin-bottom:0;">
+      <strong>4. Machine learning changes the amount of chemistry we can sample.</strong>
+      By accelerating the expensive electronic-structure component of NAMD,
+      thousands of trajectories become feasible and rare degradation events
+      become statistically observable.
+    </p>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       MATERIAL DESIGN
+       ===================================================== -->
+
+  <h3>
+    What does this mean for designing more stable OLED materials?
+  </h3>
+
+
+  <p>
+    The obvious design strategy would be to avoid molecules containing
+    intrinsically weak bonds.
+  </p>
+
+
+  <p>
+    That remains sensible — but this study suggests that it is not enough.
+  </p>
+
+
+  <p>
+    Stability should ideally be considered across the different electronic
+    conditions that the molecule may experience in an operating device.
+  </p>
+
+
+  <p>
+    That includes:
+  </p>
+
+
+  <ul>
+
+    <li>
+      the neutral ground state,
+    </li>
+
+    <li>
+      charged states,
+    </li>
+
+    <li>
+      the lowest electronically excited states,
+    </li>
+
+    <li>
+      and highly energetic states produced by annihilation processes.
+    </li>
+
+  </ul>
+
+
+  <p>
+    DPPTriphen performs favourably in much of this static comparison, while
+    TBSO illustrates how a particular chemical linkage can create a much
+    more accessible degradation channel.
+  </p>
+
+
+  <p>
+    But the dynamical results add the crucial qualification:
+    <strong>
+      stability screening ultimately benefits from knowing not only which
+      pathways are energetically possible, but which pathways the excited
+      molecule actually explores.
+    </strong>
+  </p>
+
+
+
+  <!-- =====================================================
+       PERSONAL NOTE
+       ===================================================== -->
+
+  <h3>
+    A personal milestone as well
+  </h3>
+
+
+  <p>
+    Beyond the chemistry, this paper means something different to me from my
+    earlier publications.
+  </p>
+
+
+  <p>
+    It is my
+    <strong>first corresponding-author paper</strong>.
+  </p>
+
+
+  <p>
+    Academic independence does not arrive at a single moment, and one paper
+    certainly does not define it. But there are small milestones along the
+    way that make the direction of travel more tangible.
+  </p>
+
+
+  <p>
+    For me, this is one of them.
+  </p>
+
+
+  <p>
+    I am especially pleased that the work itself reflects the kind of
+    computational science I want to keep developing: combining rigorous
+    electronic-structure theory with molecular dynamics and machine
+    learning, not because any one of these methods is fashionable, but
+    because each resolves a different part of a difficult physical problem.
+  </p>
+
+
+  <blockquote style="
+    margin:30px 0;
+    padding:20px 25px;
+    border-left:4px solid #1769aa;
+    background:#f4f8fc;
+    font-size:1.05rem;
+  ">
+    For me, the exciting part is not simply that machine learning makes a
+    calculation faster. It is that the additional sampling can change the
+    mechanistic picture we are able to see.
+  </blockquote>
+
+
+
+  <!-- =====================================================
+       CLOSING THOUGHT
+       ===================================================== -->
+
+  <h3>
+    The broader lesson
+  </h3>
+
+
+  <p>
+    Computational chemistry often starts from stationary structures because
+    they give us a clean and interpretable description of molecular
+    energetics.
+  </p>
+
+
+  <p>
+    Real molecules, however, move.
+  </p>
+
+
+  <p>
+    Excited molecules move on coupled electronic potential-energy surfaces,
+    change electronic states, explore distorted geometries, and occasionally
+    find chemical pathways that a static structure does not make obvious.
+  </p>
+
+
+  <p>
+    That is why I think the combination used here is particularly powerful.
+  </p>
+
+
+  <p style="
+    text-align:center;
+    font-size:1.2rem;
+    font-weight:600;
+    line-height:2;
+    margin:38px 0;
+  ">
+
+    Electronic structure
+    →
+    thermodynamic stability
+    →
+    excited-state dynamics
+    →
+    machine-learning acceleration
+    →
+    mechanistic understanding
+
+  </p>
+
+
+  <p>
+    If we want to understand degradation rather than merely rank bond
+    strengths, we need to connect all of those levels.
+  </p>
+
+
+
+  <!-- =====================================================
+       OPTIONAL IMAGE
+
+       If you later save a graphical abstract or your own
+       degradation schematic as:
+
+       oled-degradation.png
+
+       remove the comment markers around the block below.
+       ===================================================== -->
+
+  <!--
+
+  <img
+    src="oled-degradation.png"
+    alt="Static and dynamic degradation pathways in OLED host materials"
+  >
+
+  -->
+
+
+
+  <!-- =====================================================
+       PUBLICATION
+       ===================================================== -->
+
+  <hr style="
+    margin:45px 0 30px;
+    border:0;
+    border-top:1px solid #e4e9f0;
+  ">
+
+
+  <h3>
+    Published Paper
+  </h3>
+
+
+  <p>
+    The work discussed here is:
+  </p>
+
+
+  <p>
+    <strong>
+      In Silico Study of Degradation in Host Molecular Materials for OLEDs
+    </strong>
+  </p>
+
+
+  <p>
+    <em>
+      Advanced Theory and Simulations
+    </em>
+  </p>
+
+
+  <p>
+
+    <strong>
+      DOI:
+      10.1002/adts.70584
+    </strong>
+
+  </p>
+
+
+  <p>
+
+    <a
+      href="https://advanced.onlinelibrary.wiley.com/doi/10.1002/adts.70584"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Read the paper at Wiley →
+    </a>
+
+  </p>
+
+
+
+</article>
+
+
+
+<!-- =====================================================
+     NEXT BLOG POST GOES HERE
+     =====================================================
+
+     FOR BLOG #004:
+
+     1. Keep this comment in blog.html.
+
+     2. Paste the complete new:
+
+        <article class="post">
+          ...
+        </article>
+
+        DIRECTLY BELOW this comment.
+
+     3. Keep every new blog article ABOVE the final closing
+        </div> tags belonging to the blog container/page.
+
+     4. After adding Blog #004, move/copy this same
+        "NEXT BLOG POST GOES HERE" comment underneath it.
+
+     Searching for:
+
+        NEXT BLOG POST GOES HERE
+
+     will therefore always show you exactly where the next
+     blog entry should be added.
+
+     ===================================================== -->
+
+
+    <!-- =====================================================
+         NEXT BLOG POST GOES HERE
+
+         For Blog #004:
+         Paste the new <article class="post">...</article>
+         directly BELOW this comment and ABOVE the closing
+         </div> tags at the bottom of blog.html.
+         ===================================================== -->
+
+
+  </div>
 
 </div>
 
